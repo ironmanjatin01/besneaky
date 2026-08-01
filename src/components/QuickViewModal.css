@@ -1,0 +1,250 @@
+.quickview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(40, 36, 32, 0.55);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.quickview-card {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.quickview-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.quickview-close:hover {
+  background: #fff;
+  transform: scale(1.1);
+}
+
+.quickview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.quickview-stage {
+  position: relative;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}
+
+.quickview-glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.quickview-tag {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--accent-clay);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(224, 217, 206, 0.8);
+}
+
+.quickview-img {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.12));
+  z-index: 2;
+}
+
+.quickview-shadow {
+  position: absolute;
+  bottom: 40px;
+  width: 60%;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(61, 57, 53, 0.3) 0%, rgba(61, 57, 53, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.quickview-details {
+  padding: 44px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quickview-brand {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.quickview-title {
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--fg);
+  margin-bottom: 10px;
+}
+
+.quickview-price {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--accent-clay);
+  margin-bottom: 18px;
+}
+
+.quickview-desc {
+  font-size: 0.875rem;
+  color: var(--fg);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.quickview-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.quickview-spec-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.quickview-spec-icon {
+  color: var(--accent-sage);
+}
+
+.quickview-size-section {
+  margin-bottom: 28px;
+}
+
+.quickview-size-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--fg);
+  margin-bottom: 10px;
+}
+
+.quickview-size-guide {
+  color: var(--muted);
+}
+
+.quickview-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quickview-size-btn {
+  width: 42px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 0.8125rem;
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quickview-size-btn:hover {
+  background: #fff;
+  border-color: var(--muted);
+}
+
+.quickview-size-btn.is-selected {
+  background: var(--fg);
+  color: #fff;
+  border-color: var(--fg);
+  font-weight: 500;
+}
+
+.quickview-add-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 30px;
+  background: var(--fg);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 20px rgba(61, 57, 53, 0.15);
+}
+
+.quickview-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(61, 57, 53, 0.25);
+  background: #252220;
+}
+
+.quickview-add-btn.is-added {
+  background: var(--accent-sage);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .quickview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quickview-stage {
+    padding: 32px;
+  }
+
+  .quickview-details {
+    padding: 24px;
+  }
+}

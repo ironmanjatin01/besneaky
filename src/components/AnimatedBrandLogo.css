@@ -1,0 +1,70 @@
+.animated-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.animated-brand-logo__stage {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  height: 32px;
+}
+
+.be-slot {
+  display: inline-flex;
+  align-items: center;
+  width: 26px;
+  height: 100%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sneaky-slot {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.nike-shoe-object {
+  display: inline-flex;
+  align-items: center;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+  will-change: transform;
+}
+
+.logo-text {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: lowercase;
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.logo-text--sneaky {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--fg);
+  letter-spacing: -0.03em;
+}
+
+.logo-text--be {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent-clay);
+  letter-spacing: -0.02em;
+}
+
+.logo-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-sage);
+  box-shadow: 0 0 8px var(--accent-sage);
+  margin-left: 3px;
+  align-self: center;
+}

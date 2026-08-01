@@ -1,0 +1,138 @@
+.footer {
+  background: rgba(242, 237, 228, 0.9);
+  border-top: 1px solid var(--border);
+  padding: 60px 48px 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.footer-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+}
+
+.footer-tagline {
+  font-size: 0.875rem;
+  color: var(--muted);
+  max-width: 320px;
+  font-weight: 300;
+}
+
+.footer-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-newsletter-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+}
+
+.footer-form {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 4px 6px 4px 16px;
+  width: 320px;
+}
+
+.footer-form input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.8125rem;
+  color: var(--fg);
+  flex: 1;
+}
+
+.footer-form button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--fg);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.footer-form button:hover {
+  transform: scale(1.08);
+}
+
+.footer-success {
+  font-size: 0.75rem;
+  color: var(--accent-sage);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(224, 217, 206, 0.6);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.footer-top-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fg);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer-top-btn:hover {
+  color: var(--accent-clay);
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 40px 24px 28px;
+  }
+
+  .footer-form {
+    width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
