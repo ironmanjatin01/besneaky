@@ -79,7 +79,7 @@ export default function Hero({ onOpenQuickView }) {
           <h1 className="hero__title">
             Move in silence,
             <br />
-            Don't Tell Anyone<span className="hero__accent">, besneaky.</span>
+            <span className="hero__accent">Don't Tell Anyone</span>, besneaky.
           </h1>
 
           <p className="hero__sub">
