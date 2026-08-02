@@ -105,6 +105,43 @@
   color: var(--accent-clay);
 }
 
+/* Dark Mode Dynamic Colors */
+[data-theme="spiderman"] .audio-player-widget {
+  background: rgba(24, 22, 32, 0.88);
+  border-color: rgba(230, 36, 41, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 36, 41, 0.15);
+}
+
+[data-theme="spiderman"] .audio-player-widget:hover {
+  background: rgba(34, 30, 44, 0.95);
+  border-color: #e62429;
+}
+
+[data-theme="spiderman"] .audio-player__title {
+  color: #ffffff;
+}
+
+[data-theme="spiderman"] .audio-player__status {
+  color: #9e9db0;
+}
+
+[data-theme="spiderman"] .audio-player__disc,
+[data-theme="spiderman"] .disc-icon.is-spinning {
+  color: #e62429;
+}
+
+[data-theme="spiderman"] .eq-bar {
+  background: #e62429;
+}
+
+[data-theme="spiderman"] .audio-player__mute-btn {
+  color: #ffffff;
+}
+
+[data-theme="spiderman"] .audio-player__mute-btn:hover {
+  color: #e62429;
+}
+
 @media (max-width: 640px) {
   .audio-player-widget {
     bottom: 16px;
