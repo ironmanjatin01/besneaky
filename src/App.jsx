@@ -8,6 +8,7 @@ import QuickViewModal from './components/QuickViewModal'
 import CartDrawer from './components/CartDrawer'
 import BackgroundCanvas from './components/BackgroundCanvas'
 import CustomCursor from './components/CustomCursor'
+import AudioPlayer from './components/AudioPlayer'
 
 export default function App() {
   const [cartItems, setCartItems] = useState([])
@@ -61,6 +62,9 @@ export default function App() {
 
       {/* Magnetic Custom Ring Cursor */}
       <CustomCursor />
+
+      {/* Ambient Lo-Fi Studio Audio Player */}
+      <AudioPlayer />
 
       {/* Main App Layout */}
       <Header
