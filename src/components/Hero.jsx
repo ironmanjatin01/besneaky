@@ -77,13 +77,13 @@ export default function Hero({ onOpenQuickView }) {
           </motion.div>
 
           <h1 className="hero__title">
-            Step
+            Move in silence.
             <br />
-            <span className="hero__accent">sneaky.</span>
+            <span className="hero__accent">don't tell anyone.</span>
           </h1>
 
           <p className="hero__sub">
-            Curated designer sneakers engineered for movement, precision, and distinct style.
+            Curated designer sneakers engineered for quiet moves, precision, and distinct style.
           </p>
 
           {/* Action buttons */}
@@ -106,7 +106,7 @@ export default function Hero({ onOpenQuickView }) {
             </button>
           </div>
 
-          {/* Featured Shoe Selector Pills - All 12 Shoes */}
+          {/* Featured Shoe Selector Pills - All Shoes */}
           <div className="hero__selector">
             <div className="hero__selector-top">
               <span className="hero__selector-label">Featured Model ({selectedHeroIndex + 1} of {shoes.length}):</span>
