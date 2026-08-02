@@ -75,6 +75,11 @@
   flex: 1;
 }
 
+.footer-form input::placeholder {
+  color: var(--muted);
+  opacity: 0.85;
+}
+
 .footer-form button {
   width: 34px;
   height: 34px;
@@ -119,6 +124,32 @@
 
 .footer-top-btn:hover {
   color: var(--accent-clay);
+}
+
+/* Dark Mode Footer Rules */
+[data-theme="spiderman"] .footer {
+  background: rgba(16, 15, 20, 0.95);
+  border-top-color: rgba(230, 36, 41, 0.3);
+}
+
+[data-theme="spiderman"] .footer-form {
+  background: rgba(26, 24, 34, 0.85);
+  border-color: rgba(230, 36, 41, 0.4);
+}
+
+[data-theme="spiderman"] .footer-form input {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+[data-theme="spiderman"] .footer-form input::placeholder {
+  color: #9e9db0 !important;
+  opacity: 0.9;
+}
+
+[data-theme="spiderman"] .footer-form button {
+  background: #e62429;
+  color: #ffffff;
 }
 
 @media (max-width: 640px) {
