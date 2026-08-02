@@ -106,7 +106,55 @@ button {
   touch-action: manipulation;
 }
 
-/* Spider-Verse Web Pattern Accent Overlay */
+/* High Contrast Rules for White / Light Buttons in Spider-Verse & Light Mode */
+.hero__cta--secondary,
+.hero__pill.is-active,
+.product-grid__filter-btn.is-active,
+.quickview-size-btn.is-selected,
+.hero__stage-nav,
+.quickview-close {
+  color: #100f14 !important;
+}
+
+.hero__cta--secondary span,
+.hero__cta--secondary svg,
+.hero__pill.is-active span,
+.product-grid__filter-btn.is-active .product-grid__filter-text {
+  color: #100f14 !important;
+  font-weight: 500;
+}
+
+[data-theme="spiderman"] .hero__cta--secondary,
+[data-theme="spiderman"] .hero__pill.is-active,
+[data-theme="spiderman"] .product-grid__filter-btn.is-active,
+[data-theme="spiderman"] .quickview-size-btn,
+[data-theme="spiderman"] .hero__stage-nav,
+[data-theme="spiderman"] .quickview-close,
+[data-theme="spiderman"] .footer-form input {
+  color: #ffffff !important;
+  background: rgba(30, 28, 38, 0.85);
+  border-color: rgba(230, 36, 41, 0.4);
+}
+
+[data-theme="spiderman"] .product-grid__filter-active-pill {
+  background: #e62429;
+}
+
+[data-theme="spiderman"] .product-grid__filter-btn.is-active .product-grid__filter-text {
+  color: #ffffff !important;
+}
+
+[data-theme="spiderman"] .hero__cta--secondary {
+  background: rgba(230, 36, 41, 0.2);
+  border-color: #e62429;
+  color: #ffffff !important;
+}
+
+[data-theme="spiderman"] .hero__cta--secondary span,
+[data-theme="spiderman"] .hero__cta--secondary svg {
+  color: #ffffff !important;
+}
+
 [data-theme="spiderman"] .hero__title .hero__accent {
   background: linear-gradient(135deg, #e62429 0%, #0055a5 100%);
   -webkit-background-clip: text;

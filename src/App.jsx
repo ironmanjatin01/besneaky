@@ -84,7 +84,7 @@ export default function App() {
       <CustomCursor />
 
       {/* Ambient Lo-Fi Studio Audio Player */}
-      <AudioPlayer />
+      <AudioPlayer isSpidermanTheme={isSpidermanTheme} />
 
       {/* Main App Layout */}
       <Header
