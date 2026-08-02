@@ -6,7 +6,7 @@ import './AudioPlayer.css'
 export default function AudioPlayer({ isSpidermanTheme }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
-  const [trackTitle] = useState('🕷️ Spider-Man Piano Theme')
+  const [trackTitle] = useState('🕷️ Spider-Man: No Way Home (Piano Theme)')
 
   const audioCtxRef = useRef(null)
   const masterGainRef = useRef(null)
@@ -14,90 +14,97 @@ export default function AudioPlayer({ isSpidermanTheme }) {
   const timerRef = useRef(null)
   const autoPlayAttempted = useRef(false)
 
-  // Spider-Man Piano Theme Synthesizer
-  const initSpidermanPianoAudio = () => {
+  // Michael Giacchino - Spider-Man: No Way Home Piano Theme Synthesizer
+  const initNoWayHomePianoAudio = () => {
     if (audioCtxRef.current) return
 
     const AudioContext = window.AudioContext || window.webkitAudioContext
     const ctx = new AudioContext()
     audioCtxRef.current = ctx
 
-    // Warm Lowpass Filter for felt acoustic piano warmth
+    // Warm Lowpass Filter for cinematic felt piano timbre
     const lowpass = ctx.createBiquadFilter()
     lowpass.type = 'lowpass'
-    lowpass.frequency.setValueAtTime(1400, ctx.currentTime)
-    lowpass.Q.setValueAtTime(1.2, ctx.currentTime)
+    lowpass.frequency.setValueAtTime(1500, ctx.currentTime)
+    lowpass.Q.setValueAtTime(1.1, ctx.currentTime)
     filterRef.current = lowpass
 
-    // Master Gain set to rich full volume (0.14)
+    // Master Gain (rich cinematic volume 0.15)
     const masterGain = ctx.createGain()
-    masterGain.gain.setValueAtTime(0.14, ctx.currentTime)
+    masterGain.gain.setValueAtTime(0.15, ctx.currentTime)
     masterGain.connect(ctx.destination)
     lowpass.connect(masterGain)
     masterGainRef.current = masterGain
 
-    // Spider-Man Theme Accompaniment Chords (Gm -> Cm -> Eb -> D7)
-    const spidermanChords = [
-      [196.00, 293.66, 392.00], // Gm (G3, D4, G4)
-      [130.81, 261.63, 311.13], // Cm (C3, C4, Eb4)
-      [155.56, 311.13, 392.00], // Eb (Eb3, Eb4, G4)
-      [146.83, 293.66, 369.99]  // D7 (D3, D4, F#4)
+    // No Way Home Chords (Am -> F -> Dm -> E7)
+    const nwhChords = [
+      [220.00, 329.63, 440.00, 523.25], // Am (A3, E4, A4, C5)
+      [174.61, 261.63, 349.23, 440.00], // F (F3, C4, F4, A4)
+      [146.83, 293.66, 349.23, 440.00], // Dm (D3, D4, F4, A4)
+      [164.81, 246.94, 415.30, 493.88]  // E7 (E3, B3, G#4, B4)
     ]
 
-    // Spider-Man Piano Theme Melody Sequences
-    const melodyPhrases = [
-      // Phrase 1 (Gm): G4 -> Bb4 -> C5 -> C5 -> C5 -> Bb4 -> G4
+    // Michael Giacchino's iconic No Way Home Peter Parker Melody Motif
+    const nwhPhrases = [
+      // Phrase 1 (Am): A4 -> C5 -> E5 -> D5 -> C5 -> B4 -> A4 -> G#4 -> A4
       [
-        { freq: 392.00, delay: 0.0, dur: 0.6 },
-        { freq: 466.16, delay: 0.35, dur: 0.6 },
-        { freq: 523.25, delay: 0.7, dur: 0.9 },
-        { freq: 523.25, delay: 1.1, dur: 0.6 },
-        { freq: 523.25, delay: 1.45, dur: 0.6 },
-        { freq: 466.16, delay: 1.8, dur: 0.6 },
-        { freq: 392.00, delay: 2.15, dur: 1.2 }
+        { freq: 440.00, delay: 0.0, dur: 0.5 },
+        { freq: 523.25, delay: 0.3, dur: 0.5 },
+        { freq: 659.25, delay: 0.6, dur: 0.8 },
+        { freq: 587.33, delay: 1.05, dur: 0.5 },
+        { freq: 523.25, delay: 1.35, dur: 0.5 },
+        { freq: 493.88, delay: 1.65, dur: 0.5 },
+        { freq: 440.00, delay: 1.95, dur: 0.5 },
+        { freq: 415.30, delay: 2.25, dur: 0.5 },
+        { freq: 440.00, delay: 2.55, dur: 1.1 }
       ],
-      // Phrase 2 (Cm): F4 -> Ab4 -> Bb4 -> Bb4 -> Bb4 -> Ab4 -> F4
+      // Phrase 2 (F): C5 -> E5 -> G5 -> F#5 -> F5 -> E5 -> D5 -> C5 -> B4
       [
-        { freq: 349.23, delay: 0.0, dur: 0.6 },
-        { freq: 415.30, delay: 0.35, dur: 0.6 },
-        { freq: 466.16, delay: 0.7, dur: 0.9 },
-        { freq: 466.16, delay: 1.1, dur: 0.6 },
-        { freq: 466.16, delay: 1.45, dur: 0.6 },
-        { freq: 415.30, delay: 1.8, dur: 0.6 },
-        { freq: 349.23, delay: 2.15, dur: 1.2 }
+        { freq: 523.25, delay: 0.0, dur: 0.5 },
+        { freq: 659.25, delay: 0.3, dur: 0.5 },
+        { freq: 783.99, delay: 0.6, dur: 0.8 },
+        { freq: 739.99, delay: 1.05, dur: 0.5 },
+        { freq: 698.46, delay: 1.35, dur: 0.5 },
+        { freq: 659.25, delay: 1.65, dur: 0.5 },
+        { freq: 587.33, delay: 1.95, dur: 0.5 },
+        { freq: 523.25, delay: 2.25, dur: 0.5 },
+        { freq: 493.88, delay: 2.55, dur: 1.1 }
       ],
-      // Phrase 3 (Eb): Eb4 -> G4 -> Ab4 -> Ab4 -> Ab4 -> G4 -> Eb4
+      // Phrase 3 (Dm): A4 -> D5 -> F5 -> E5 -> C5 -> B4 -> A4 -> G#4 -> A4
       [
-        { freq: 311.13, delay: 0.0, dur: 0.6 },
-        { freq: 392.00, delay: 0.35, dur: 0.6 },
-        { freq: 415.30, delay: 0.7, dur: 0.9 },
-        { freq: 415.30, delay: 1.1, dur: 0.6 },
-        { freq: 415.30, delay: 1.45, dur: 0.6 },
-        { freq: 392.00, delay: 1.8, dur: 0.6 },
-        { freq: 311.13, delay: 2.15, dur: 1.2 }
+        { freq: 440.00, delay: 0.0, dur: 0.5 },
+        { freq: 587.33, delay: 0.3, dur: 0.5 },
+        { freq: 698.46, delay: 0.6, dur: 0.8 },
+        { freq: 659.25, delay: 1.05, dur: 0.5 },
+        { freq: 523.25, delay: 1.35, dur: 0.5 },
+        { freq: 493.88, delay: 1.65, dur: 0.5 },
+        { freq: 440.00, delay: 1.95, dur: 0.5 },
+        { freq: 415.30, delay: 2.25, dur: 0.5 },
+        { freq: 440.00, delay: 2.55, dur: 1.1 }
       ],
-      // Phrase 4 (D7): D4 -> F#4 -> A4 -> C5 -> D5 -> C5 -> A4
+      // Phrase 4 (E7): E4 -> G#4 -> B4 -> E5 -> D5 -> C5 -> B4 -> A4
       [
-        { freq: 293.66, delay: 0.0, dur: 0.6 },
-        { freq: 369.99, delay: 0.35, dur: 0.6 },
-        { freq: 440.00, delay: 0.7, dur: 0.9 },
-        { freq: 523.25, delay: 1.1, dur: 0.6 },
-        { freq: 587.33, delay: 1.45, dur: 0.6 },
-        { freq: 523.25, delay: 1.8, dur: 0.6 },
-        { freq: 440.00, delay: 2.15, dur: 1.2 }
+        { freq: 329.63, delay: 0.0, dur: 0.5 },
+        { freq: 415.30, delay: 0.3, dur: 0.5 },
+        { freq: 493.88, delay: 0.6, dur: 0.8 },
+        { freq: 659.25, delay: 1.05, dur: 0.5 },
+        { freq: 587.33, delay: 1.35, dur: 0.5 },
+        { freq: 523.25, delay: 1.65, dur: 0.5 },
+        { freq: 493.88, delay: 1.95, dur: 0.5 },
+        { freq: 440.00, delay: 2.25, dur: 1.2 }
       ]
     ]
 
     let step = 0
 
-    // Synthesize warm acoustic piano key strike with increased volume
-    const playPianoKey = (freq, time, duration = 3.5, volume = 0.095) => {
+    // Synthesize cinematic piano strike with overtones
+    const playPianoKey = (freq, time, duration = 3.6, volume = 0.1) => {
       if (!ctx || ctx.state === 'closed') return
 
       const harmonics = [
         { mult: 1, gainRatio: 1.0 },
         { mult: 2, gainRatio: 0.35 },
-        { mult: 3, gainRatio: 0.15 }
+        { mult: 3, gainRatio: 0.16 }
       ]
 
       harmonics.forEach(({ mult, gainRatio }) => {
@@ -109,7 +116,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
 
         const peakVol = volume * gainRatio
         gain.gain.setValueAtTime(0.0001, time)
-        gain.gain.linearRampToValueAtTime(peakVol, time + 0.015)
+        gain.gain.linearRampToValueAtTime(peakVol, time + 0.018)
         gain.gain.exponentialRampToValueAtTime(0.0001, time + duration)
 
         osc.connect(gain)
@@ -120,33 +127,33 @@ export default function AudioPlayer({ isSpidermanTheme }) {
       })
     }
 
-    const playSpidermanRoutine = () => {
+    const playNoWayHomeRoutine = () => {
       if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') return
 
       const now = ctx.currentTime
-      const chord = spidermanChords[step % spidermanChords.length]
-      const phrase = melodyPhrases[step % melodyPhrases.length]
+      const chord = nwhChords[step % nwhChords.length]
+      const phrase = nwhPhrases[step % nwhPhrases.length]
 
-      // Play background piano chord (boosted volume 0.06)
+      // Play rich cinematic piano chord
       chord.forEach((freq, idx) => {
-        playPianoKey(freq, now + idx * 0.1, 4.2, 0.06)
+        playPianoKey(freq, now + idx * 0.12, 4.4, 0.065)
       })
 
-      // Play iconic Spider-Man piano melody (boosted volume 0.095)
+      // Play Michael Giacchino's No Way Home piano melody
       phrase.forEach(({ freq, delay, dur }) => {
-        playPianoKey(freq, now + delay, dur, 0.095)
+        playPianoKey(freq, now + delay, dur, 0.1)
       })
 
       step++
     }
 
-    playSpidermanRoutine()
-    timerRef.current = setInterval(playSpidermanRoutine, 3600)
+    playNoWayHomeRoutine()
+    timerRef.current = setInterval(playNoWayHomeRoutine, 3800)
   }
 
   const startMusic = () => {
     if (!audioCtxRef.current) {
-      initSpidermanPianoAudio()
+      initNoWayHomePianoAudio()
     }
     if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
       audioCtxRef.current.resume()
@@ -154,7 +161,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     setIsPlaying(true)
     setIsMuted(false)
     if (masterGainRef.current && audioCtxRef.current) {
-      masterGainRef.current.gain.setValueAtTime(0.14, audioCtxRef.current.currentTime)
+      masterGainRef.current.gain.setValueAtTime(0.15, audioCtxRef.current.currentTime)
     }
   }
 
@@ -174,7 +181,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     if (!audioCtxRef.current) return
 
     if (isMuted) {
-      masterGainRef.current.gain.setValueAtTime(0.14, audioCtxRef.current.currentTime)
+      masterGainRef.current.gain.setValueAtTime(0.15, audioCtxRef.current.currentTime)
       setIsMuted(false)
     } else {
       masterGainRef.current.gain.setValueAtTime(0.0001, audioCtxRef.current.currentTime)
@@ -221,7 +228,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.6 }}
       onClick={togglePlay}
-      title={isPlaying ? 'Pause Spider-Man Piano Theme' : 'Play Spider-Man Piano Theme'}
+      title={isPlaying ? 'Pause No Way Home Piano Theme' : 'Play Spider-Man: No Way Home Piano Theme'}
     >
       <div className="audio-player__disc">
         <Disc size={18} className={`disc-icon ${isPlaying ? 'is-spinning' : ''}`} />
@@ -230,7 +237,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
       <div className="audio-player__info">
         <span className="audio-player__title">{trackTitle}</span>
         <span className="audio-player__status">
-          {isPlaying ? (isMuted ? 'Muted' : 'Playing Spider-Man Theme') : 'Click for Spider-Man Theme'}
+          {isPlaying ? (isMuted ? 'Muted' : 'Playing No Way Home Theme') : 'Click for No Way Home Theme'}
         </span>
       </div>
 
