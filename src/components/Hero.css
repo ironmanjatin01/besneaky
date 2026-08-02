@@ -94,7 +94,7 @@
 
 .hero__cta--primary {
   background: var(--fg);
-  color: #fff;
+  color: var(--bg);
   border: 1px solid var(--fg);
   box-shadow: 0 8px 24px rgba(61, 57, 53, 0.15);
 }
@@ -211,6 +211,7 @@
   width: 24px;
   height: 24px;
   object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .hero__pill.is-active {
@@ -331,8 +332,14 @@
   object-fit: contain;
   margin: 0 auto;
   display: block;
+  mix-blend-mode: multiply;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
   transition: filter 0.3s ease;
+}
+
+[data-theme="spiderman"] .hero__shoe-img {
+  mix-blend-mode: normal;
+  border-radius: 20px;
 }
 
 .hero__shoe-stage:hover .hero__shoe-img {

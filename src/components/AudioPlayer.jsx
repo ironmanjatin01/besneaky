@@ -1,19 +1,19 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Volume2, VolumeX, Music, Disc } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Volume2, VolumeX, Disc } from 'lucide-react'
 import './AudioPlayer.css'
 
 export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
-  const [trackTitle, setTrackTitle] = useState('Lo-Fi Studio Ambience')
+  const [trackTitle] = useState('🎹 Ambient Piano Studio Beats')
 
   const audioCtxRef = useRef(null)
   const masterGainRef = useRef(null)
   const timerRef = useRef(null)
 
-  // Web Audio API Ambient Synthesizer
-  const initAudio = () => {
+  // Piano-inspired Ambient Synthesizer
+  const initPianoAudio = () => {
     if (audioCtxRef.current) return
 
     const AudioContext = window.AudioContext || window.webkitAudioContext
@@ -21,56 +21,84 @@ export default function AudioPlayer() {
     audioCtxRef.current = ctx
 
     const masterGain = ctx.createGain()
-    masterGain.gain.setValueAtTime(0.12, ctx.currentTime)
+    masterGain.gain.setValueAtTime(0.15, ctx.currentTime)
     masterGain.connect(ctx.destination)
     masterGainRef.current = masterGain
 
-    // Warm Ambient Lo-Fi Chords Progression
-    const chords = [
-      [261.63, 329.63, 392.00, 493.88], // Cmaj7
-      [220.00, 261.63, 329.63, 392.00], // Am7
-      [174.61, 220.00, 261.63, 329.63], // Fmaj7
-      [196.00, 246.94, 293.66, 349.23]  // G7
+    // Warm Ambient Piano Chords (Dbmaj9 -> Bbm9 -> Gbmaj7 -> Ab6)
+    const pianoChords = [
+      [277.18, 349.23, 415.30, 523.25], // Dbmaj9 (Db, F, Ab, C)
+      [233.08, 277.18, 349.23, 415.30], // Bbm9 (Bb, Db, F, Ab)
+      [185.00, 233.08, 277.18, 349.23], // Gbmaj7 (Gb, Bb, Db, F)
+      [207.65, 261.63, 311.13, 369.99]  // Ab6 (Ab, C, Eb, F)
     ]
+
+    // Piano Arpeggio Notes
+    const pianoArps = [523.25, 622.25, 698.46, 830.61, 1046.50]
 
     let step = 0
 
-    const playChord = () => {
-      if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') return
+    // Synthesize realistic acoustic piano key press
+    const playPianoKey = (freq, time, duration = 3.2, volume = 0.05) => {
+      if (!ctx || ctx.state === 'closed') return
 
-      const now = ctx.currentTime
-      const chord = chords[step % chords.length]
+      // Fundamental tone + harmonics for realistic piano resonance
+      const harmonics = [
+        { mult: 1, gainRatio: 1.0 },
+        { mult: 2, gainRatio: 0.35 },
+        { mult: 3, gainRatio: 0.15 }
+      ]
 
-      chord.forEach((freq, idx) => {
+      harmonics.forEach(({ mult, gainRatio }) => {
         const osc = ctx.createOscillator()
         const gain = ctx.createGain()
 
-        osc.type = idx % 2 === 0 ? 'sine' : 'triangle'
-        osc.frequency.setValueAtTime(freq, now)
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq * mult, time)
 
-        // Soft attack and decay envelope
-        gain.gain.setValueAtTime(0.001, now)
-        gain.gain.exponentialRampToValueAtTime(0.04, now + 0.8)
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 3.8)
+        // Piano Percussive Envelope: Fast hammer attack (0.012s), exponential decay
+        const peakVol = volume * gainRatio
+        gain.gain.setValueAtTime(0.0001, time)
+        gain.gain.linearRampToValueAtTime(peakVol, time + 0.012)
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + duration)
 
         osc.connect(gain)
         gain.connect(masterGain)
 
-        osc.start(now)
-        osc.stop(now + 4)
+        osc.start(time)
+        osc.stop(time + duration)
       })
+    }
+
+    const playPianoSequence = () => {
+      if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') return
+
+      const now = ctx.currentTime
+      const chord = pianoChords[step % pianoChords.length]
+
+      // Play soft ambient piano chord
+      chord.forEach((freq, idx) => {
+        playPianoKey(freq, now + idx * 0.08, 3.5, 0.04)
+      })
+
+      // Gentle piano melody arpeggio notes
+      const arpFreq = pianoArps[(step * 2) % pianoArps.length]
+      playPianoKey(arpFreq, now + 1.2, 2.5, 0.025)
+
+      const arpFreq2 = pianoArps[(step * 2 + 1) % pianoArps.length]
+      playPianoKey(arpFreq2, now + 2.4, 2.2, 0.02)
 
       step++
     }
 
-    playChord()
-    timerRef.current = setInterval(playChord, 4000)
+    playPianoSequence()
+    timerRef.current = setInterval(playPianoSequence, 3800)
   }
 
   const togglePlay = () => {
     if (!isPlaying) {
       if (!audioCtxRef.current) {
-        initAudio()
+        initPianoAudio()
       }
       if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
         audioCtxRef.current.resume()
@@ -78,7 +106,7 @@ export default function AudioPlayer() {
       setIsPlaying(true)
       setIsMuted(false)
       if (masterGainRef.current && audioCtxRef.current) {
-        masterGainRef.current.gain.setValueAtTime(0.12, audioCtxRef.current.currentTime)
+        masterGainRef.current.gain.setValueAtTime(0.15, audioCtxRef.current.currentTime)
       }
     } else {
       if (audioCtxRef.current && audioCtxRef.current.state === 'running') {
@@ -93,7 +121,7 @@ export default function AudioPlayer() {
     if (!audioCtxRef.current) return
 
     if (isMuted) {
-      masterGainRef.current.gain.setValueAtTime(0.12, audioCtxRef.current.currentTime)
+      masterGainRef.current.gain.setValueAtTime(0.15, audioCtxRef.current.currentTime)
       setIsMuted(false)
     } else {
       masterGainRef.current.gain.setValueAtTime(0.0001, audioCtxRef.current.currentTime)
@@ -115,7 +143,7 @@ export default function AudioPlayer() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.6 }}
       onClick={togglePlay}
-      title={isPlaying ? 'Pause Ambient Beat' : 'Play Ambient Studio Beat'}
+      title={isPlaying ? 'Pause Ambient Piano' : 'Play Ambient Piano Studio Beats'}
     >
       <div className="audio-player__disc">
         <Disc size={18} className={`disc-icon ${isPlaying ? 'is-spinning' : ''}`} />
@@ -124,7 +152,7 @@ export default function AudioPlayer() {
       <div className="audio-player__info">
         <span className="audio-player__title">{trackTitle}</span>
         <span className="audio-player__status">
-          {isPlaying ? (isMuted ? 'Muted' : 'Playing Beats') : 'Click to Play Ambient Sound'}
+          {isPlaying ? (isMuted ? 'Muted' : 'Playing Ambient Piano') : 'Click to Play Ambient Piano'}
         </span>
       </div>
 
