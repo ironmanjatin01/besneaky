@@ -77,9 +77,9 @@ export default function Hero({ onOpenQuickView }) {
           </motion.div>
 
           <h1 className="hero__title">
-            Move in silence.
+            Move in silence,
             <br />
-            <span className="hero__accent">don't tell anyone.</span>
+            Don't Tell Anyone<span className="hero__accent">, besneaky.</span>
           </h1>
 
           <p className="hero__sub">
