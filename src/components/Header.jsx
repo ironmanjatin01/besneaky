@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ShoppingBag } from 'lucide-react'
+import { ShoppingBag, Zap } from 'lucide-react'
 import AnimatedBrandLogo from './AnimatedBrandLogo'
 import './Header.css'
 
-export default function Header({ cartCount, onOpenCart }) {
+export default function Header({ cartCount, onOpenCart, isSpidermanTheme, onToggleSpidermanTheme }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -21,6 +21,16 @@ export default function Header({ cartCount, onOpenCart }) {
       <AnimatedBrandLogo size={32} />
 
       <nav className="header__nav">
+        {/* Spider-Verse Theme Toggle */}
+        <button
+          className={`header__theme-btn ${isSpidermanTheme ? 'is-spiderman' : ''}`}
+          onClick={onToggleSpidermanTheme}
+          title="Toggle Spider-Man Multiverse Theme Mode"
+        >
+          <Zap size={14} className="theme-zap-icon" />
+          <span>{isSpidermanTheme ? 'Spider-Verse Mode' : 'Spider-Verse'}</span>
+        </button>
+
         <a href="#shop" className="header__link">Shop</a>
         <a href="#about" className="header__link">About</a>
         <a href="#about" className="header__link">Studio</a>

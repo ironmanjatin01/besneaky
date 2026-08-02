@@ -1,5 +1,19 @@
 export const shoes = [
   {
+    id: 13,
+    name: 'Air Jordan 1 — Spider-Man Multiverse',
+    subtitle: 'Spider-Verse Studio Edition',
+    brand: 'Jordan x Marvel Studio',
+    price: 495,
+    tag: 'Spider-Verse',
+    accent: 'spiderman',
+    image: '/shoes/shoe13.png',
+    description: 'Iconic Chicago crimson & royal blue colorway featuring embossed 3D web detailing, spider logo tongue crest, and reflective web outsole.',
+    details: ['Crimson leather & royal blue paneling', 'Embossed 3D spider web heel overlay', 'Spider-Verse emblem crest on tongue', 'Reflective web-pattern outsole'],
+    sizes: [7, 8, 8.5, 9, 9.5, 10, 10.5, 11, 12],
+    category: 'Limited'
+  },
+  {
     id: 1,
     name: 'Air Shadow 01',
     brand: 'Besneaky Studio',

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ProductGrid from './components/ProductGrid'
@@ -9,11 +9,31 @@ import CartDrawer from './components/CartDrawer'
 import BackgroundCanvas from './components/BackgroundCanvas'
 import CustomCursor from './components/CustomCursor'
 import AudioPlayer from './components/AudioPlayer'
+import confetti from 'canvas-confetti'
 
 export default function App() {
   const [cartItems, setCartItems] = useState([])
   const [quickViewShoe, setQuickViewShoe] = useState(null)
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isSpidermanTheme, setIsSpidermanTheme] = useState(false)
+
+  const toggleSpidermanTheme = () => {
+    setIsSpidermanTheme((prev) => !prev)
+  }
+
+  useEffect(() => {
+    if (isSpidermanTheme) {
+      document.documentElement.setAttribute('data-theme', 'spiderman')
+      confetti({
+        particleCount: 50,
+        spread: 80,
+        origin: { y: 0.2 },
+        colors: ['#e62429', '#0055a5', '#ffffff', '#111116']
+      })
+    } else {
+      document.documentElement.removeAttribute('data-theme')
+    }
+  }, [isSpidermanTheme])
 
   // Add item to cart
   const handleAddToCart = (shoe) => {
@@ -57,8 +77,8 @@ export default function App() {
 
   return (
     <>
-      {/* Background Interactive Ambient Particle Canvas */}
-      <BackgroundCanvas />
+      {/* Background Interactive Ambient Particle & Web Canvas */}
+      <BackgroundCanvas isSpidermanTheme={isSpidermanTheme} />
 
       {/* Magnetic Custom Ring Cursor */}
       <CustomCursor />
@@ -70,6 +90,8 @@ export default function App() {
       <Header
         cartCount={cartItems.reduce((acc, i) => acc + i.quantity, 0)}
         onOpenCart={() => setIsCartOpen(true)}
+        isSpidermanTheme={isSpidermanTheme}
+        onToggleSpidermanTheme={toggleSpidermanTheme}
       />
 
       <main>
