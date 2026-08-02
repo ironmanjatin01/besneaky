@@ -234,6 +234,7 @@
   align-items: center;
   justify-content: center;
   touch-action: pan-y;
+  margin: 0 auto;
 }
 
 .hero__shoe-stage {
@@ -244,6 +245,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   cursor: pointer;
   transform-style: preserve-3d;
   will-change: transform;
@@ -277,15 +279,18 @@
 }
 
 .hero__stage-nav--prev {
-  left: -20px;
+  left: -10px;
 }
 
 .hero__stage-nav--next {
-  right: -20px;
+  right: -10px;
 }
 
 .hero__shoe-glow {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 340px;
   height: 340px;
   border-radius: 50%;
@@ -301,6 +306,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   z-index: 2;
 }
 
@@ -323,6 +329,8 @@
   height: auto;
   max-height: 340px;
   object-fit: contain;
+  margin: 0 auto;
+  display: block;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
   transition: filter 0.3s ease;
 }
@@ -334,6 +342,8 @@
 .hero__shoe-shadow {
   position: absolute;
   bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 65%;
   height: 25px;
   background: radial-gradient(ellipse at center, rgba(61, 57, 53, 0.35) 0%, rgba(61, 57, 53, 0) 70%);
@@ -363,13 +373,13 @@
 }
 
 .hero__orbital-badge--1 {
-  top: 15%;
+  top: 12%;
   left: 0%;
 }
 
 .hero__orbital-badge--2 {
-  bottom: 18%;
-  right: -5%;
+  bottom: 14%;
+  right: 0%;
 }
 
 @media (max-width: 960px) {
@@ -443,19 +453,29 @@
 
   .hero__showcase-wrap {
     height: 300px;
+    margin: 0 auto;
   }
 
   .hero__shoe-stage {
-    max-width: 320px;
+    max-width: 290px;
+    margin: 0 auto;
   }
 
   .hero__shoe-img {
-    max-height: 230px;
+    max-height: 220px;
+    margin: 0 auto;
   }
 
   .hero__shoe-glow {
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero__shoe-shadow {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
   }
 
   .hero__orbital-badge {
