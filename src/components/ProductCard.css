@@ -53,6 +53,16 @@
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.08));
 }
 
+[data-theme="spiderman"] .product-card {
+  background: rgba(22, 20, 29, 0.75);
+  border-color: rgba(230, 36, 41, 0.25);
+}
+
+[data-theme="spiderman"] .product-card:hover {
+  background: rgba(30, 27, 40, 0.9);
+  border-color: rgba(230, 36, 41, 0.5);
+}
+
 [data-theme="spiderman"] .product-card__image {
   mix-blend-mode: normal;
   border-radius: 14px;
@@ -119,10 +129,11 @@
   gap: 6px;
   padding: 8px 14px;
   border-radius: 20px;
-  background: var(--fg);
-  color: #fff;
+  background: #100f14;
+  color: #ffffff !important;
   font-size: 0.75rem;
-  border: none;
+  font-weight: 500;
+  border: 1px solid #100f14;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease;
@@ -130,22 +141,49 @@
 }
 
 .product-card__action-btn:hover {
-  background: #252220;
+  background: #2c2927;
+  color: #ffffff !important;
   transform: scale(1.05);
 }
 
 .product-card__action-btn--icon {
   padding: 8px;
   border-radius: 50%;
-  background: #fff;
-  color: var(--fg);
+  background: #ffffff;
+  color: #100f14 !important;
   border: 1px solid var(--border);
 }
 
 .product-card__action-btn--icon:hover {
   background: var(--accent-sage);
-  color: #fff;
+  color: #ffffff !important;
   border-color: var(--accent-sage);
+}
+
+/* Dark Mode Action Buttons */
+[data-theme="spiderman"] .product-card__action-btn {
+  background: #e62429 !important;
+  color: #ffffff !important;
+  border-color: #e62429 !important;
+  box-shadow: 0 4px 14px rgba(230, 36, 41, 0.4);
+}
+
+[data-theme="spiderman"] .product-card__action-btn:hover {
+  background: #ff2a30 !important;
+  color: #ffffff !important;
+  transform: scale(1.05);
+}
+
+[data-theme="spiderman"] .product-card__action-btn--icon {
+  background: #201d2a !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="spiderman"] .product-card__action-btn--icon:hover {
+  background: #e62429 !important;
+  color: #ffffff !important;
+  border-color: #e62429 !important;
 }
 
 .product-card__info {
