@@ -19,7 +19,17 @@ export default function Hero({ onOpenQuickView }) {
     const rect = containerRef.current.getBoundingClientRect()
     const x = (e.clientX - rect.left) / rect.width - 0.5
     const y = (e.clientY - rect.top) / rect.height - 0.5
-    setTilt({ x: -y * 20, y: x * 20 })
+    setTilt({ x: -y * 22, y: x * 22 })
+  }
+
+  const handleTouchMove = (e) => {
+    if (!containerRef.current || !e.touches[0]) return
+    const touch = e.touches[0]
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = (touch.clientX - rect.left) / rect.width - 0.5
+    const y = (touch.clientY - rect.top) / rect.height - 0.5
+    setTilt({ x: -y * 25, y: x * 25 })
+    setIsHoveringShoe(true)
   }
 
   const handleMouseLeave = () => {
@@ -84,14 +94,14 @@ export default function Hero({ onOpenQuickView }) {
               onClick={triggerConfetti}
             >
               <span>Explore Collection</span>
-              <ArrowRight size={16} className="hero__cta-arrow" />
+              <ArrowRight size={15} className="hero__cta-arrow" />
             </a>
 
             <button
               className="hero__cta hero__cta--secondary"
               onClick={() => onOpenQuickView(currentShoe)}
             >
-              <Rotate3d size={16} />
+              <Rotate3d size={15} />
               <span>360° Quick View</span>
             </button>
           </div>
@@ -126,7 +136,12 @@ export default function Hero({ onOpenQuickView }) {
         </motion.div>
 
         {/* Right Column: 3D Floating Levitating Showcase */}
-        <div className="hero__showcase-wrap" ref={containerRef}>
+        <div
+          className="hero__showcase-wrap"
+          ref={containerRef}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleMouseLeave}
+        >
           {/* Orbital Badges */}
           <motion.div
             className="hero__orbital-badge hero__orbital-badge--1"
