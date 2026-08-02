@@ -142,11 +142,11 @@
 }
 
 .hero__selector-label {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--fg);
+  font-weight: 600;
 }
 
 .hero__nav-arrows {
@@ -215,15 +215,37 @@
 }
 
 .hero__pill.is-active {
-  background: #fff;
-  border-color: var(--accent-clay);
-  box-shadow: 0 4px 12px rgba(196, 169, 154, 0.3);
-  font-weight: 500;
+  background: #ffffff !important;
+  color: #100f14 !important;
+  border-color: var(--accent-clay) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  font-weight: 600 !important;
+}
+
+.hero__pill.is-active span {
+  color: #100f14 !important;
+  font-weight: 600 !important;
 }
 
 .hero__pill:hover:not(.is-active) {
   background: rgba(255, 255, 255, 0.85);
   border-color: var(--muted);
+}
+
+[data-theme="spiderman"] .hero__selector-label {
+  color: #ffffff !important;
+}
+
+[data-theme="spiderman"] .hero__pill.is-active {
+  background: #ffffff !important;
+  color: #100f14 !important;
+  border-color: #e62429 !important;
+  box-shadow: 0 4px 14px rgba(230, 36, 41, 0.5);
+}
+
+[data-theme="spiderman"] .hero__pill.is-active span {
+  color: #100f14 !important;
+  font-weight: 600 !important;
 }
 
 /* 3D Showcase Stage */
