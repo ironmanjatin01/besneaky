@@ -25,12 +25,13 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     // Warm Lowpass Filter for felt acoustic piano warmth
     const lowpass = ctx.createBiquadFilter()
     lowpass.type = 'lowpass'
-    lowpass.frequency.setValueAtTime(1050, ctx.currentTime)
+    lowpass.frequency.setValueAtTime(1400, ctx.currentTime)
     lowpass.Q.setValueAtTime(1.2, ctx.currentTime)
     filterRef.current = lowpass
 
+    // Master Gain set to rich full volume (0.14)
     const masterGain = ctx.createGain()
-    masterGain.gain.setValueAtTime(0.05, ctx.currentTime)
+    masterGain.gain.setValueAtTime(0.14, ctx.currentTime)
     masterGain.connect(ctx.destination)
     lowpass.connect(masterGain)
     masterGainRef.current = masterGain
@@ -89,14 +90,14 @@ export default function AudioPlayer({ isSpidermanTheme }) {
 
     let step = 0
 
-    // Synthesize warm acoustic piano key strike
-    const playPianoKey = (freq, time, duration = 3.5, volume = 0.035) => {
+    // Synthesize warm acoustic piano key strike with increased volume
+    const playPianoKey = (freq, time, duration = 3.5, volume = 0.095) => {
       if (!ctx || ctx.state === 'closed') return
 
       const harmonics = [
         { mult: 1, gainRatio: 1.0 },
-        { mult: 2, gainRatio: 0.3 },
-        { mult: 3, gainRatio: 0.12 }
+        { mult: 2, gainRatio: 0.35 },
+        { mult: 3, gainRatio: 0.15 }
       ]
 
       harmonics.forEach(({ mult, gainRatio }) => {
@@ -126,14 +127,14 @@ export default function AudioPlayer({ isSpidermanTheme }) {
       const chord = spidermanChords[step % spidermanChords.length]
       const phrase = melodyPhrases[step % melodyPhrases.length]
 
-      // Play background piano chord
+      // Play background piano chord (boosted volume 0.06)
       chord.forEach((freq, idx) => {
-        playPianoKey(freq, now + idx * 0.1, 4.2, 0.025)
+        playPianoKey(freq, now + idx * 0.1, 4.2, 0.06)
       })
 
-      // Play iconic Spider-Man piano melody
+      // Play iconic Spider-Man piano melody (boosted volume 0.095)
       phrase.forEach(({ freq, delay, dur }) => {
-        playPianoKey(freq, now + delay, dur, 0.04)
+        playPianoKey(freq, now + delay, dur, 0.095)
       })
 
       step++
@@ -153,7 +154,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     setIsPlaying(true)
     setIsMuted(false)
     if (masterGainRef.current && audioCtxRef.current) {
-      masterGainRef.current.gain.setValueAtTime(0.05, audioCtxRef.current.currentTime)
+      masterGainRef.current.gain.setValueAtTime(0.14, audioCtxRef.current.currentTime)
     }
   }
 
@@ -173,7 +174,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     if (!audioCtxRef.current) return
 
     if (isMuted) {
-      masterGainRef.current.gain.setValueAtTime(0.05, audioCtxRef.current.currentTime)
+      masterGainRef.current.gain.setValueAtTime(0.14, audioCtxRef.current.currentTime)
       setIsMuted(false)
     } else {
       masterGainRef.current.gain.setValueAtTime(0.0001, audioCtxRef.current.currentTime)
