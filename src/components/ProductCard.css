@@ -167,3 +167,51 @@
   font-size: 0.9375rem;
   font-weight: 500;
 }
+
+@media (max-width: 640px) {
+  .product-card {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .product-card__image-wrap {
+    padding: 8px;
+  }
+
+  .product-card__info {
+    padding: 10px 2px 2px;
+  }
+
+  .product-card__brand {
+    font-size: 0.6rem;
+    margin-bottom: 2px;
+  }
+
+  .product-card__name {
+    font-size: 0.8125rem;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .product-card__price {
+    font-size: 0.75rem;
+  }
+
+  .product-card__actions {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    bottom: 6px;
+    gap: 4px;
+  }
+
+  .product-card__action-btn {
+    padding: 5px 8px;
+    font-size: 0.625rem;
+    border-radius: 14px;
+  }
+
+  .product-card__action-btn--icon {
+    padding: 5px;
+  }
+}

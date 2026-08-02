@@ -19,6 +19,9 @@
   border-radius: 24px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
   overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .quickview-close {
@@ -47,6 +50,7 @@
 .quickview-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  overflow-y: auto;
 }
 
 .quickview-stage {
@@ -236,15 +240,27 @@
 }
 
 @media (max-width: 768px) {
+  .quickview-overlay {
+    padding: 12px;
+  }
+
   .quickview-grid {
     grid-template-columns: 1fr;
   }
 
   .quickview-stage {
-    padding: 32px;
+    padding: 24px 16px;
+  }
+
+  .quickview-img {
+    max-width: 220px;
   }
 
   .quickview-details {
-    padding: 24px;
+    padding: 20px 16px;
+  }
+
+  .quickview-title {
+    font-size: 1.35rem;
   }
 }

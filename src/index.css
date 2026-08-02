@@ -21,6 +21,8 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -31,7 +33,9 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  width: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 
 ::selection {
@@ -41,7 +45,8 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -75,6 +80,7 @@ a {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
   user-select: none;
 }
 
@@ -83,6 +89,7 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  touch-action: manipulation;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,10 +1,11 @@
 .animated-brand-logo {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
   cursor: pointer;
   user-select: none;
+  max-width: 100%;
 }
 
 .animated-brand-logo__stage {
@@ -42,7 +43,7 @@
   text-transform: lowercase;
   display: inline-block;
   white-space: nowrap;
-  line-height: 1;
+  line-line: 1;
 }
 
 .logo-text--sneaky {
@@ -67,4 +68,19 @@
   box-shadow: 0 0 8px var(--accent-sage);
   margin-left: 3px;
   align-self: center;
+}
+
+@media (max-width: 640px) {
+  .animated-brand-logo {
+    gap: 6px;
+  }
+
+  .logo-text--sneaky,
+  .logo-text--be {
+    font-size: 1.05rem;
+  }
+
+  .be-slot {
+    width: 22px;
+  }
 }
