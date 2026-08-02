@@ -1,8 +1,8 @@
 .quickview-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(40, 36, 32, 0.55);
-  backdrop-filter: blur(10px);
+  background: rgba(16, 15, 20, 0.65);
+  backdrop-filter: blur(12px);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -82,7 +82,7 @@
   text-transform: uppercase;
   font-weight: 500;
   color: var(--accent-clay);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   padding: 4px 12px;
   border-radius: 20px;
   border: 1px solid rgba(224, 217, 206, 0.8);
@@ -96,6 +96,7 @@
   object-fit: contain;
   filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.12));
   z-index: 2;
+  mix-blend-mode: multiply;
 }
 
 .quickview-shadow {
@@ -192,7 +193,8 @@
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.6);
   font-size: 0.8125rem;
-  color: var(--fg);
+  color: #100f14;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -206,7 +208,7 @@
   background: var(--fg);
   color: #fff;
   border-color: var(--fg);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .quickview-add-btn {
@@ -237,6 +239,81 @@
 .quickview-add-btn.is-added {
   background: var(--accent-sage);
   color: #fff;
+}
+
+/* Dark Mode Quick View Rules */
+[data-theme="spiderman"] .quickview-card {
+  background: #16141d;
+  border-color: rgba(230, 36, 41, 0.4);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(230, 36, 41, 0.2);
+}
+
+[data-theme="spiderman"] .quickview-stage {
+  background: rgba(25, 22, 34, 0.9);
+}
+
+[data-theme="spiderman"] .quickview-img {
+  mix-blend-mode: normal;
+  border-radius: 14px;
+}
+
+[data-theme="spiderman"] .quickview-title {
+  color: #ffffff !important;
+}
+
+[data-theme="spiderman"] .quickview-price {
+  color: #e62429 !important;
+}
+
+[data-theme="spiderman"] .quickview-desc {
+  color: #d1d0e0 !important;
+}
+
+[data-theme="spiderman"] .quickview-brand {
+  color: #9e9db0 !important;
+}
+
+[data-theme="spiderman"] .quickview-spec-item {
+  color: #9e9db0 !important;
+}
+
+[data-theme="spiderman"] .quickview-size-header {
+  color: #ffffff !important;
+}
+
+[data-theme="spiderman"] .quickview-size-btn {
+  background: rgba(35, 32, 48, 0.9) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="spiderman"] .quickview-size-btn:hover {
+  background: rgba(230, 36, 41, 0.3) !important;
+  border-color: #e62429 !important;
+}
+
+[data-theme="spiderman"] .quickview-size-btn.is-selected {
+  background: #e62429 !important;
+  color: #ffffff !important;
+  border-color: #e62429 !important;
+}
+
+[data-theme="spiderman"] .quickview-close {
+  background: rgba(35, 32, 48, 0.9) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-theme="spiderman"] .quickview-tag {
+  background: rgba(230, 36, 41, 0.2) !important;
+  color: #e62429 !important;
+  border-color: rgba(230, 36, 41, 0.4) !important;
+}
+
+[data-theme="spiderman"] .quickview-add-btn {
+  background: #e62429 !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(230, 36, 41, 0.35);
 }
 
 @media (max-width: 768px) {
