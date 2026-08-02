@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ShoppingBag, Zap } from 'lucide-react'
+import { ShoppingBag, Moon } from 'lucide-react'
 import AnimatedBrandLogo from './AnimatedBrandLogo'
 import './Header.css'
 
@@ -21,14 +21,14 @@ export default function Header({ cartCount, onOpenCart, isSpidermanTheme, onTogg
       <AnimatedBrandLogo size={32} />
 
       <nav className="header__nav">
-        {/* Spider-Verse Theme Toggle */}
+        {/* Dark Mode Toggle */}
         <button
           className={`header__theme-btn ${isSpidermanTheme ? 'is-spiderman' : ''}`}
           onClick={onToggleSpidermanTheme}
-          title="Toggle Spider-Man Multiverse Theme Mode"
+          title="Toggle Dark Mode"
         >
-          <Zap size={14} className="theme-zap-icon" />
-          <span>{isSpidermanTheme ? 'Spider-Verse Mode' : 'Spider-Verse'}</span>
+          <Moon size={14} className="theme-zap-icon" />
+          <span>{isSpidermanTheme ? 'Dark Mode On' : 'Dark Mode'}</span>
         </button>
 
         <a href="#shop" className="header__link">Shop</a>
