@@ -3,29 +3,29 @@ import { Feather, ShieldCheck, Truck, Sparkles, Compass } from 'lucide-react'
 import './About.css'
 
 const marqueeItems = [
-  'DESIGNED FOR MOVEMENT',
-  'BESNEAKY STUDIO DROPS',
-  'LIMITED SILHOUETTES',
-  'CURATED FOOTWEAR',
-  'ZERO GRAVITY FOAM',
-  'HAND-FINISHED DETAILS'
+  "MEN'S GARMENTS",
+  "WOMEN'S COSMETICS",
+  "BOTANICAL RADIANCE",
+  "ATELIER TAILORING",
+  "CURATED STUDIO DROPS",
+  "SILK & CASHMERE"
 ]
 
 const features = [
   {
     icon: Feather,
-    title: 'Featherweight Cushion',
-    desc: 'Custom engineered responsive foam midsoles built for zero-fatigue daily movement.'
+    title: 'Atelier Tailoring',
+    desc: 'Crafted from pure French linen, Italian camel wool, and Mongolian cashmere for quiet elegance.'
   },
   {
     icon: ShieldCheck,
-    title: 'Studio Authenticated',
-    desc: 'Every sneaker is individually inspected and assigned a unique studio certificate.'
+    title: 'Botanical Radiance',
+    desc: 'Dermatologist-tested formulas enriched with cold-pressed Damask Rose and Hyaluronic Acid.'
   },
   {
     icon: Truck,
     title: 'Global Priority Express',
-    desc: 'Worldwide double-boxed express shipping within 48 hours of drop release.'
+    desc: 'Double-boxed priority express shipping delivered worldwide within 48 hours of release.'
   }
 ]
 
@@ -56,9 +56,9 @@ export default function About() {
             <Compass size={12} />
             <span>Our Philosophy</span>
           </div>
-          <h2 className="about__title">Footwear built for movement, not just display.</h2>
+          <h2 className="about__title">Couture garments & botanical beauty built for quiet elegance.</h2>
           <p className="about__subtitle">
-            Besneaky is a curated design house for footwear enthusiasts. We collaborate directly with independent designers and artisanal studios to bring limited edition drops to those who move differently.
+            Besneaky is a curated design house for fashion and beauty connoisseurs. We collaborate directly with independent ateliers and botanical laboratories to bring limited edition drops to those who move differently.
           </p>
         </motion.div>
 

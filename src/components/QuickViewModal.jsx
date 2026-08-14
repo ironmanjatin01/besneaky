@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ShoppingBag, Check, Sparkles, Star } from 'lucide-react'
+import { X, ShoppingBag, Check, Sparkles } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import './QuickViewModal.css'
 
 export default function QuickViewModal({ shoe, onClose, onAddToCart }) {
-  const [selectedSize, setSelectedSize] = useState(shoe?.sizes ? shoe.sizes[2] || shoe.sizes[0] : 9)
+  const [selectedSize, setSelectedSize] = useState(shoe?.sizes ? shoe.sizes[0] : 'M')
   const [added, setAdded] = useState(false)
 
   if (!shoe) return null
@@ -20,6 +20,8 @@ export default function QuickViewModal({ shoe, onClose, onAddToCart }) {
     })
     setTimeout(() => setAdded(false), 1800)
   }
+
+  const isCosmetic = shoe.type === 'cosmetics'
 
   return (
     <AnimatePresence>
@@ -77,12 +79,12 @@ export default function QuickViewModal({ shoe, onClose, onAddToCart }) {
                 </div>
               )}
 
-              {/* Sizes */}
+              {/* Sizes / Shade Selector */}
               {shoe.sizes && (
                 <div className="quickview-size-section">
                   <div className="quickview-size-header">
-                    <span>Select Size (US)</span>
-                    <span className="quickview-size-guide">True to size</span>
+                    <span>{isCosmetic ? 'Select Size / Volume' : 'Select Garment Size'}</span>
+                    <span className="quickview-size-guide">{isCosmetic ? 'Standard Volume' : 'True to size'}</span>
                   </div>
 
                   <div className="quickview-sizes">

@@ -1,13 +1,13 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sparkles, ArrowRight, Rotate3d, ShieldCheck, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
-import { shoes } from '../data/shoes'
+import { products } from '../data/shoes'
 import confetti from 'canvas-confetti'
 import './Hero.css'
 
 export default function Hero({ onOpenQuickView }) {
   const [selectedHeroIndex, setSelectedHeroIndex] = useState(0)
-  const currentShoe = shoes[selectedHeroIndex] || shoes[0]
+  const currentShoe = products[selectedHeroIndex] || products[0]
   const containerRef = useRef(null)
 
   // 3D tilt states
@@ -39,12 +39,12 @@ export default function Hero({ onOpenQuickView }) {
 
   const nextShoe = (e) => {
     e?.stopPropagation()
-    setSelectedHeroIndex((prev) => (prev + 1) % shoes.length)
+    setSelectedHeroIndex((prev) => (prev + 1) % products.length)
   }
 
   const prevShoe = (e) => {
     e?.stopPropagation()
-    setSelectedHeroIndex((prev) => (prev - 1 + shoes.length) % shoes.length)
+    setSelectedHeroIndex((prev) => (prev - 1 + products.length) % products.length)
   }
 
   const triggerConfetti = () => {
@@ -73,7 +73,7 @@ export default function Hero({ onOpenQuickView }) {
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <Sparkles className="hero__badge-icon" size={14} />
-            <span>2026 Besneaky Studio Edition</span>
+            <span>2026 Couture & Beauty Collection</span>
           </motion.div>
 
           <h1 className="hero__title">
@@ -83,7 +83,7 @@ export default function Hero({ onOpenQuickView }) {
           </h1>
 
           <p className="hero__sub">
-            Curated designer sneakers engineered for quiet moves, precision, and distinct style.
+            Curated luxury garments for men and radiant botanical cosmetics for women, engineered for quiet elegance and distinct style.
           </p>
 
           {/* Action buttons */}
@@ -106,22 +106,22 @@ export default function Hero({ onOpenQuickView }) {
             </button>
           </div>
 
-          {/* Featured Shoe Selector Pills - All Shoes */}
+          {/* Featured Product Selector Pills - Garments & Cosmetics */}
           <div className="hero__selector">
             <div className="hero__selector-top">
-              <span className="hero__selector-label">Featured Model ({selectedHeroIndex + 1} of {shoes.length}):</span>
+              <span className="hero__selector-label">Featured Edition ({selectedHeroIndex + 1} of {products.length}):</span>
               <div className="hero__nav-arrows">
-                <button className="hero__nav-arrow" onClick={prevShoe} aria-label="Previous shoe">
+                <button className="hero__nav-arrow" onClick={prevShoe} aria-label="Previous product">
                   <ChevronLeft size={16} />
                 </button>
-                <button className="hero__nav-arrow" onClick={nextShoe} aria-label="Next shoe">
+                <button className="hero__nav-arrow" onClick={nextShoe} aria-label="Next product">
                   <ChevronRight size={16} />
                 </button>
               </div>
             </div>
 
             <div className="hero__selector-pills">
-              {shoes.map((shoe, idx) => (
+              {products.map((shoe, idx) => (
                 <button
                   key={shoe.id}
                   className={`hero__pill ${idx === selectedHeroIndex ? 'is-active' : ''}`}
@@ -149,7 +149,7 @@ export default function Hero({ onOpenQuickView }) {
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           >
             <ShieldCheck size={14} />
-            <span>100% Authentic Drop</span>
+            <span>100% Authentic Luxury</span>
           </motion.div>
 
           <motion.div
@@ -158,10 +158,10 @@ export default function Hero({ onOpenQuickView }) {
             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
           >
             <Zap size={14} />
-            <span>Responsive Cushioning</span>
+            <span>Botanical & Atelier Quality</span>
           </motion.div>
 
-          {/* Floating Shoe Stage */}
+          {/* Floating Product Stage */}
           <div
             className="hero__shoe-stage"
             onMouseEnter={() => setIsHoveringShoe(true)}
@@ -171,10 +171,10 @@ export default function Hero({ onOpenQuickView }) {
             }}
           >
             {/* Stage Side Navigation Arrows */}
-            <button className="hero__stage-nav hero__stage-nav--prev" onClick={prevShoe} aria-label="Previous shoe">
+            <button className="hero__stage-nav hero__stage-nav--prev" onClick={prevShoe} aria-label="Previous item">
               <ChevronLeft size={20} />
             </button>
-            <button className="hero__stage-nav hero__stage-nav--next" onClick={nextShoe} aria-label="Next shoe">
+            <button className="hero__stage-nav hero__stage-nav--next" onClick={nextShoe} aria-label="Next item">
               <ChevronRight size={20} />
             </button>
 
@@ -186,7 +186,7 @@ export default function Hero({ onOpenQuickView }) {
               }}
             />
 
-            {/* Levitating Floating Shoe */}
+            {/* Levitating Floating Product */}
             <div className="hero__shoe-motion floating-levitate">
               <AnimatePresence mode="wait">
                 <motion.img

@@ -1,18 +1,22 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ProductCard from './ProductCard'
-import { shoes } from '../data/shoes'
-import { Sparkles, SlidersHorizontal } from 'lucide-react'
+import { products } from '../data/shoes'
+import { Sparkles, Shirt, Sparkle } from 'lucide-react'
 import './ProductGrid.css'
 
-const categories = ['All', 'New', 'Limited', 'Drop', 'Classic']
+const mainTabs = [
+  { id: 'All', label: 'All Catalog', icon: Sparkles },
+  { id: 'garments', label: "Men's Garments", icon: Shirt },
+  { id: 'cosmetics', label: "Women's Cosmetics", icon: Sparkle }
+]
 
 export default function ProductGrid({ onOpenQuickView, onAddToCart }) {
-  const [activeCategory, setActiveCategory] = useState('All')
+  const [activeTab, setActiveTab] = useState('All')
 
-  const filteredShoes = activeCategory === 'All'
-    ? shoes
-    : shoes.filter((shoe) => shoe.category === activeCategory || shoe.tag === activeCategory)
+  const filteredProducts = activeTab === 'All'
+    ? products
+    : products.filter((p) => p.type === activeTab || p.category === activeTab)
 
   return (
     <section id="shop" className="product-grid-section">
@@ -20,36 +24,41 @@ export default function ProductGrid({ onOpenQuickView, onAddToCart }) {
         <div className="product-grid__title-wrap">
           <div className="product-grid__badge">
             <Sparkles size={12} />
-            <span>Curated Catalog</span>
+            <span>Curated Collection</span>
           </div>
           <h2 className="product-grid__title">Studio Collection</h2>
         </div>
 
-        {/* Category Filter Tabs with Sliding Active Pill */}
+        {/* Primary Category Tabs: Garments (Clothes) & Cosmetics */}
         <div className="product-grid__filters">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`product-grid__filter-btn ${activeCategory === cat ? 'is-active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {activeCategory === cat && (
-                <motion.div
-                  className="product-grid__filter-active-pill"
-                  layoutId="activeFilterPill"
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                />
-              )}
-              <span className="product-grid__filter-text">{cat}</span>
-            </button>
-          ))}
+          {mainTabs.map((tab) => {
+            const Icon = tab.icon
+            const isActive = activeTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                className={`product-grid__filter-btn ${isActive ? 'is-active' : ''}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {isActive && (
+                  <motion.div
+                    className="product-grid__filter-active-pill"
+                    layoutId="activeFilterPill"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <Icon size={14} className="filter-tab-icon" />
+                <span className="product-grid__filter-text">{tab.label}</span>
+              </button>
+            )
+          })}
         </div>
       </div>
 
       {/* Product Cards Grid */}
       <motion.div className="product-grid" layout>
         <AnimatePresence>
-          {filteredShoes.map((shoe) => (
+          {filteredProducts.map((shoe) => (
             <ProductCard
               key={shoe.id}
               shoe={shoe}
