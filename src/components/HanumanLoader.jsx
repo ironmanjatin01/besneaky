@@ -12,7 +12,7 @@ export default function HanumanLoader({ onLoadingComplete }) {
       setStage('zooming')
     }, 2200)
 
-    // Stage 2: Zoom in while flying (2.2s to 3.5s)
+    // Stage 2: Zoom into mountain while flying (2.2s to 3.5s)
     const timer2 = setTimeout(() => {
       setStage('done')
       if (onLoadingComplete) onLoadingComplete()
@@ -49,11 +49,11 @@ export default function HanumanLoader({ onLoadingComplete }) {
           <span>जय श्री राम • JAI SHRI RAM</span>
         </motion.div>
 
-        {/* Pure Isolated Flying Hanumanji & Mountain Stage */}
+        {/* Pure 100% Isolated Flying Hanumanji & Mountain Stage */}
         <div className="hanuman-loader__viewport">
           <motion.div
             className="hanuman-loader__character-wrap"
-            initial={{ x: '-110vw', y: '5vh', scale: 0.75, rotate: -4 }}
+            initial={{ x: '-110vw', y: '5vh', scale: 0.8, rotate: -4 }}
             animate={
               stage === 'flying'
                 ? {
@@ -82,12 +82,12 @@ export default function HanumanLoader({ onLoadingComplete }) {
                   }
             }
           >
-            {/* Sanjeevani Mountain Glow Aura */}
+            {/* Glowing Sanjeevani Mountain Backlight Aura */}
             <div className="hanuman-loader__sanjeevani-glow" />
 
-            {/* Isolated Transparent PNG Artwork (Only Hanumanji & Mountain) */}
+            {/* Pure 100% Cutout PNG Artwork (ONLY Hanumanji & Mountain) */}
             <img
-              src="/ramayan/hanuman_isolated.png"
+              src="/ramayan/hanuman_pure.png"
               alt="Lord Hanuman Flying with Sanjeevani Mountain"
               className="hanuman-loader__png-img"
             />
