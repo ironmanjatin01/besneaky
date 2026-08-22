@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { ShoppingBag, Moon } from 'lucide-react'
+import { BookOpen, Moon, Sun, BookMarked } from 'lucide-react'
 import AnimatedBrandLogo from './AnimatedBrandLogo'
 import './Header.css'
 
-export default function Header({ cartCount, onOpenCart, isSpidermanTheme, onToggleSpidermanTheme }) {
+export default function Header({ isSpidermanTheme, onToggleSpidermanTheme, onOpenCart }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -17,39 +16,30 @@ export default function Header({ cartCount, onOpenCart, isSpidermanTheme, onTogg
 
   return (
     <header className={`header ${isScrolled ? 'is-scrolled' : ''}`}>
-      {/* Brand Icon & Animated besneaky Text */}
+      {/* Brand Icon & Animated Ramayan Title */}
       <div className="header__brand-wrap">
-        <AnimatedBrandLogo size={30} />
+        <AnimatedBrandLogo size={32} />
       </div>
 
       <nav className="header__nav">
-        {/* Dark Mode Toggle */}
+        <a href="#shop" className="header__link">Chapters</a>
+        <a href="#about" className="header__link">Philosophy</a>
+        <a href="#about" className="header__link">Shlokas</a>
+
+        {/* Theme Mode Toggle */}
         <button
           className={`header__theme-btn ${isSpidermanTheme ? 'is-spiderman' : ''}`}
           onClick={onToggleSpidermanTheme}
-          title="Toggle Dark Mode"
+          title="Toggle Divine Gold / Midnight Mode"
         >
-          <Moon size={14} className="theme-zap-icon" />
-          <span className="theme-btn-text">{isSpidermanTheme ? 'Dark Mode' : 'Dark Mode'}</span>
+          {isSpidermanTheme ? <Sun size={14} className="theme-zap-icon" /> : <Moon size={14} className="theme-zap-icon" />}
+          <span className="theme-btn-text">{isSpidermanTheme ? 'Gold Mode' : 'Night Mode'}</span>
         </button>
 
-        <a href="#shop" className="header__link">Shop</a>
-        <a href="#about" className="header__link">About</a>
-        <a href="#about" className="header__link">Studio</a>
-
-        {/* Cart Toggle Button - Icon + Badge Only on Mobile */}
-        <button className="header__cart-btn" onClick={onOpenCart} aria-label="Shopping Bag">
-          <ShoppingBag size={18} />
-          <span className="header__cart-text">Bag</span>
-          <motion.span
-            className="header__cart-badge"
-            key={cartCount}
-            initial={{ scale: 0.6 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 15 }}
-          >
-            {cartCount}
-          </motion.span>
+        {/* Saved Verses / Quick Bookmark Drawer */}
+        <button className="header__cart-btn" onClick={onOpenCart} aria-label="Ramayan Chapters">
+          <BookMarked size={16} />
+          <span className="header__cart-text">Verses</span>
         </button>
       </nav>
     </header>

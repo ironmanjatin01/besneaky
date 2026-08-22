@@ -1,123 +1,123 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ShoppingBag, Check, Sparkles } from 'lucide-react'
+import { X, BookOpen, Sparkles, Check, Bookmark, Share2 } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import './QuickViewModal.css'
 
-export default function QuickViewModal({ shoe, onClose, onAddToCart }) {
-  const [selectedSize, setSelectedSize] = useState(shoe?.sizes ? shoe.sizes[0] : 'M')
-  const [added, setAdded] = useState(false)
+export default function QuickViewModal({ shoe, onClose }) {
+  const [bookmarked, setBookmarked] = useState(false)
 
   if (!shoe) return null
 
-  const handleAdd = () => {
-    onAddToCart({ ...shoe, selectedSize })
-    setAdded(true)
-    confetti({
-      particleCount: 60,
-      spread: 70,
-      origin: { y: 0.6 }
-    })
-    setTimeout(() => setAdded(false), 1800)
+  const handleBookmark = () => {
+    setBookmarked((prev) => !prev)
+    if (!bookmarked) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#f59e0b', '#d97706', '#fbbf24']
+      })
+    }
   }
-
-  const isCosmetic = shoe.type === 'cosmetics'
 
   return (
     <AnimatePresence>
       <div className="quickview-overlay" onClick={onClose}>
         <motion.div
-          className="quickview-card"
+          className="quickview-card ramayan-story-modal"
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           onClick={(e) => e.stopPropagation()}
         >
-          <button className="quickview-close" onClick={onClose} aria-label="Close modal">
+          <button className="quickview-close" onClick={onClose} aria-label="Close chapter modal">
             <X size={20} />
           </button>
 
           <div className="quickview-grid">
             {/* Visual Stage */}
-            <div className="quickview-stage">
+            <div className="quickview-stage ramayan-modal__stage">
               <div
                 className="quickview-glow"
-                style={{ background: `radial-gradient(circle, var(--accent-${shoe.accent}) 0%, transparent 70%)` }}
+                style={{ background: 'radial-gradient(circle, rgba(245, 158, 11, 0.4) 0%, transparent 70%)' }}
               />
 
-              {shoe.tag && <span className="quickview-tag">{shoe.tag}</span>}
+              <span className="quickview-tag">{shoe.kanda}</span>
 
               <motion.img
                 src={shoe.image}
-                alt={shoe.name}
-                className="quickview-img"
-                animate={{ y: [0, -12, 0] }}
+                alt={shoe.title}
+                className="quickview-img ramayan-modal__img"
+                animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               />
 
               <div className="quickview-shadow" />
             </div>
 
-            {/* Product Details */}
-            <div className="quickview-details">
-              <span className="quickview-brand">{shoe.brand}</span>
-              <h2 className="quickview-title">{shoe.name}</h2>
-              <div className="quickview-price">${shoe.price}</div>
+            {/* Product / Story Details */}
+            <div className="quickview-details ramayan-modal__details">
+              <span className="quickview-brand">{shoe.author}</span>
+              <h2 className="quickview-title">{shoe.title}</h2>
+              <div className="quickview-price">{shoe.readTime || '6 min read'}</div>
 
-              <p className="quickview-desc">{shoe.description}</p>
+              {/* Shloka Box */}
+              {shoe.sanskritShloka && (
+                <div className="ramayan-modal__shloka-box">
+                  <div className="shloka-title">
+                    <Sparkles size={14} />
+                    <span>Sanskrit Verse & Chaupai</span>
+                  </div>
+                  <p className="sanskrit-text">"{shoe.sanskritShloka}"</p>
 
-              {/* Specs */}
-              {shoe.details && (
-                <div className="quickview-specs">
-                  {shoe.details.map((spec, i) => (
+                  {shoe.hindiChaupai && (
+                    <p className="hindi-text">"{shoe.hindiChaupai}"</p>
+                  )}
+
+                  <p className="english-translation">{shoe.englishMeaning}</p>
+                </div>
+              )}
+
+              {/* Narrative Story */}
+              <div className="ramayan-modal__story-text">
+                <h3>Chapter Narrative</h3>
+                <p>{shoe.fullStory}</p>
+              </div>
+
+              {/* Life Lessons & Dharma */}
+              {shoe.lessons && (
+                <div className="quickview-specs ramayan-modal__lessons">
+                  <h3>Eternal Lessons of Dharma</h3>
+                  {shoe.lessons.map((lesson, i) => (
                     <div key={i} className="quickview-spec-item">
                       <Sparkles size={12} className="quickview-spec-icon" />
-                      <span>{spec}</span>
+                      <span>{lesson}</span>
                     </div>
                   ))}
                 </div>
               )}
 
-              {/* Sizes / Shade Selector */}
-              {shoe.sizes && (
-                <div className="quickview-size-section">
-                  <div className="quickview-size-header">
-                    <span>{isCosmetic ? 'Select Size / Volume' : 'Select Garment Size'}</span>
-                    <span className="quickview-size-guide">{isCosmetic ? 'Standard Volume' : 'True to size'}</span>
-                  </div>
-
-                  <div className="quickview-sizes">
-                    {shoe.sizes.map((sz) => (
-                      <button
-                        key={sz}
-                        className={`quickview-size-btn ${selectedSize === sz ? 'is-selected' : ''}`}
-                        onClick={() => setSelectedSize(sz)}
-                      >
-                        {sz}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* CTA */}
-              <button
-                className={`quickview-add-btn ${added ? 'is-added' : ''}`}
-                onClick={handleAdd}
-              >
-                {added ? (
-                  <>
-                    <Check size={18} />
-                    <span>Added to Cart</span>
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag size={18} />
-                    <span>Add to Cart — ${shoe.price}</span>
-                  </>
-                )}
-              </button>
+              {/* Actions */}
+              <div className="ramayan-modal__actions">
+                <button
+                  className={`quickview-add-btn ${bookmarked ? 'is-added' : ''}`}
+                  onClick={handleBookmark}
+                >
+                  {bookmarked ? (
+                    <>
+                      <Check size={18} />
+                      <span>Bookmarked Chapter</span>
+                    </>
+                  ) : (
+                    <>
+                      <Bookmark size={18} />
+                      <span>Save Chapter Verse</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>

@@ -1,22 +1,26 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ProductCard from './ProductCard'
-import { products } from '../data/shoes'
-import { Sparkles, Shirt, Sparkle } from 'lucide-react'
+import { ramayanPosts } from '../data/ramayanPosts'
+import { Sparkles, BookOpen, Scroll, Flame, Sun } from 'lucide-react'
 import './ProductGrid.css'
 
-const mainTabs = [
-  { id: 'All', label: 'All Catalog', icon: Sparkles },
-  { id: 'garments', label: "Men's Garments", icon: Shirt },
-  { id: 'cosmetics', label: "Women's Cosmetics", icon: Sparkle }
+const kandaTabs = [
+  { id: 'All', label: 'All Chapters', icon: Sparkles },
+  { id: 'Bala Kanda', label: 'Bala Kanda', icon: BookOpen },
+  { id: 'Ayodhya Kanda', label: 'Ayodhya Kanda', icon: Scroll },
+  { id: 'Aranya Kanda', label: 'Aranya Kanda', icon: Flame },
+  { id: 'Sundara Kanda', label: 'Sundara Kanda', icon: Sparkles },
+  { id: 'Yuddha Kanda', label: 'Yuddha Kanda', icon: Flame },
+  { id: 'Uttara Kanda', label: 'Ramrajya', icon: Sun }
 ]
 
-export default function ProductGrid({ onOpenQuickView, onAddToCart }) {
+export default function ProductGrid({ onOpenQuickView }) {
   const [activeTab, setActiveTab] = useState('All')
 
-  const filteredProducts = activeTab === 'All'
-    ? products
-    : products.filter((p) => p.type === activeTab || p.category === activeTab)
+  const filteredPosts = activeTab === 'All'
+    ? ramayanPosts
+    : ramayanPosts.filter((p) => p.kanda.toLowerCase().includes(activeTab.toLowerCase()) || p.tags.includes(activeTab))
 
   return (
     <section id="shop" className="product-grid-section">
@@ -24,14 +28,14 @@ export default function ProductGrid({ onOpenQuickView, onAddToCart }) {
         <div className="product-grid__title-wrap">
           <div className="product-grid__badge">
             <Sparkles size={12} />
-            <span>Curated Collection</span>
+            <span>Sacred Verses & Stories</span>
           </div>
-          <h2 className="product-grid__title">Studio Collection</h2>
+          <h2 className="product-grid__title">The Seven Kandas</h2>
         </div>
 
-        {/* Primary Category Tabs: Garments (Clothes) & Cosmetics */}
+        {/* Kanda Filter Tabs */}
         <div className="product-grid__filters">
-          {mainTabs.map((tab) => {
+          {kandaTabs.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
             return (
@@ -55,15 +59,14 @@ export default function ProductGrid({ onOpenQuickView, onAddToCart }) {
         </div>
       </div>
 
-      {/* Product Cards Grid */}
+      {/* Ramayan Story Cards Grid */}
       <motion.div className="product-grid" layout>
         <AnimatePresence>
-          {filteredProducts.map((shoe) => (
+          {filteredPosts.map((post) => (
             <ProductCard
-              key={shoe.id}
-              shoe={shoe}
+              key={post.id}
+              shoe={post}
               onOpenQuickView={onOpenQuickView}
-              onAddToCart={onAddToCart}
             />
           ))}
         </AnimatePresence>
