@@ -9,6 +9,7 @@ import CartDrawer from './components/CartDrawer'
 import BackgroundCanvas from './components/BackgroundCanvas'
 import CustomCursor from './components/CustomCursor'
 import AudioPlayer from './components/AudioPlayer'
+import HanumanLoader from './components/HanumanLoader'
 import confetti from 'canvas-confetti'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
   const [quickViewShoe, setQuickViewShoe] = useState(null)
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isSpidermanTheme, setIsSpidermanTheme] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const toggleSpidermanTheme = () => {
     setIsSpidermanTheme((prev) => !prev)
@@ -28,7 +30,7 @@ export default function App() {
         particleCount: 50,
         spread: 80,
         origin: { y: 0.2 },
-        colors: ['#e62429', '#0055a5', '#ffffff', '#111116']
+        colors: ['#f59e0b', '#d97706', '#fbbf24', '#fef3c7']
       })
     } else {
       document.documentElement.removeAttribute('data-theme')
@@ -37,7 +39,7 @@ export default function App() {
 
   // Add item to cart
   const handleAddToCart = (shoe) => {
-    const size = shoe.selectedSize || 9
+    const size = shoe.selectedSize || 'Standard'
     setCartItems((prevItems) => {
       const existingIndex = prevItems.findIndex(
         (item) => item.id === shoe.id && item.selectedSize === size
@@ -77,13 +79,16 @@ export default function App() {
 
   return (
     <>
+      {/* Cinematic Flying Hanumanji Mountain Zoom Entrance Loader */}
+      <HanumanLoader onLoadingComplete={() => setIsLoading(false)} />
+
       {/* Background Interactive Ambient Particle & Web Canvas */}
       <BackgroundCanvas isSpidermanTheme={isSpidermanTheme} />
 
       {/* Magnetic Custom Ring Cursor */}
       <CustomCursor />
 
-      {/* Ambient Lo-Fi Studio Audio Player */}
+      {/* Direct YouTube Ramayan Songs Audio Player */}
       <AudioPlayer isSpidermanTheme={isSpidermanTheme} />
 
       {/* Main App Layout */}
@@ -94,7 +99,7 @@ export default function App() {
         onToggleSpidermanTheme={toggleSpidermanTheme}
       />
 
-      <main>
+      <main style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.6s ease' }}>
         <Hero onOpenQuickView={(shoe) => setQuickViewShoe(shoe)} />
 
         <ProductGrid
@@ -116,7 +121,7 @@ export default function App() {
         />
       )}
 
-      {/* Cart Drawer */}
+      {/* Cart / Verses Drawer */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
