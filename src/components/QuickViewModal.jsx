@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, BookOpen, Sparkles, Check, Bookmark, Share2 } from 'lucide-react'
+import { X, BookOpen, Sparkles, Check, Bookmark, Clock, Feather } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import './QuickViewModal.css'
 
@@ -59,18 +59,29 @@ export default function QuickViewModal({ shoe, onClose }) {
 
             {/* Product / Story Details */}
             <div className="quickview-details ramayan-modal__details">
-              <span className="quickview-brand">{shoe.author}</span>
+              <div className="modal-header-meta">
+                <span className="quickview-brand">{shoe.author}</span>
+                <span className="modal-read-time">
+                  <Clock size={12} />
+                  <span>{shoe.readTime || '6 min read'}</span>
+                </span>
+              </div>
+
               <h2 className="quickview-title">{shoe.title}</h2>
-              <div className="quickview-price">{shoe.readTime || '6 min read'}</div>
+              <p className="quickview-subtitle">{shoe.subtitle}</p>
 
               {/* Shloka Box */}
               {shoe.sanskritShloka && (
                 <div className="ramayan-modal__shloka-box">
                   <div className="shloka-title">
                     <Sparkles size={14} />
-                    <span>Sanskrit Verse & Chaupai</span>
+                    <span>Sacred Sanskrit Verse & Chaupai</span>
                   </div>
                   <p className="sanskrit-text">"{shoe.sanskritShloka}"</p>
+
+                  {shoe.sanskritTransliteration && (
+                    <p className="transliteration-text">{shoe.sanskritTransliteration}</p>
+                  )}
 
                   {shoe.hindiChaupai && (
                     <p className="hindi-text">"{shoe.hindiChaupai}"</p>
@@ -82,7 +93,10 @@ export default function QuickViewModal({ shoe, onClose }) {
 
               {/* Narrative Story */}
               <div className="ramayan-modal__story-text">
-                <h3>Chapter Narrative</h3>
+                <h3>
+                  <Feather size={14} className="heading-icon" />
+                  <span>Chapter Narrative</span>
+                </h3>
                 <p>{shoe.fullStory}</p>
               </div>
 
@@ -108,12 +122,12 @@ export default function QuickViewModal({ shoe, onClose }) {
                   {bookmarked ? (
                     <>
                       <Check size={18} />
-                      <span>Bookmarked Chapter</span>
+                      <span>Bookmarked Chapter Verse</span>
                     </>
                   ) : (
                     <>
                       <Bookmark size={18} />
-                      <span>Save Chapter Verse</span>
+                      <span>Save Verse to Library</span>
                     </>
                   )}
                 </button>
