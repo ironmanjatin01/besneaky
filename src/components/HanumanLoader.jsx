@@ -7,16 +7,16 @@ export default function HanumanLoader({ onLoadingComplete }) {
   const [stage, setStage] = useState('flying') // 'flying' | 'zooming' | 'done'
 
   useEffect(() => {
-    // Stage 1: Flying across cosmic sky (0.0s to 2.2s)
+    // Stage 1: 7.5 seconds of cinematic flight across screen with continuous zoom
     const timer1 = setTimeout(() => {
       setStage('zooming')
-    }, 2200)
+    }, 7500)
 
-    // Stage 2: Zoom into mountain while flying (2.2s to 3.5s)
+    // Stage 2: Deep zoom into Sanjeevani mountain peak ending at 10.0 seconds
     const timer2 = setTimeout(() => {
       setStage('done')
       if (onLoadingComplete) onLoadingComplete()
-    }, 3500)
+    }, 10000)
 
     return () => {
       clearTimeout(timer1)
@@ -33,7 +33,7 @@ export default function HanumanLoader({ onLoadingComplete }) {
         initial={{ opacity: 1 }}
         animate={{ opacity: stage === 'zooming' ? [1, 1, 0] : 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.8, times: [0, 0.7, 1] }}
+        transition={{ duration: 1.0, times: [0, 0.7, 1] }}
       >
         {/* Starry Night Sky Canvas */}
         <div className="hanuman-loader__stars" />
@@ -43,7 +43,7 @@ export default function HanumanLoader({ onLoadingComplete }) {
           className="hanuman-loader__badge"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: stage === 'zooming' ? 0 : 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
           <Sparkles size={16} className="loader-star-icon" />
           <span>जय श्री राम • JAI SHRI RAM</span>
@@ -53,36 +53,36 @@ export default function HanumanLoader({ onLoadingComplete }) {
         <div className="hanuman-loader__viewport">
           <motion.div
             className="hanuman-loader__character-wrap"
-            initial={{ x: '-110vw', y: '5vh', scale: 0.8, rotate: -4 }}
+            initial={{ x: '-120vw', y: '6vh', scale: 0.6, rotate: -5 }}
             animate={
               stage === 'flying'
                 ? {
-                    x: '0vw',
-                    y: ['0vh', '-3vh', '0vh'],
-                    scale: 1,
+                    x: '65vw',
+                    y: ['4vh', '-4vh', '3vh', '-3vh', '0vh'],
+                    scale: 3.2,
                     rotate: 0
                   }
                 : {
-                    scale: 35,
-                    x: '22vw',
-                    y: '-32vh',
+                    scale: 48,
+                    x: '82vw',
+                    y: '-38vh',
                     opacity: [1, 1, 0.8, 0]
                   }
             }
             transition={
               stage === 'flying'
                 ? {
-                    x: { duration: 2.1, ease: [0.16, 1, 0.3, 1] },
-                    y: { duration: 2.1, repeat: Infinity, ease: 'easeInOut' },
-                    scale: { duration: 2.1 }
+                    x: { duration: 7.5, ease: [0.25, 1, 0.5, 1] },
+                    y: { duration: 7.5, repeat: Infinity, ease: 'easeInOut' },
+                    scale: { duration: 7.5, ease: [0.25, 1, 0.5, 1] }
                   }
                 : {
-                    duration: 1.3,
+                    duration: 1.8,
                     ease: [0.7, 0, 0.84, 0]
                   }
             }
           >
-            {/* Glowing Sanjeevani Mountain Backlight Aura */}
+            {/* Sanjeevani Mountain Glow Aura */}
             <div className="hanuman-loader__sanjeevani-glow" />
 
             {/* Pure 100% Cutout PNG Artwork (ONLY Hanumanji & Mountain) */}
@@ -99,8 +99,8 @@ export default function HanumanLoader({ onLoadingComplete }) {
           <motion.div
             className="hanuman-loader__flash"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 1.3, times: [0, 0.5, 0.8, 1] }}
+            animate={{ opacity: [0, 0, 1, 1, 0] }}
+            transition={{ duration: 2.2, times: [0, 0.4, 0.75, 0.9, 1] }}
           />
         )}
       </motion.div>
