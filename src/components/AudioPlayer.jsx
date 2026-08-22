@@ -6,7 +6,7 @@ import './AudioPlayer.css'
 export default function AudioPlayer({ isSpidermanTheme }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
-  const [trackTitle] = useState('🌸 Shri Ram Jai Ram — Divine Ambient Chants')
+  const [trackTitle] = useState('🌸 Ram Siya Ram, Siya Ram, Jai Jai Ram')
 
   const audioCtxRef = useRef(null)
   const masterGainRef = useRef(null)
@@ -14,57 +14,64 @@ export default function AudioPlayer({ isSpidermanTheme }) {
   const timerRef = useRef(null)
   const autoPlayAttempted = useRef(false)
 
-  // Divine Veena & Flute Ramayan Synthesizer
-  const initDivineRamayanAudio = () => {
+  // Divine Veena, Sitar & Flute Ramayan Synthesizer
+  const initRamSiyaRamAudio = () => {
     if (audioCtxRef.current) return
 
     const AudioContext = window.AudioContext || window.webkitAudioContext
     const ctx = new AudioContext()
     audioCtxRef.current = ctx
 
-    // Warm Lowpass Filter for Veena & Sitar acoustics
+    // Warm Lowpass Acoustic Filter
     const lowpass = ctx.createBiquadFilter()
     lowpass.type = 'lowpass'
-    lowpass.frequency.setValueAtTime(1200, ctx.currentTime)
-    lowpass.Q.setValueAtTime(1.2, ctx.currentTime)
+    lowpass.frequency.setValueAtTime(1350, ctx.currentTime)
+    lowpass.Q.setValueAtTime(1.1, ctx.currentTime)
     filterRef.current = lowpass
 
     const masterGain = ctx.createGain()
-    masterGain.gain.setValueAtTime(0.12, ctx.currentTime)
+    masterGain.gain.setValueAtTime(0.14, ctx.currentTime)
     masterGain.connect(ctx.destination)
     lowpass.connect(masterGain)
     masterGainRef.current = masterGain
 
-    // Raga Bhupali / Yaman Divine Chants Frequencies
+    // Harmony Drone Chords (D Major, Bm, G Major, A Major)
     const ramayanChords = [
       [293.66, 369.99, 440.00], // D Major (D4, F#4, A4)
-      [220.00, 277.18, 329.63], // A Major (A3, C#4, E4)
-      [246.94, 311.13, 369.99], // Bm (B3, D#4, F#4)
-      [196.00, 246.94, 293.66]  // G Major (G3, B3, D4)
+      [246.94, 293.66, 369.99], // Bm (B3, D4, F#4)
+      [196.00, 246.94, 293.66], // G Major (G3, B3, D4)
+      [220.00, 277.18, 329.63]  // A Major (A3, C#4, E4)
     ]
 
-    // "Shri Ram Jai Ram Jai Jai Ram" Veena Melody
-    const chantMelody = [
-      [
-        { freq: 293.66, delay: 0.0, dur: 0.8 }, // Shri
-        { freq: 369.99, delay: 0.45, dur: 0.8 }, // Ram
-        { freq: 440.00, delay: 0.9, dur: 1.0 }, // Jai
-        { freq: 493.88, delay: 1.45, dur: 0.8 }, // Ram
-        { freq: 440.00, delay: 1.9, dur: 0.8 }, // Jai
-        { freq: 369.99, delay: 2.35, dur: 0.8 }, // Jai
-        { freq: 293.66, delay: 2.8, dur: 1.4 }  // Ram
-      ]
+    // "Ram Siya Ram, Siya Ram, Jai Jai Ram" Authentic Melodic Note Sequence
+    const ramSiyaRamMelody = [
+      // Phrase 1: "Ram Siya Ram..."
+      { freq: 369.99, delay: 0.0, dur: 0.65 },  // Ram (F#4)
+      { freq: 440.00, delay: 0.4, dur: 0.55 },  // Si- (A4)
+      { freq: 493.88, delay: 0.75, dur: 0.65 }, // -ya (B4)
+      { freq: 440.00, delay: 1.15, dur: 0.65 }, // Ram (A4)
+      { freq: 369.99, delay: 1.55, dur: 0.85 }, // (F#4)
+
+      // Phrase 2: "Siya Ram..."
+      { freq: 293.66, delay: 2.1, dur: 0.55 },  // Si- (D4)
+      { freq: 329.63, delay: 2.45, dur: 0.55 }, // -ya (E4)
+      { freq: 369.99, delay: 2.85, dur: 0.95 }, // Ram (F#4)
+
+      // Phrase 3: "Jai Jai Ram..."
+      { freq: 440.00, delay: 3.5, dur: 0.55 },  // Jai (A4)
+      { freq: 369.99, delay: 3.9, dur: 0.55 },  // Jai (F#4)
+      { freq: 293.66, delay: 4.3, dur: 1.4 }   // Ram (D4)
     ]
 
     let step = 0
 
-    // Synthesize Veena plucked string timbre with resonance overtones
-    const playVeenaString = (freq, time, duration = 4.0, volume = 0.08) => {
+    // Synthesize Veena plucked acoustic string with overtones
+    const playVeenaString = (freq, time, duration = 3.5, volume = 0.09) => {
       if (!ctx || ctx.state === 'closed') return
 
       const harmonics = [
         { mult: 1, gainRatio: 1.0 },
-        { mult: 2, gainRatio: 0.4 },
+        { mult: 2, gainRatio: 0.42 },
         { mult: 3, gainRatio: 0.18 }
       ]
 
@@ -88,33 +95,32 @@ export default function AudioPlayer({ isSpidermanTheme }) {
       })
     }
 
-    const playRamayanRoutine = () => {
+    const playRamSiyaRamRoutine = () => {
       if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') return
 
       const now = ctx.currentTime
       const chord = ramayanChords[step % ramayanChords.length]
-      const melody = chantMelody[0]
 
-      // Play ambient background Veena drone
+      // Play ambient background Veena drone pad
       chord.forEach((freq, idx) => {
-        playVeenaString(freq, now + idx * 0.12, 4.8, 0.05)
+        playVeenaString(freq, now + idx * 0.1, 5.5, 0.05)
       })
 
-      // Play "Shri Ram Jai Ram" melodic chant notes
-      melody.forEach(({ freq, delay, dur }) => {
-        playVeenaString(freq, now + delay, dur, 0.085)
+      // Play "Ram Siya Ram, Siya Ram, Jai Jai Ram" lead melody
+      ramSiyaRamMelody.forEach(({ freq, delay, dur }) => {
+        playVeenaString(freq, now + delay, dur, 0.095)
       })
 
       step++
     }
 
-    playRamayanRoutine()
-    timerRef.current = setInterval(playRamayanRoutine, 4200)
+    playRamSiyaRamRoutine()
+    timerRef.current = setInterval(playRamSiyaRamRoutine, 5600)
   }
 
   const startMusic = () => {
     if (!audioCtxRef.current) {
-      initDivineRamayanAudio()
+      initRamSiyaRamAudio()
     }
     if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
       audioCtxRef.current.resume()
@@ -122,7 +128,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     setIsPlaying(true)
     setIsMuted(false)
     if (masterGainRef.current && audioCtxRef.current) {
-      masterGainRef.current.gain.setValueAtTime(0.12, audioCtxRef.current.currentTime)
+      masterGainRef.current.gain.setValueAtTime(0.14, audioCtxRef.current.currentTime)
     }
   }
 
@@ -142,7 +148,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     if (!audioCtxRef.current) return
 
     if (isMuted) {
-      masterGainRef.current.gain.setValueAtTime(0.12, audioCtxRef.current.currentTime)
+      masterGainRef.current.gain.setValueAtTime(0.14, audioCtxRef.current.currentTime)
       setIsMuted(false)
     } else {
       masterGainRef.current.gain.setValueAtTime(0.0001, audioCtxRef.current.currentTime)
@@ -150,7 +156,6 @@ export default function AudioPlayer({ isSpidermanTheme }) {
     }
   }
 
-  // Auto-start music on first user interaction or when Gold Mode is clicked!
   useEffect(() => {
     const handleFirstUserInteraction = () => {
       if (!autoPlayAttempted.current) {
@@ -188,7 +193,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.6 }}
       onClick={togglePlay}
-      title={isPlaying ? 'Pause Divine Chants' : 'Play Shri Ram Divine Ambient Chants'}
+      title={isPlaying ? 'Pause Ram Siya Ram Chants' : 'Play Ram Siya Ram Divine Chants'}
     >
       <div className="audio-player__disc">
         <Disc size={18} className={`disc-icon ${isPlaying ? 'is-spinning' : ''}`} />
@@ -197,7 +202,7 @@ export default function AudioPlayer({ isSpidermanTheme }) {
       <div className="audio-player__info">
         <span className="audio-player__title">{trackTitle}</span>
         <span className="audio-player__status">
-          {isPlaying ? (isMuted ? 'Muted' : 'Playing Divine Chants') : 'Click to Play Divine Chants'}
+          {isPlaying ? (isMuted ? 'Muted' : 'Playing Ram Siya Ram Chants') : 'Click to Play Chants'}
         </span>
       </div>
 
