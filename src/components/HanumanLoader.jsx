@@ -7,7 +7,7 @@ export default function HanumanLoader({ onLoadingComplete }) {
   const [stage, setStage] = useState('flying') // 'flying' | 'zooming' | 'done'
 
   useEffect(() => {
-    // Stage 1: 7.5 seconds of cinematic flight across screen with continuous zoom
+    // Stage 1: 7.5 seconds of cinematic flight across screen staying nicely centered
     const timer1 = setTimeout(() => {
       setStage('zooming')
     }, 7500)
@@ -53,19 +53,19 @@ export default function HanumanLoader({ onLoadingComplete }) {
         <div className="hanuman-loader__viewport">
           <motion.div
             className="hanuman-loader__character-wrap"
-            initial={{ x: '-120vw', y: '6vh', scale: 0.6, rotate: -5 }}
+            initial={{ x: '-110vw', y: '5vh', scale: 0.7, rotate: -4 }}
             animate={
               stage === 'flying'
                 ? {
-                    x: '65vw',
-                    y: ['4vh', '-4vh', '3vh', '-3vh', '0vh'],
-                    scale: 3.2,
+                    x: '10vw',
+                    y: ['2vh', '-3vh', '2vh', '-3vh', '0vh'],
+                    scale: 2.2,
                     rotate: 0
                   }
                 : {
-                    scale: 48,
-                    x: '82vw',
-                    y: '-38vh',
+                    scale: 40,
+                    x: '30vw',
+                    y: '-32vh',
                     opacity: [1, 1, 0.8, 0]
                   }
             }

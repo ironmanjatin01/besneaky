@@ -67,13 +67,13 @@
 
 .hanuman-loader__character-wrap {
   position: relative;
-  width: 90vw;
-  max-width: 540px;
+  width: 85vw;
+  max-width: 480px;
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform-origin: 72% 22%; /* Targeted directly at the Sanjeevani mountain peak! */
+  transform-origin: 70% 25%; /* Targeted directly at the glowing Sanjeevani mountain peak! */
 }
 
 /* Sanjeevani Mountain Glow Aura */
@@ -81,11 +81,11 @@
   position: absolute;
   top: 6%;
   right: 6%;
-  width: 280px;
-  height: 280px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(245, 158, 11, 0.95) 0%, rgba(251, 191, 36, 0.65) 45%, transparent 75%);
-  filter: blur(32px);
+  filter: blur(30px);
   z-index: 1;
   pointer-events: none;
   animation: mountainPulse 1.2s ease-in-out infinite alternate;
@@ -126,6 +126,6 @@
   }
 
   .hanuman-loader__character-wrap {
-    max-width: 350px;
+    max-width: 320px;
   }
 }
