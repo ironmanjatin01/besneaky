@@ -368,3 +368,6 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+/* Checkout styling aligned to the homepage palette. */
+.cart-backdrop { background: rgba(24, 56, 43, 0.34); }.cart-drawer, .order-success-modal { background: #fffdf8; }.cart-coffee-icon, .cart-item__price, .order-ticket-id { color: #00754a; }.cart-close-btn { background: #f1eee8; }.order-type-toggle, .cart-footer { background: #faf9f5; }.type-btn.is-active { color: #00754a; background: #e1eee8; border-color: #c9e1d1; }.cart-item { background: #fff; border-color: #e5e1d9; }.cart-item__img { background: #e9e5dd; }.cart-qty { background: #fff; }.tip-btn.is-active, .checkout-btn, .success-done-btn { background: #00754a; border-color: #00754a; box-shadow: none; }.checkout-btn:hover, .success-done-btn:hover { background: #00613d; }.success-box { background: #e1eee8; border-color: #c9e1d1; }

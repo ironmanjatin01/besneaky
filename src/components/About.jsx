@@ -48,8 +48,8 @@ export default function About() {
               <div className="feature-item">
                 <MapPin size={20} className="feat-icon" />
                 <div>
-                  <h4>Roastery & Downtown Cafe</h4>
-                  <p>Visit our flagship downtown espresso bar or order fresh beans to your door.</p>
+                  <h4>Gurugram Coffee Bar</h4>
+                  <p>Visit our DLF Phase IV coffee bar or order fresh beans anywhere in Gurugram.</p>
                 </div>
               </div>
             </div>

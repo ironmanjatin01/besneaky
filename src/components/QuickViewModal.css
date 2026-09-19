@@ -332,3 +332,10 @@
 .modal-add-btn:hover {
   transform: translateY(-2px);
 }
+
+/* Keep the product details as calm and refined as the new home page. */
+.quickview-backdrop { background: rgba(24, 56, 43, 0.38); }
+.quickview-modal { background: #fffdf8; border-color: #dfddd6; box-shadow: 0 25px 60px rgba(24, 56, 43, 0.2); }
+.quickview-close { background: #f0eee8; color: #1f2925; }.quickview-close:hover { background: #e1eee8; }
+.quickview-image-wrap { background: #e9e5dd; }.quickview-roast-badge { color: #fff; background: rgba(0, 117, 74, 0.92); border: 0; }
+.quickview-tasting-box { background: #f1f7f3; border-color: #d3e6da; }.tasting-box-title, .quickview-title, .quickview-desc, .specs-title, .cell-val, .custom-label, .qty-num { color: #1f2925; }.tasting-pill { color: #00754a; background: #e1eee8; }.quickview-origin, .modal-price { color: #00754a; }.quickview-tagline, .cell-lbl { color: #65716b; }.quickview-specs-box { background: #faf9f5; border-color: #e4e0d8; }.custom-opt-btn { color: #536159; background: #faf9f5; border-color: #dedbd3; }.custom-opt-btn.is-selected { background: #00754a; border-color: #00754a; }.qty-controls { background: #f1eee8; }.qty-btn { background: #fff; color: #1f2925; }.modal-add-btn { background: #00754a; box-shadow: none; }.modal-add-btn:hover { background: #00613d; }

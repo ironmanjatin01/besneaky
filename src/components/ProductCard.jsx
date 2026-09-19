@@ -1,4 +1,5 @@
 import { Eye, Plus, Star, Flame, Zap } from 'lucide-react'
+import { formatPrice } from '../data/coffeeData'
 import './ProductCard.css'
 
 export default function ProductCard({ coffee, onOpenQuickView, onAddToCart }) {
@@ -83,7 +84,7 @@ export default function ProductCard({ coffee, onOpenQuickView, onAddToCart }) {
         <div className="product-card__footer">
           <div className="product-card__price-wrap">
             <span className="price-label">Price</span>
-            <span className="price-value">${coffee.price.toFixed(2)}</span>
+            <span className="price-value">{formatPrice(coffee.price)}</span>
           </div>
 
           <button

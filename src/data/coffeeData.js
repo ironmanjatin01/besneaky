@@ -1,5 +1,15 @@
 // BeSneaky Artisan Coffee & Cafe Master Data
 
+// Menu data was originally seeded in USD. Present it as realistic INR café pricing.
+const INR_PRICE_MULTIPLIER = 90
+
+export const formatPrice = (price) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
+  }).format(Math.round(price * INR_PRICE_MULTIPLIER))
+
 export const COFFEE_CATEGORIES = [
   { id: 'all', name: 'All Coffees & Treats', icon: 'Coffee' },
   { id: 'espresso', name: 'Espresso Classics', icon: 'Zap' },

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { X, Trash2, Plus, Minus, ShoppingBag, Coffee, CheckCircle, Sparkles, Heart } from 'lucide-react'
 import confetti from 'canvas-confetti'
+import { formatPrice } from '../data/coffeeData'
 import './CartDrawer.css'
 
 export default function CartDrawer({
@@ -18,7 +19,7 @@ export default function CartDrawer({
   if (!isOpen) return null
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const tax = subtotal * 0.08
+  const tax = subtotal * 0.05
   const tipAmount = subtotal * (tipPct / 100)
   const total = subtotal + tax + tipAmount
 
@@ -67,7 +68,7 @@ export default function CartDrawer({
             className={`type-btn ${orderType === 'delivery' ? 'is-active' : ''}`}
             onClick={() => setOrderType('delivery')}
           >
-            🛵 Roastery Courier
+            🛵 Gurugram Delivery
           </button>
         </div>
 
@@ -87,7 +88,7 @@ export default function CartDrawer({
                   ) : (
                     <span className="cart-item__custom">{item.selectedSize}</span>
                   )}
-                  <span className="cart-item__price">${(item.price * item.quantity).toFixed(2)}</span>
+                  <span className="cart-item__price">{formatPrice(item.price * item.quantity)}</span>
                 </div>
 
                 {/* Qty & Remove */}
@@ -148,28 +149,28 @@ export default function CartDrawer({
             <div className="bill-calc">
               <div className="bill-row">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>{formatPrice(subtotal)}</span>
               </div>
               <div className="bill-row">
-                <span>Local Sales Tax (8%)</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>GST (5%)</span>
+                <span>{formatPrice(tax)}</span>
               </div>
               {tipPct > 0 && (
                 <div className="bill-row">
                   <span>Barista Tip ({tipPct}%)</span>
-                  <span>${tipAmount.toFixed(2)}</span>
+                  <span>{formatPrice(tipAmount)}</span>
                 </div>
               )}
               <div className="bill-row bill-total">
                 <span>Total Due</span>
-                <span>${total.toFixed(2)}</span>
+                <span>{formatPrice(total)}</span>
               </div>
             </div>
 
             {/* Submit Button */}
             <button className="checkout-btn" onClick={handlePlaceOrder}>
               <span>Place Coffee Order</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{formatPrice(total)}</span>
             </button>
           </div>
         )}
@@ -182,7 +183,7 @@ export default function CartDrawer({
             <p className="order-ticket-id">Ticket #BS-{Math.floor(1000 + Math.random() * 9000)}</p>
             <div className="success-box">
               <p>
-                <strong>Estimated Time:</strong> Ready in 10-12 mins
+                <strong>Estimated Time:</strong> Ready in 15-20 mins
               </p>
               <p>Our head barista is grinding your fresh beans right now. See you at the counter!</p>
             </div>

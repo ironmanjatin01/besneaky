@@ -30,26 +30,26 @@ export default function BackgroundCanvas() {
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('resize', handleResize)
 
-    // Classic London Navy & Gold Atomic Particle System
-    const particleCount = Math.min(Math.floor(width / 14), 95)
+    // Soft, warm paper texture: low-contrast drifting flecks and light pools.
+    const particleCount = Math.min(Math.floor(width / 28), 48)
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      size: Math.random() * 3.2 + 1.2,
-      speedX: (Math.random() - 0.5) * 0.7,
-      speedY: (Math.random() - 0.5) * 0.7,
-      opacity: Math.random() * 0.6 + 0.3,
-      pulseSpeed: Math.random() * 0.02 + 0.008,
+      size: Math.random() * 2 + 0.8,
+      speedX: (Math.random() - 0.5) * 0.25,
+      speedY: (Math.random() - 0.5) * 0.25,
+      opacity: Math.random() * 0.28 + 0.1,
+      pulseSpeed: Math.random() * 0.01 + 0.003,
       pulseFactor: Math.random() * Math.PI,
-      // Colors: Vintage Beige (#E6D5B8), London Brass (#E5C378), Roasted Mahogany (#C68B59)
+      // Oat, clay, and roast: just enough color to make the canvas feel alive.
       colorType: Math.floor(Math.random() * 3)
     }))
 
-    // Ambient floating dark blue & roasted amber orbs
+    // Slow, diffused pools of warmth under the page content.
     const orbs = [
-      { x: width * 0.15, y: height * 0.25, radius: 400, color: 'rgba(30, 41, 59, 0.4)', vx: 0.2, vy: 0.15 },
-      { x: width * 0.85, y: height * 0.55, radius: 450, color: 'rgba(198, 139, 89, 0.15)', vx: -0.15, vy: 0.2 },
-      { x: width * 0.5, y: height * 0.85, radius: 360, color: 'rgba(229, 195, 120, 0.12)', vx: 0.18, vy: -0.18 }
+      { x: width * 0.14, y: height * 0.22, radius: 360, color: 'rgba(215, 178, 126, 0.18)', vx: 0.08, vy: 0.06 },
+      { x: width * 0.86, y: height * 0.52, radius: 410, color: 'rgba(206, 128, 103, 0.12)', vx: -0.07, vy: 0.1 },
+      { x: width * 0.46, y: height * 0.84, radius: 320, color: 'rgba(171, 123, 83, 0.1)', vx: 0.08, vy: -0.08 }
     ]
 
     const render = () => {
@@ -70,8 +70,8 @@ export default function BackgroundCanvas() {
         const dx = mouseX - orb.x
         const dy = mouseY - orb.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        const shiftX = (dx / (dist || 1)) * 30
-        const shiftY = (dy / (dist || 1)) * 30
+        const shiftX = (dx / (dist || 1)) * 14
+        const shiftY = (dy / (dist || 1)) * 14
 
         const gradient = ctx.createRadialGradient(
           orb.x + shiftX,
@@ -82,7 +82,7 @@ export default function BackgroundCanvas() {
           orb.radius
         )
         gradient.addColorStop(0, orb.color)
-        gradient.addColorStop(1, 'rgba(11, 19, 37, 0)')
+        gradient.addColorStop(1, 'rgba(255, 253, 248, 0)')
 
         ctx.fillStyle = gradient
         ctx.beginPath()
@@ -106,50 +106,46 @@ export default function BackgroundCanvas() {
         const dx = mouseX - p.x
         const dy = mouseY - p.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 160) {
-          const force = (160 - dist) / 160
-          p.x -= (dx / dist) * force * 1.8
-          p.y -= (dy / dist) * force * 1.8
+        if (dist < 130) {
+          const force = (130 - dist) / 130
+          p.x -= (dx / dist) * force * 0.55
+          p.y -= (dy / dist) * force * 0.55
         }
 
         const currentOpacity = p.opacity + Math.sin(p.pulseFactor) * 0.25
 
-        // Particle Colors (Classic Beige, Brass, Roasted Brown)
-        let particleColor = `rgba(230, 213, 184, ${Math.max(0.3, currentOpacity)})`
+        let particleColor = `rgba(184, 146, 104, ${Math.max(0.08, currentOpacity)})`
         if (p.colorType === 1) {
-          particleColor = `rgba(229, 195, 120, ${Math.max(0.3, currentOpacity)})`
+          particleColor = `rgba(193, 112, 84, ${Math.max(0.08, currentOpacity)})`
         } else if (p.colorType === 2) {
-          particleColor = `rgba(198, 139, 89, ${Math.max(0.3, currentOpacity)})`
+          particleColor = `rgba(123, 82, 52, ${Math.max(0.08, currentOpacity)})`
         }
 
-        // Draw Glowing Atom Node
-        ctx.shadowBlur = 12
-        ctx.shadowColor = 'rgba(229, 195, 120, 0.6)'
+        ctx.shadowBlur = 7
+        ctx.shadowColor = 'rgba(193, 112, 84, 0.18)'
         ctx.fillStyle = particleColor
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
         ctx.fill()
         ctx.shadowBlur = 0 // reset shadow for performance
 
-        // Connect cursor to nearby atoms with bright constellation web lines
-        if (dist < 180) {
-          ctx.strokeStyle = `rgba(229, 195, 120, ${0.55 * (1 - dist / 180)})`
-          ctx.lineWidth = 1.2
+        if (dist < 150) {
+          ctx.strokeStyle = `rgba(161, 108, 72, ${0.12 * (1 - dist / 150)})`
+          ctx.lineWidth = 0.65
           ctx.beginPath()
           ctx.moveTo(p.x, p.y)
           ctx.lineTo(mouseX, mouseY)
           ctx.stroke()
         }
 
-        // Connect nearby atoms to each other with atomic threads
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j]
           const pdx = p.x - p2.x
           const pdy = p.y - p2.y
           const pdist = Math.sqrt(pdx * pdx + pdy * pdy)
-          if (pdist < 155) {
-            ctx.strokeStyle = `rgba(230, 213, 184, ${0.35 * (1 - pdist / 155)})`
-            ctx.lineWidth = 0.95
+          if (pdist < 125) {
+            ctx.strokeStyle = `rgba(161, 108, 72, ${0.07 * (1 - pdist / 125)})`
+            ctx.lineWidth = 0.55
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)

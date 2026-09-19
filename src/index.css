@@ -1,29 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
-  --bg: #0B1325;
-  --bg-secondary: #162035;
-  --fg: #F5EBE0;
-  --muted: #D4A373;
-  --border: rgba(229, 195, 120, 0.22);
-  --accent-sage: #E5C378;
-  --accent-clay: #C68B59;
-  --accent-slate: #E6D5B8;
-  --accent-taupe: #8B5E3C;
-  --card-bg: rgba(22, 32, 53, 0.65);
-}
-
-[data-theme="spiderman"] {
-  --bg: #0F172A;
-  --bg-secondary: #1E293B;
-  --fg: #F8FAFC;
-  --muted: #94A3B8;
-  --border: rgba(212, 163, 115, 0.25);
-  --accent-sage: #D4A373;
-  --accent-clay: #C68B59;
-  --accent-slate: #E5C378;
-  --accent-taupe: #8B5E3C;
-  --card-bg: rgba(30, 41, 59, 0.7);
+  --bg: #fffdf8;
+  --bg-secondary: #f7f4ee;
+  --fg: #1f2925;
+  --muted: #65716b;
+  --border: #dfddd6;
+  --green: #00754a;
+  --green-dark: #00613d;
+  --green-pale: #e1eee8;
+  --coral: #ec927c;
+  --sun: #f5d46a;
+  --card-bg: #ffffff;
 }
 
 *,
@@ -38,12 +26,12 @@ html {
   scroll-behavior: smooth;
   width: 100%;
   overflow-x: hidden;
-  background-color: #0B1325;
+  background-color: var(--bg);
 }
 
 body {
   font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   background: var(--bg);
   color: var(--fg);
   line-height: 1.65;
@@ -52,12 +40,12 @@ body {
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  transition: background 0.5s ease, color 0.5s ease;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 ::selection {
-  background: #C68B59;
-  color: #FFF;
+  background: var(--sun);
+  color: var(--fg);
 }
 
 /* Custom Sleek Scrollbar */
@@ -67,16 +55,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B1325;
+  background: #f1eee7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C68B59;
+  background: var(--green);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E5C378;
+  background: var(--green-dark);
 }
 
 h1,
@@ -112,7 +100,7 @@ button {
 main {
   position: relative;
   z-index: 2;
-  background: transparent;
+  background: var(--bg);
 }
 
 @media (prefers-reduced-motion: reduce) {

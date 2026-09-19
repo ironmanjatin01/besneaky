@@ -16,19 +16,19 @@ export default function Footer() {
           </div>
 
           {/* Location & Hours */}
-          <div className="footer__col">
-            <h4 className="footer__title">Downtown Roastery</h4>
+          <div className="footer__col" id="visit">
+            <h4 className="footer__title">Gurugram Coffee Bar</h4>
             <div className="footer__info-item">
               <MapPin size={15} className="footer-icon" />
-              <span>404 Espresso Way, Suite 100, Downtown</span>
+              <span>DLF Phase IV, Gurugram, Haryana 122002</span>
             </div>
             <div className="footer__info-item">
               <Clock size={15} className="footer-icon" />
-              <span>Mon-Sun: 6:00 AM – 11:00 PM</span>
+              <span>Mon-Sun: 7:00 AM – 10:30 PM</span>
             </div>
             <div className="footer__info-item">
               <Phone size={15} className="footer-icon" />
-              <span>+1 (800) SNEAKY-BEANS</span>
+              <span>+91 124 404 0888</span>
             </div>
           </div>
 
@@ -38,8 +38,6 @@ export default function Footer() {
             <ul className="footer__links">
               <li><a href="#shop">Single Origin Espresso</a></li>
               <li><a href="#shop">Nitro Cold Brews</a></li>
-              <li><a href="#anatomy">Coffee Anatomy Explorer</a></li>
-              <li><a href="#brewlab">Barista Brew Ratio Calculator</a></li>
               <li><a href="#about">Direct Trade Sourcing</a></li>
             </ul>
           </div>

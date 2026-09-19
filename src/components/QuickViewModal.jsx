@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { X, Flame, Plus, Minus, ShoppingBag, Award, Check } from 'lucide-react'
+import { formatPrice } from '../data/coffeeData'
 import './QuickViewModal.css'
 
 export default function QuickViewModal({ shoe: coffee, onClose, onAddToCart }) {
@@ -133,7 +134,7 @@ export default function QuickViewModal({ shoe: coffee, onClose, onAddToCart }) {
             {/* Footer Pricing & Add to Cart */}
             <div className="quickview-footer">
               <div className="price-and-qty">
-                <span className="modal-price">${(coffee.price * quantity).toFixed(2)}</span>
+                <span className="modal-price">{formatPrice(coffee.price * quantity)}</span>
                 <div className="qty-controls">
                   <button
                     className="qty-btn"

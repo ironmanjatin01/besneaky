@@ -1,380 +1,248 @@
 .hero {
   position: relative;
-  z-index: 2;
-  padding: 8.5rem 1.5rem 5rem 1.5rem;
-  background: transparent;
   overflow: hidden;
+  padding: 9.75rem 2rem 6.5rem;
+  background: #f7f4ee;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: #ded9cf;
 }
 
 .hero__container {
-  max-width: 1240px;
+  width: min(1180px, 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 4rem;
+  grid-template-columns: minmax(0, 0.93fr) minmax(410px, 0.88fr);
+  gap: clamp(3rem, 7vw, 7rem);
   align-items: center;
 }
 
-@media (max-width: 990px) {
-  .hero__container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-}
-
-.hero__content {
-  display: flex;
-  flex-direction: column;
-}
+.hero__content { position: relative; z-index: 1; }
 
 .hero__badge {
+  width: fit-content;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #E5C378;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(16px);
-  padding: 0.45rem 1rem;
+  gap: 0.55rem;
+  padding: 0.42rem 0.7rem;
+  background: #e1eee8;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  margin-bottom: 1.25rem;
-  width: fit-content;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #1e5d48;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  margin-bottom: 1.35rem;
+}
+
+.hero__badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00754a;
 }
 
 .hero__title {
+  max-width: 620px;
+  color: #1f2925;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #F5EBE0;
-  margin-bottom: 1.25rem;
+  font-size: clamp(3.25rem, 6.1vw, 5.65rem);
+  font-weight: 550;
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+  margin-bottom: 1.45rem;
 }
 
-.hero__title-accent {
-  background: linear-gradient(135deg, #E5C378 0%, #C68B59 50%, #F5EBE0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@media (max-width: 768px) {
-  .hero__title {
-    font-size: 2.5rem;
-  }
+.hero__title em {
+  color: #00754a;
+  font-weight: 500;
 }
 
 .hero__subtitle {
-  font-size: 1.12rem;
-  color: #D4A373;
-  line-height: 1.7;
-  margin-bottom: 1.75rem;
-  max-width: 580px;
-}
-
-/* Secret Vibe Selector Box */
-.secret-vibe-box {
-  background: rgba(18, 26, 44, 0.55);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 24px;
-  padding: 1.5rem;
+  max-width: 510px;
+  color: #59635f;
+  font-size: 1.04rem;
+  line-height: 1.75;
   margin-bottom: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-.secret-vibe-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #E5C378;
-  margin-bottom: 0.85rem;
-}
-
-.secret-vibe-buttons {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.85rem;
-}
-
-.vibe-btn {
-  padding: 0.5rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #D4A373;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: all 0.25s ease;
-  cursor: pointer;
-}
-
-.vibe-btn:hover {
-  color: #F5EBE0;
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(229, 195, 120, 0.4);
-}
-
-.vibe-btn.is-active {
-  background: linear-gradient(135deg, #C68B59 0%, #8B5E3C 100%);
-  color: #F5EBE0 !important;
-  border-color: #E5C378;
-  box-shadow: 0 4px 14px rgba(198, 139, 89, 0.4);
-}
-
-.secret-vibe-desc {
-  font-size: 0.85rem;
-  color: #F5EBE0;
-  font-style: italic;
-}
-
-/* Liquid Glass CTAs */
 .hero__actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.15rem;
   flex-wrap: wrap;
+}
+
+.hero__cta-primary,
+.hero__cta-secondary {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 750;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .hero__cta-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.95rem 2rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #C68B59 0%, #8B5E3C 100%);
-  color: #F5EBE0 !important;
-  font-size: 0.95rem;
-  font-weight: 700;
-  box-shadow: 0 8px 25px rgba(198, 139, 89, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(229, 195, 120, 0.4);
+  padding: 0.75rem 1.35rem;
+  background: #00754a;
+  color: #fff;
+  box-shadow: 0 9px 18px rgba(0, 117, 74, 0.17);
 }
 
 .hero__cta-primary:hover {
+  background: #00613d;
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(198, 139, 89, 0.6);
+  box-shadow: 0 12px 23px rgba(0, 117, 74, 0.22);
 }
 
 .hero__cta-secondary {
-  display: inline-flex;
+  padding: 0.7rem 0;
+  color: #1f2925;
+  border-bottom: 1px solid #1f2925;
+  border-radius: 0;
+}
+
+.hero__cta-secondary:hover { color: #00754a; border-color: #00754a; }
+
+.hero__micro-copy {
+  display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.95rem 2rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #E5C378 !important;
-  font-size: 0.95rem;
-  font-weight: 700;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  gap: 0.45rem;
+  color: #69736e;
+  font-size: 0.78rem;
+  margin-top: 2.1rem;
 }
 
-.hero__cta-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-2px);
-}
+.hero__micro-copy svg { color: #00754a; }
 
-/* Liquid Glass Chamber Stage */
 .hero__stage {
   position: relative;
-  display: flex;
-  justify-content: center;
+  min-height: 525px;
+  isolation: isolate;
 }
 
-.liquid-glass-glow {
+.hero__shape { position: absolute; z-index: -1; }
+
+.hero__shape--coral {
+  width: 70%;
+  height: 73%;
+  right: 0;
+  top: 0;
+  border-radius: 48% 52% 46% 54% / 44% 40% 60% 56%;
+  background: #ec927c;
+}
+
+.hero__shape--sun {
+  width: 35%;
+  aspect-ratio: 1;
+  left: -1.5rem;
+  bottom: 0.7rem;
+  border-radius: 50%;
+  background: #f5d46a;
+}
+
+.hero__image-frame {
   position: absolute;
-  inset: -20px;
-  background: radial-gradient(circle, rgba(229, 195, 120, 0.25) 0%, transparent 70%);
-  filter: blur(50px);
-  z-index: 0;
+  width: 76%;
+  height: 84%;
+  top: 5.5%;
+  left: 9%;
+  overflow: hidden;
+  border-radius: 160px 160px 20px 20px;
+  box-shadow: 0 20px 45px rgba(39, 45, 40, 0.16);
 }
 
-.liquid-glass-card {
-  position: relative;
+.hero__image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 58%, rgba(0, 0, 0, 0.34));
+}
+
+.hero__image-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.hero__image-caption {
+  position: absolute;
   z-index: 1;
-  background: rgba(18, 26, 44, 0.55);
-  backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 32px;
-  overflow: hidden;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  width: 100%;
-  max-width: 420px;
-}
-
-.liquid-card__header {
-  padding: 1rem 1.25rem 0.5rem 1.25rem;
+  left: 1.3rem;
+  right: 1.3rem;
+  bottom: 1.2rem;
+  color: #fff;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-}
-
-.stealth-tag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #E5C378;
-  background: rgba(229, 195, 120, 0.12);
-  padding: 0.3rem 0.65rem;
-  border-radius: 999px;
-  border: 1px solid rgba(229, 195, 120, 0.25);
-}
-
-.intensity-tag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #F5EBE0;
-  display: flex;
   align-items: center;
-  gap: 0.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
-.liquid-card__media {
-  position: relative;
-  height: 230px;
-  margin: 0.5rem 1.25rem;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.liquid-card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.liquid-glass-card:hover .liquid-card__img {
-  transform: scale(1.06);
-}
-
-.liquid-card__roast-pill {
+.hero__drink-card {
   position: absolute;
-  bottom: 0.75rem;
-  right: 0.75rem;
-  background: rgba(11, 19, 37, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #E5C378;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.25rem 0.65rem;
-  border-radius: 999px;
+  z-index: 2;
+  left: -2rem;
+  bottom: 1rem;
+  width: min(235px, 48%);
+  text-align: left;
   display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  backdrop-filter: blur(8px);
+  flex-direction: column;
+  padding: 1.25rem 1.25rem 1.1rem;
+  background: #fffdf8;
+  border: 1px solid rgba(31, 41, 37, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 15px 28px rgba(39, 45, 40, 0.12);
+  transition: transform 180ms ease;
 }
 
-.liquid-card__body {
-  padding: 1.25rem 1.25rem 1.5rem 1.25rem;
-}
+.hero__drink-card:hover { transform: translateY(-3px); }
+.hero__drink-label { color: #00754a; font-size: 0.67rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem; }
+.hero__drink-card strong { color: #1f2925; font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; line-height: 1.15; }
+.hero__drink-detail { color: #69736e; font-size: 0.72rem; margin-top: 0.5rem; }
+.hero__drink-price { color: #1f2925; margin-top: 0.9rem; font-size: 0.83rem; font-weight: 800; display: inline-flex; align-items: center; gap: 0.25rem; }
 
-.liquid-card__meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.4rem;
-}
-
-.liquid-card__origin {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #E5C378;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.liquid-card__price {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #F5EBE0;
-}
-
-.liquid-card__title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #F5EBE0;
-  margin-bottom: 0.35rem;
-}
-
-.liquid-card__tagline {
-  font-size: 0.85rem;
-  color: #D4A373;
-  line-height: 1.45;
-  margin-bottom: 1rem;
-}
-
-.liquid-card__notes {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-}
-
-.liquid-note-pill {
-  font-size: 0.72rem;
-  color: #F5EBE0;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.25rem 0.55rem;
-  border-radius: 6px;
-}
-
-.liquid-card__btns {
+.hero__roundel {
+  position: absolute;
+  z-index: 2;
+  top: 2.5rem;
+  right: -1.25rem;
+  width: 102px;
+  aspect-ratio: 1;
+  border-radius: 50%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  place-content: center;
+  gap: 0.2rem;
+  text-align: center;
+  background: #00754a;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transform: rotate(11deg);
+  box-shadow: 0 8px 16px rgba(0, 117, 74, 0.18);
 }
 
-.liquid-card__btn-view {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #F5EBE0;
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 0.7rem;
-  border-radius: 12px;
-  cursor: pointer;
-  backdrop-filter: blur(8px);
-  transition: background 0.2s ease;
+.hero__roundel strong { font-size: 0.9rem; line-height: 0.5; }
+
+@media (max-width: 880px) {
+  .hero { padding-top: 8.5rem; }
+  .hero__container { grid-template-columns: 1fr; max-width: 620px; }
+  .hero__stage { width: min(100%, 560px); margin: 0 auto; }
 }
 
-.liquid-card__btn-view:hover {
-  background: rgba(255, 255, 255, 0.16);
-}
-
-.liquid-card__btn-add {
-  background: linear-gradient(135deg, #C68B59 0%, #8B5E3C 100%);
-  color: #F5EBE0;
-  font-size: 0.82rem;
-  font-weight: 700;
-  padding: 0.7rem;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(198, 139, 89, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(229, 195, 120, 0.3);
-  transition: transform 0.2s ease;
-}
-
-.liquid-card__btn-add:hover {
-  transform: translateY(-1px);
+@media (max-width: 560px) {
+  .hero { padding: 7.4rem 1.25rem 4rem; }
+  .hero__title { font-size: clamp(3rem, 14vw, 4.1rem); }
+  .hero__stage { min-height: 400px; }
+  .hero__image-frame { height: 82%; width: 78%; left: 12%; border-radius: 110px 110px 16px 16px; }
+  .hero__drink-card { left: 0; bottom: 0; width: 55%; padding: 1rem; }
+  .hero__roundel { width: 82px; right: 0; top: 1.5rem; }
 }
