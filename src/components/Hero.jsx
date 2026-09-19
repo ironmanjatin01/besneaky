@@ -1,104 +1,128 @@
-import { COFFEE_ITEMS, CAFE_METRICS } from '../data/coffeeData'
-import { Sparkles, ArrowRight, Eye, Flame, Coffee, Award } from 'lucide-react'
+import { useState } from 'react'
+import { COFFEE_ITEMS } from '../data/coffeeData'
+import { Sparkles, ArrowRight, Eye, Flame, Coffee, Zap, Shield, Search, Check } from 'lucide-react'
 import './Hero.css'
 
+const SECRET_VIBES = [
+  { id: 'code', label: '🚀 Late Night Code Sprint', itemId: 'cld-01', desc: 'High caffeine 20h Nitro Cold Brew for 3 AM flow state.' },
+  { id: 'zen', label: '🧘 Zen Focus Mode', itemId: 'man-01', desc: 'Elegantly bright Ethiopian V60 Pour-Over with jasmine tea notes.' },
+  { id: 'buzz', label: '⚡ 9 AM Standup Buzz', itemId: 'esp-01', desc: 'Syrupy double espresso shot with vibrant citrus zest.' },
+  { id: 'cozy', label: '🌙 Cozy Midnight Chill', itemId: 'sig-01', desc: 'Decadent 72% Belgian chocolate dark mocha with warm spices.' }
+]
+
 export default function Hero({ onOpenQuickView, onAddToCart }) {
-  const featuredCoffee = COFFEE_ITEMS.find((item) => item.isFeatured) || COFFEE_ITEMS[0]
+  const [activeVibeId, setActiveVibeId] = useState('code')
+
+  const activeVibe = SECRET_VIBES.find((v) => v.id === activeVibeId) || SECRET_VIBES[0]
+  const matchedCoffee = COFFEE_ITEMS.find((item) => item.id === activeVibe.itemId) || COFFEE_ITEMS[0]
 
   return (
     <section className="hero">
       <div className="hero__container">
-        {/* Left Column: Text & CTAs */}
+        {/* Left Column: Creative Title & Interactive Secret Roast Matcher */}
         <div className="hero__content">
           <div className="hero__badge">
-            <Sparkles size={14} className="hero__badge-icon" />
-            <span>Specialty Coffee & Micro-Lot Roastery</span>
+            <Shield size={14} className="hero__badge-icon" />
+            <span>BeSneaky • Secret Specialty Bean Vault</span>
           </div>
 
           <h1 className="hero__title">
-            Crafted for <span className="hero__title-accent">Night Owls</span>, Code Crafters & Coffee Connoisseurs.
+            Sneak Into The <span className="hero__title-accent">Secret World</span> of Specialty Coffee.
           </h1>
 
           <p className="hero__subtitle">
-            Experience hand-selected 100% single-origin Arabica beans, 20-hour nitro extractions, and precision grouphead temperature profiles tailored for those who move differently.
+            Where stealth roasts, single-origin bean micro-lots, and liquid cold extractions blend into an ultra-modern cafe experience crafted for code crafters & night owls.
           </p>
 
-          {/* Quick Filter Tags */}
-          <div className="hero__tags">
-            <span className="hero__tag">☕ 93°C Grouphead</span>
-            <span className="hero__tag">⚡ Double Ristretto</span>
-            <span className="hero__tag">❄️ 20h Nitro Steep</span>
-            <span className="hero__tag">🌱 Direct Trade</span>
+          {/* Interactive "Find Your Secret Vibe Roast" Selector */}
+          <div className="secret-vibe-box">
+            <div className="secret-vibe-header">
+              <Sparkles size={14} />
+              <span>Select Your Vibe • Sneak The Perfect Roast</span>
+            </div>
+
+            <div className="secret-vibe-buttons">
+              {SECRET_VIBES.map((vibe) => (
+                <button
+                  key={vibe.id}
+                  className={`vibe-btn ${activeVibeId === vibe.id ? 'is-active' : ''}`}
+                  onClick={() => setActiveVibeId(vibe.id)}
+                >
+                  {vibe.label}
+                </button>
+              ))}
+            </div>
+
+            <p className="secret-vibe-desc">{activeVibe.desc}</p>
           </div>
 
+          {/* Liquid Glass CTAs */}
           <div className="hero__actions">
             <a href="#shop" className="hero__cta-primary">
-              <span>Explore Coffee Vault</span>
+              <span>Explore All Roasts</span>
               <ArrowRight size={18} />
             </a>
-            <a href="#brewlab" className="hero__cta-secondary">
+            <a href="#anatomy" className="hero__cta-secondary">
               <Coffee size={18} />
-              <span>Barista Ratio Lab</span>
+              <span>Liquid Layer Explorer</span>
             </a>
-          </div>
-
-          {/* Metrics bar */}
-          <div className="hero__metrics">
-            {CAFE_METRICS.map((metric, index) => (
-              <div key={index} className="hero__metric-item">
-                <span className="metric-val">{metric.value}</span>
-                <span className="metric-lbl">{metric.label}</span>
-              </div>
-            ))}
           </div>
         </div>
 
-        {/* Right Column: Featured Roasters Card */}
+        {/* Right Column: Liquid Glass Coffee Bean Showcase Chamber */}
         <div className="hero__stage">
-          <div className="hero__card-glow" />
-          <div className="hero__featured-card">
-            <div className="featured-card__badge">
-              <Award size={13} /> Roast of the Day
+          <div className="liquid-glass-glow" />
+
+          <div className="liquid-glass-card">
+            <div className="liquid-card__header">
+              <span className="stealth-tag">🕵️‍♂️ Sneaky Secret Match</span>
+              <span className="intensity-tag">
+                <Zap size={12} /> {matchedCoffee.caffeineMg}mg Caffeine
+              </span>
             </div>
 
-            <div className="featured-card__image-wrap">
+            <div className="liquid-card__media">
               <img
-                src={featuredCoffee.image}
-                alt={featuredCoffee.name}
-                className="featured-card__img"
+                src={matchedCoffee.image}
+                alt={matchedCoffee.name}
+                className="liquid-card__img"
               />
-              <div className="featured-card__roast-pill">
-                <Flame size={12} /> {featuredCoffee.roastLevel}
+              <div className="liquid-card__roast-pill">
+                <Flame size={12} /> {matchedCoffee.roastLevel}
               </div>
             </div>
 
-            <div className="featured-card__body">
-              <div className="featured-card__meta">
-                <span className="featured-card__origin">{featuredCoffee.origin}</span>
-                <span className="featured-card__price">${featuredCoffee.price.toFixed(2)}</span>
+            <div className="liquid-card__body">
+              <div className="liquid-card__meta">
+                <span className="liquid-card__origin">{matchedCoffee.origin}</span>
+                <span className="liquid-card__price">${matchedCoffee.price.toFixed(2)}</span>
               </div>
 
-              <h3 className="featured-card__title">{featuredCoffee.name}</h3>
-              <p className="featured-card__tagline">{featuredCoffee.tagline}</p>
+              <h3 className="liquid-card__title">{matchedCoffee.name}</h3>
+              <p className="liquid-card__tagline">{matchedCoffee.tagline}</p>
 
-              <div className="featured-card__notes">
-                {featuredCoffee.tastingNotes.slice(0, 3).map((note, idx) => (
-                  <span key={idx} className="note-pill">{note}</span>
+              {/* Flavor Tags */}
+              <div className="liquid-card__notes">
+                {matchedCoffee.tastingNotes.slice(0, 3).map((note, idx) => (
+                  <span key={idx} className="liquid-note-pill">
+                    ✦ {note}
+                  </span>
                 ))}
               </div>
 
-              <div className="featured-card__btns">
+              {/* Action Buttons */}
+              <div className="liquid-card__btns">
                 <button
-                  className="featured-card__quickview-btn"
-                  onClick={() => onOpenQuickView(featuredCoffee)}
+                  className="liquid-card__btn-view"
+                  onClick={() => onOpenQuickView(matchedCoffee)}
                 >
-                  <Eye size={16} /> Quick View Specs
+                  <Eye size={15} /> Quick Specs
                 </button>
                 <button
-                  className="featured-card__order-btn"
-                  onClick={() => onAddToCart(featuredCoffee)}
+                  className="liquid-card__btn-add"
+                  onClick={() => onAddToCart(matchedCoffee)}
                 >
-                  Quick Order
+                  Sneak to Order
                 </button>
               </div>
             </div>
