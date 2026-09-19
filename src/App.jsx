@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import QuickViewModal from './components/QuickViewModal'
 import CartDrawer from './components/CartDrawer'
 import BackgroundCanvas from './components/BackgroundCanvas'
+import JazzPlayer from './components/JazzPlayer'
 
 export default function App() {
   const [cartItems, setCartItems] = useState([])
@@ -124,6 +125,9 @@ export default function App() {
         onRemoveItem={handleRemoveItem}
         onClearCart={handleClearCart}
       />
+
+      {/* Floating Soft Jazz Lounge Player */}
+      <JazzPlayer />
     </>
   )
 }

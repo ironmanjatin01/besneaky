@@ -72,5 +72,39 @@
 .header__cart-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
 .header__cart-badge { min-width: 18px; height: 18px; display: grid; place-items: center; padding: 0 0.25rem; border-radius: 50%; color: #00754a; background: #f8d56d; font-size: 0.68rem; font-weight: 800; }
 
+.header__jazz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-size: 0.8rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header__jazz-btn:hover {
+  background: var(--green-pale);
+  color: var(--green);
+  border-color: var(--green);
+  transform: translateY(-1px);
+}
+
+.header__jazz-btn.is-playing {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+  box-shadow: 0 4px 12px rgba(0, 117, 74, 0.3);
+}
+
+.jazz-disc-icon.is-spinning {
+  animation: spinVinyl 3s linear infinite;
+}
+
 @media (max-width: 700px) { .header__link { display: none; } .coffee-logo__sub { display: none; } }
+@media (max-width: 540px) { .header__jazz-text { display: none; } .header__jazz-btn { padding: 0.55rem; } }
 @media (max-width: 400px) { .header__cart-text { display: none; } .header__cart-btn { padding: 0.65rem; } }
