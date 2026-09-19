@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import CoffeeAnatomy from './components/CoffeeAnatomy'
+import BrewCalculator from './components/BrewCalculator'
 import ProductGrid from './components/ProductGrid'
 import About from './components/About'
 import Footer from './components/Footer'
@@ -9,12 +11,12 @@ import CartDrawer from './components/CartDrawer'
 import BackgroundCanvas from './components/BackgroundCanvas'
 import CustomCursor from './components/CustomCursor'
 import AudioPlayer from './components/AudioPlayer'
-import HanumanLoader from './components/HanumanLoader'
+import BaristaLoader from './components/BaristaLoader'
 import confetti from 'canvas-confetti'
 
 export default function App() {
   const [cartItems, setCartItems] = useState([])
-  const [quickViewShoe, setQuickViewShoe] = useState(null)
+  const [quickViewCoffee, setQuickViewCoffee] = useState(null)
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isSpidermanTheme, setIsSpidermanTheme] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -37,23 +39,31 @@ export default function App() {
     }
   }, [isSpidermanTheme])
 
-  // Add item to cart
-  const handleAddToCart = (shoe) => {
-    const size = shoe.selectedSize || 'Standard'
+  // Add coffee item to cart
+  const handleAddToCart = (coffee) => {
+    const customSizeKey = coffee.selectedSize || 'Standard Hot'
     setCartItems((prevItems) => {
       const existingIndex = prevItems.findIndex(
-        (item) => item.id === shoe.id && item.selectedSize === size
+        (item) => item.id === coffee.id && item.selectedSize === customSizeKey
       )
       if (existingIndex > -1) {
         const updated = [...prevItems]
-        updated[existingIndex].quantity += 1
+        updated[existingIndex].quantity += coffee.quantity || 1
         return updated
       }
-      return [...prevItems, { ...shoe, selectedSize: size, quantity: 1 }]
+      return [
+        ...prevItems,
+        {
+          ...coffee,
+          selectedSize: customSizeKey,
+          quantity: coffee.quantity || 1
+        }
+      ]
     })
+    setIsCartOpen(true)
   }
 
-  // Update item quantity
+  // Update quantity
   const handleUpdateQuantity = (id, selectedSize, newQty) => {
     if (newQty < 1) return
     setCartItems((prevItems) =>
@@ -74,24 +84,24 @@ export default function App() {
     )
   }
 
-  // Clear cart on order placement
+  // Clear cart
   const handleClearCart = () => setCartItems([])
 
   return (
     <>
-      {/* Cinematic Flying Hanumanji Mountain Zoom Entrance Loader */}
-      <HanumanLoader onLoadingComplete={() => setIsLoading(false)} />
+      {/* Barista Coffee Extraction Splash Loader */}
+      <BaristaLoader onLoadingComplete={() => setIsLoading(false)} />
 
-      {/* Background Interactive Ambient Particle & Web Canvas */}
+      {/* Background Interactive Ambient Particle Canvas */}
       <BackgroundCanvas isSpidermanTheme={isSpidermanTheme} />
 
-      {/* Magnetic Custom Ring Cursor */}
+      {/* Custom Coffee Ring Cursor */}
       <CustomCursor />
 
-      {/* Direct YouTube Ramayan Songs Audio Player */}
-      <AudioPlayer isSpidermanTheme={isSpidermanTheme} />
+      {/* Ambient Roastery Audio Player */}
+      <AudioPlayer />
 
-      {/* Main App Layout */}
+      {/* Header */}
       <Header
         cartCount={cartItems.reduce((acc, i) => acc + i.quantity, 0)}
         onOpenCart={() => setIsCartOpen(true)}
@@ -100,10 +110,17 @@ export default function App() {
       />
 
       <main style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.6s ease' }}>
-        <Hero onOpenQuickView={(shoe) => setQuickViewShoe(shoe)} />
+        <Hero
+          onOpenQuickView={(coffee) => setQuickViewCoffee(coffee)}
+          onAddToCart={handleAddToCart}
+        />
+
+        <CoffeeAnatomy />
+
+        <BrewCalculator />
 
         <ProductGrid
-          onOpenQuickView={(shoe) => setQuickViewShoe(shoe)}
+          onOpenQuickView={(coffee) => setQuickViewCoffee(coffee)}
           onAddToCart={handleAddToCart}
         />
 
@@ -113,15 +130,15 @@ export default function App() {
       <Footer />
 
       {/* Quick View Modal Overlay */}
-      {quickViewShoe && (
+      {quickViewCoffee && (
         <QuickViewModal
-          shoe={quickViewShoe}
-          onClose={() => setQuickViewShoe(null)}
+          shoe={quickViewCoffee}
+          onClose={() => setQuickViewCoffee(null)}
           onAddToCart={handleAddToCart}
         />
       )}
 
-      {/* Cart / Verses Drawer */}
+      {/* Order Ticket Drawer */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}

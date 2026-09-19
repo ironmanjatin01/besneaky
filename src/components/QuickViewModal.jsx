@@ -1,141 +1,161 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X, BookOpen, Sparkles, Check, Bookmark, Clock, Feather } from 'lucide-react'
-import confetti from 'canvas-confetti'
+import { X, Flame, Plus, Minus, ShoppingBag, Award, Check } from 'lucide-react'
 import './QuickViewModal.css'
 
-export default function QuickViewModal({ shoe, onClose }) {
-  const [bookmarked, setBookmarked] = useState(false)
+export default function QuickViewModal({ shoe: coffee, onClose, onAddToCart }) {
+  const [selectedMilk, setSelectedMilk] = useState(
+    coffee?.customizations?.milkTypes?.[0] || 'Whole Milk'
+  )
+  const [selectedSweetness, setSelectedSweetness] = useState(
+    coffee?.customizations?.sweetnessLevels?.[0] || 'Unsweetened'
+  )
+  const [quantity, setQuantity] = useState(1)
 
-  if (!shoe) return null
+  if (!coffee) return null
 
-  const handleBookmark = () => {
-    setBookmarked((prev) => !prev)
-    if (!bookmarked) {
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.6 },
-        colors: ['#f59e0b', '#d97706', '#fbbf24']
-      })
-    }
+  const handleAddCustomizedToCart = () => {
+    onAddToCart({
+      ...coffee,
+      customOptions: {
+        milk: selectedMilk,
+        sweetness: selectedSweetness
+      },
+      selectedSize: `${selectedMilk} • ${selectedSweetness}`,
+      quantity
+    })
+    onClose()
   }
 
   return (
-    <AnimatePresence>
-      <div className="quickview-overlay" onClick={onClose}>
-        <motion.div
-          className="quickview-card ramayan-story-modal"
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button className="quickview-close" onClick={onClose} aria-label="Close chapter modal">
-            <X size={20} />
-          </button>
+    <div className="quickview-backdrop" onClick={onClose}>
+      <div className="quickview-modal" onClick={(e) => e.stopPropagation()}>
+        {/* Close Button */}
+        <button className="quickview-close" onClick={onClose} aria-label="Close modal">
+          <X size={20} />
+        </button>
 
-          <div className="quickview-grid">
-            {/* Visual Stage */}
-            <div className="quickview-stage ramayan-modal__stage">
-              <div
-                className="quickview-glow"
-                style={{ background: 'radial-gradient(circle, rgba(245, 158, 11, 0.4) 0%, transparent 70%)' }}
-              />
-
-              <span className="quickview-tag">{shoe.kanda}</span>
-
-              <motion.img
-                src={shoe.image}
-                alt={shoe.title}
-                className="quickview-img ramayan-modal__img"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              />
-
-              <div className="quickview-shadow" />
+        <div className="quickview-grid">
+          {/* Left Column: Image & Tasting Notes */}
+          <div className="quickview-media">
+            <div className="quickview-image-wrap">
+              <img src={coffee.image} alt={coffee.name} className="quickview-img" />
+              <div className="quickview-roast-badge">
+                <Flame size={12} /> {coffee.roastLevel}
+              </div>
             </div>
 
-            {/* Product / Story Details */}
-            <div className="quickview-details ramayan-modal__details">
-              <div className="modal-header-meta">
-                <span className="quickview-brand">{shoe.author}</span>
-                <span className="modal-read-time">
-                  <Clock size={12} />
-                  <span>{shoe.readTime || '6 min read'}</span>
-                </span>
-              </div>
-
-              <h2 className="quickview-title">{shoe.title}</h2>
-              <p className="quickview-subtitle">{shoe.subtitle}</p>
-
-              {/* Shloka Box */}
-              {shoe.sanskritShloka && (
-                <div className="ramayan-modal__shloka-box">
-                  <div className="shloka-title">
-                    <Sparkles size={14} />
-                    <span>Sacred Sanskrit Verse & Chaupai</span>
-                  </div>
-                  <p className="sanskrit-text">"{shoe.sanskritShloka}"</p>
-
-                  {shoe.sanskritTransliteration && (
-                    <p className="transliteration-text">{shoe.sanskritTransliteration}</p>
-                  )}
-
-                  {shoe.hindiChaupai && (
-                    <p className="hindi-text">"{shoe.hindiChaupai}"</p>
-                  )}
-
-                  <p className="english-translation">{shoe.englishMeaning}</p>
-                </div>
-              )}
-
-              {/* Narrative Story */}
-              <div className="ramayan-modal__story-text">
-                <h3>
-                  <Feather size={14} className="heading-icon" />
-                  <span>Chapter Narrative</span>
-                </h3>
-                <p>{shoe.fullStory}</p>
-              </div>
-
-              {/* Life Lessons & Dharma */}
-              {shoe.lessons && (
-                <div className="quickview-specs ramayan-modal__lessons">
-                  <h3>Eternal Lessons of Dharma</h3>
-                  {shoe.lessons.map((lesson, i) => (
-                    <div key={i} className="quickview-spec-item">
-                      <Sparkles size={12} className="quickview-spec-icon" />
-                      <span>{lesson}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Actions */}
-              <div className="ramayan-modal__actions">
-                <button
-                  className={`quickview-add-btn ${bookmarked ? 'is-added' : ''}`}
-                  onClick={handleBookmark}
-                >
-                  {bookmarked ? (
-                    <>
-                      <Check size={18} />
-                      <span>Bookmarked Chapter Verse</span>
-                    </>
-                  ) : (
-                    <>
-                      <Bookmark size={18} />
-                      <span>Save Verse to Library</span>
-                    </>
-                  )}
-                </button>
+            {/* Flavor Wheel Tags */}
+            <div className="quickview-tasting-box">
+              <h4 className="tasting-box-title">Sensory Flavor Notes</h4>
+              <div className="tasting-pills">
+                {coffee.tastingNotes?.map((note, idx) => (
+                  <span key={idx} className="tasting-pill">
+                    ✦ {note}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
-        </motion.div>
+
+          {/* Right Column: Specs & Customization */}
+          <div className="quickview-info">
+            <span className="quickview-origin">{coffee.origin}</span>
+            <h2 className="quickview-title">{coffee.name}</h2>
+            <p className="quickview-tagline">{coffee.tagline}</p>
+            <p className="quickview-desc">{coffee.description}</p>
+
+            {/* Extraction Specs Grid */}
+            <div className="quickview-specs-box">
+              <h4 className="specs-title"><Award size={14} /> Extraction Parameters</h4>
+              <div className="specs-grid">
+                <div className="spec-cell">
+                  <span className="cell-lbl">Brew Ratio</span>
+                  <span className="cell-val">{coffee.brewRatio || '1:2'}</span>
+                </div>
+                <div className="spec-cell">
+                  <span className="cell-lbl">Water Temp</span>
+                  <span className="cell-val">{coffee.waterTemp || '93°C'}</span>
+                </div>
+                <div className="spec-cell">
+                  <span className="cell-lbl">Grind Size</span>
+                  <span className="cell-val">{coffee.grindSize || 'Fine'}</span>
+                </div>
+                <div className="spec-cell">
+                  <span className="cell-lbl">Caffeine</span>
+                  <span className="cell-val">{coffee.caffeineMg || 120} mg</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Barista Customization Section */}
+            {coffee.customizations && (
+              <div className="quickview-custom-section">
+                {/* Milk Choice */}
+                {coffee.customizations.milkTypes && (
+                  <div className="custom-group">
+                    <label className="custom-label">Milk / Dairy Base</label>
+                    <div className="custom-options">
+                      {coffee.customizations.milkTypes.map((milk) => (
+                        <button
+                          key={milk}
+                          className={`custom-opt-btn ${selectedMilk === milk ? 'is-selected' : ''}`}
+                          onClick={() => setSelectedMilk(milk)}
+                        >
+                          {selectedMilk === milk && <Check size={12} />}
+                          <span>{milk}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Sweetness Level */}
+                {coffee.customizations.sweetnessLevels && (
+                  <div className="custom-group">
+                    <label className="custom-label">Sweetness Preference</label>
+                    <div className="custom-options">
+                      {coffee.customizations.sweetnessLevels.map((sweet) => (
+                        <button
+                          key={sweet}
+                          className={`custom-opt-btn ${selectedSweetness === sweet ? 'is-selected' : ''}`}
+                          onClick={() => setSelectedSweetness(sweet)}
+                        >
+                          {selectedSweetness === sweet && <Check size={12} />}
+                          <span>{sweet}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Footer Pricing & Add to Cart */}
+            <div className="quickview-footer">
+              <div className="price-and-qty">
+                <span className="modal-price">${(coffee.price * quantity).toFixed(2)}</span>
+                <div className="qty-controls">
+                  <button
+                    className="qty-btn"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  >
+                    <Minus size={14} />
+                  </button>
+                  <span className="qty-num">{quantity}</span>
+                  <button className="qty-btn" onClick={() => setQuantity(quantity + 1)}>
+                    <Plus size={14} />
+                  </button>
+                </div>
+              </div>
+
+              <button className="modal-add-btn" onClick={handleAddCustomizedToCart}>
+                <ShoppingBag size={18} />
+                <span>Add to Order Slip</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </AnimatePresence>
+    </div>
   )
 }

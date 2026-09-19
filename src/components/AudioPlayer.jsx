@@ -1,168 +1,117 @@
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Play, Pause, Volume2, VolumeX, Sparkles, ChevronUp, ChevronDown, ExternalLink, Music } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { Music, Play, Pause, SkipForward, Volume2, VolumeX, Radio } from 'lucide-react'
 import './AudioPlayer.css'
 
-const youtubeTracks = [
+const CAFE_TRACKS = [
   {
-    id: 'B42mS6tD56s',
-    title: 'Ram Siya Ram',
-    subtitle: 'Sachet-Parampara (Adipurush)',
-    thumbnail: 'https://img.youtube.com/vi/B42mS6tD56s/hqdefault.jpg'
+    title: 'Midnight Jazz Espresso',
+    artist: 'Sneaky Coffeehouse Trio',
+    url: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3'
   },
   {
-    id: 'lP8c-uF_2uM',
-    title: 'Mangal Bhavan Amangal Hari',
-    subtitle: 'Ramanand Sagar Ramayan Bhajan',
-    thumbnail: 'https://img.youtube.com/vi/lP8c-uF_2uM/hqdefault.jpg'
+    title: 'Rainy Barista Loft',
+    artist: 'Tokyo Lo-Fi Beats',
+    url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=chill-lofi-song-8444.mp3'
   },
   {
-    id: 'AETFvQonfV8',
-    title: 'Shri Hanuman Chalisa',
-    subtitle: 'Hariharan & Gulshan Kumar',
-    thumbnail: 'https://img.youtube.com/vi/AETFvQonfV8/hqdefault.jpg'
-  },
-  {
-    id: 'b4u38pZfVn8',
-    title: 'Shri Ram Chandra Kripalu Bhajman',
-    subtitle: 'Traditional Divine Stuti',
-    thumbnail: 'https://img.youtube.com/vi/b4u38pZfVn8/hqdefault.jpg'
+    title: 'Acoustic Morning Brew',
+    artist: 'Sunlit Roastery',
+    url: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-background-music-11235.mp3'
   }
 ]
 
-export default function AudioPlayer({ isSpidermanTheme }) {
+export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [activeTrackIndex, setActiveTrackIndex] = useState(0)
-  const [showMenu, setShowMenu] = useState(false)
+  const [trackIndex, setTrackIndex] = useState(0)
   const [isMuted, setIsMuted] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const audioRef = useRef(null)
 
-  const activeTrack = youtubeTracks[activeTrackIndex]
-  const iframeRef = useRef(null)
+  const currentTrack = CAFE_TRACKS[trackIndex]
 
   const togglePlay = () => {
-    setIsPlaying((prev) => !prev)
-  }
-
-  const selectTrack = (index) => {
-    setActiveTrackIndex(index)
-    setIsPlaying(true)
-    setShowMenu(false)
-  }
-
-  const toggleMute = (e) => {
-    e.stopPropagation()
-    setIsMuted((prev) => !prev)
-  }
-
-  // Construct YouTube Embed Stream URL with autoplay parameter
-  const embedUrl = `https://www.youtube.com/embed/${activeTrack.id}?enablejsapi=1&autoplay=${isPlaying ? 1 : 0}&mute=${isMuted ? 1 : 0}&loop=1&playlist=${activeTrack.id}`
-
-  useEffect(() => {
-    // Enable play on theme click if user requested
-    if (isSpidermanTheme && !isPlaying) {
+    if (!audioRef.current) return
+    if (isPlaying) {
+      audioRef.current.pause()
+      setIsPlaying(false)
+    } else {
+      audioRef.current.play().catch(() => {})
       setIsPlaying(true)
     }
-  }, [isSpidermanTheme])
+  }
+
+  const nextTrack = () => {
+    const nextIdx = (trackIndex + 1) % CAFE_TRACKS.length
+    setTrackIndex(nextIdx)
+    setIsPlaying(true)
+    setTimeout(() => {
+      audioRef.current?.play().catch(() => {})
+    }, 100)
+  }
+
+  const toggleMute = () => {
+    if (!audioRef.current) return
+    audioRef.current.muted = !isMuted
+    setIsMuted(!isMuted)
+  }
 
   return (
-    <div className="audio-player-container">
-      {/* Hidden YouTube Stream iFrame */}
-      <div className="youtube-iframe-hidden">
-        <iframe
-          ref={iframeRef}
-          key={`${activeTrack.id}-${isPlaying}-${isMuted}`}
-          width="200"
-          height="200"
-          src={embedUrl}
-          title={activeTrack.title}
-          allow="autoplay"
-        />
+    <div className={`cafe-audio-player ${isExpanded ? 'is-expanded' : ''}`}>
+      <audio
+        ref={audioRef}
+        src={currentTrack.url}
+        loop
+        preload="auto"
+      />
+
+      {/* Floating Compact Bar */}
+      <div className="audio-bar" onClick={() => setIsExpanded(!isExpanded)}>
+        <div className={`vinyl-disc ${isPlaying ? 'is-spinning' : ''}`}>
+          <Radio size={14} />
+        </div>
+        <div className="audio-info">
+          <span className="audio-station-label">Sneaky Radio</span>
+          <span className="audio-title">{currentTrack.title}</span>
+        </div>
+        <button
+          className="audio-play-mini"
+          onClick={(e) => {
+            e.stopPropagation()
+            togglePlay()
+          }}
+        >
+          {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+        </button>
       </div>
 
-      {/* YouTube Track Selection Popup Menu */}
-      <AnimatePresence>
-        {showMenu && (
-          <motion.div
-            className="audio-player__mantra-menu youtube-menu"
-            initial={{ opacity: 0, y: 12, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="menu-header">
-              <Music size={14} className="youtube-red-icon" />
-              <span>Direct YouTube Ramayan Songs</span>
-            </div>
-            {youtubeTracks.map((track, idx) => (
-              <button
-                key={track.id}
-                className={`menu-item youtube-item ${idx === activeTrackIndex ? 'is-active' : ''}`}
-                onClick={() => selectTrack(idx)}
-              >
-                <img src={track.thumbnail} alt={track.title} className="yt-thumb" />
-                <div className="menu-item-text">
-                  <span className="m-title">{track.title}</span>
-                  <span className="m-raga">{track.subtitle}</span>
-                </div>
-              </button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Renewed Direct YouTube Audio Widget */}
-      <div className={`audio-player-bar youtube-player-bar ${isPlaying ? 'is-active' : ''}`}>
-        {/* Track Thumbnail & Play Button */}
-        <div className="yt-player__left">
-          <button
-            className="audio-player__play-btn yt-play-btn"
-            onClick={togglePlay}
-            aria-label={isPlaying ? 'Pause' : 'Play'}
-          >
-            {isPlaying ? <Pause size={16} /> : <Play size={16} className="play-icon-offset" />}
-          </button>
-          <img src={activeTrack.thumbnail} alt={activeTrack.title} className="yt-bar-thumb" />
-        </div>
-
-        {/* Track Details & Menu Trigger */}
-        <div className="audio-player__content" onClick={() => setShowMenu(!showMenu)}>
-          <div className="track-title-wrap">
-            <span className="track-title">{activeTrack.title}</span>
-            <span className="track-raga">{activeTrack.subtitle}</span>
+      {/* Expanded Controls Modal/Card */}
+      {isExpanded && (
+        <div className="audio-expanded-card" onClick={(e) => e.stopPropagation()}>
+          <div className="expanded-header">
+            <span className="radio-badge">
+              <Music size={12} /> Ambient Roastery Audio
+            </span>
+            <button className="close-expanded" onClick={() => setIsExpanded(false)}>
+              ×
+            </button>
           </div>
-          {showMenu ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
-        </div>
 
-        {/* Dynamic 6-Bar Equalizer */}
-        {isPlaying && !isMuted && (
-          <div className="audio-player__eq">
-            <span className="eq-bar eq-bar--1" />
-            <span className="eq-bar eq-bar--2" />
-            <span className="eq-bar eq-bar--3" />
-            <span className="eq-bar eq-bar--4" />
-            <span className="eq-bar eq-bar--5" />
-            <span className="eq-bar eq-bar--6" />
+          <h4 className="expanded-title">{currentTrack.title}</h4>
+          <span className="expanded-artist">{currentTrack.artist}</span>
+
+          <div className="expanded-controls">
+            <button className="exp-btn" onClick={toggleMute}>
+              {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+            </button>
+            <button className="exp-play-btn" onClick={togglePlay}>
+              {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+            </button>
+            <button className="exp-btn" onClick={nextTrack}>
+              <SkipForward size={16} />
+            </button>
           </div>
-        )}
-
-        {/* Mute & YouTube External Link */}
-        <div className="audio-player__vol-wrap">
-          <button className="audio-player__mute-btn" onClick={toggleMute} aria-label="Mute">
-            {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-          </button>
-
-          <a
-            href={`https://www.youtube.com/watch?v=${activeTrack.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="yt-external-btn"
-            title="Watch on YouTube"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ExternalLink size={14} />
-          </a>
         </div>
-      </div>
+      )}
     </div>
   )
 }

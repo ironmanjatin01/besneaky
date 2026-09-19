@@ -1,67 +1,56 @@
-import { useState } from 'react'
-import { ArrowUp, Sparkles, Send, Heart } from 'lucide-react'
+import { MapPin, Clock, Phone, Heart } from 'lucide-react'
 import AnimatedBrandLogo from './AnimatedBrandLogo'
 import './Footer.css'
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-
-  const handleSubscribe = (e) => {
-    e.preventDefault()
-    if (!email) return
-    setSubscribed(true)
-    setTimeout(() => {
-      setEmail('')
-      setSubscribed(false)
-    }, 3000)
-  }
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
   return (
     <footer className="footer">
-      <div className="footer-container">
-        <div className="footer-top">
-          <div className="footer-brand">
-            <div className="footer-logo-wrap">
-              <AnimatedBrandLogo size={32} />
-            </div>
-            <p className="footer-tagline">
-              An eternal digital sanctuary celebrating the life, teachings, and divine journey of Lord Shri Rama, Mata Sita, and Hanumanji.
+      <div className="footer__container">
+        <div className="footer__grid">
+          {/* Brand & Mission */}
+          <div className="footer__brand-col">
+            <AnimatedBrandLogo size={28} />
+            <p className="footer__mission">
+              BeSneaky Cafe is an independent specialty coffee roastery crafting precision extractions, nitro cold brews, and single-origin pour-overs for coffee lovers everywhere.
             </p>
           </div>
 
-          {/* Daily Chaupai Newsletter */}
-          <div className="footer-newsletter">
-            <span className="footer-newsletter-label">Receive Daily Ramayan Chaupai</span>
-            {subscribed ? (
-              <p className="footer-success">🌸 Jai Shri Ram! Subscribed to Daily Verses.</p>
-            ) : (
-              <form className="footer-form" onSubmit={handleSubscribe}>
-                <input
-                  type="email"
-                  placeholder="Enter your email address..."
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <button type="submit" aria-label="Subscribe to Chaupais">
-                  <Send size={14} />
-                </button>
-              </form>
-            )}
+          {/* Location & Hours */}
+          <div className="footer__col">
+            <h4 className="footer__title">Downtown Roastery</h4>
+            <div className="footer__info-item">
+              <MapPin size={15} className="footer-icon" />
+              <span>404 Espresso Way, Suite 100, Downtown</span>
+            </div>
+            <div className="footer__info-item">
+              <Clock size={15} className="footer-icon" />
+              <span>Mon-Sun: 6:00 AM – 11:00 PM</span>
+            </div>
+            <div className="footer__info-item">
+              <Phone size={15} className="footer-icon" />
+              <span>+1 (800) SNEAKY-BEANS</span>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="footer__col">
+            <h4 className="footer__title">Explore Vault</h4>
+            <ul className="footer__links">
+              <li><a href="#shop">Single Origin Espresso</a></li>
+              <li><a href="#shop">Nitro Cold Brews</a></li>
+              <li><a href="#anatomy">Coffee Anatomy Explorer</a></li>
+              <li><a href="#brewlab">Barista Brew Ratio Calculator</a></li>
+              <li><a href="#about">Direct Trade Sourcing</a></li>
+            </ul>
           </div>
         </div>
 
-        <div className="footer-bottom">
-          <p>© 2026 RAMAYANA. Dedicated with devotion (Bhakti) to the eternal ideal of Dharma.</p>
-          <button className="footer-top-btn" onClick={scrollToTop}>
-            <span>Back to Top</span>
-            <ArrowUp size={14} />
-          </button>
+        {/* Sub-footer copyright */}
+        <div className="footer__bottom">
+          <p>© {new Date().getFullYear()} BeSneaky Artisan Cafe & Roastery. All Rights Reserved.</p>
+          <p className="footer__crafted">
+            Crafted with <Heart size={12} className="heart-icon" /> for Coffee Connoisseurs.
+          </p>
         </div>
       </div>
     </footer>

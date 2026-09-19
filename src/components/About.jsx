@@ -1,114 +1,112 @@
-import { motion } from 'framer-motion'
-import { Feather, ShieldCheck, Truck, Sparkles, Compass } from 'lucide-react'
+import { useState } from 'react'
+import { Coffee, ShieldCheck, MapPin, Send, Check } from 'lucide-react'
 import './About.css'
 
-const marqueeItems = [
-  "MEN'S GARMENTS",
-  "WOMEN'S COSMETICS",
-  "BOTANICAL RADIANCE",
-  "ATELIER TAILORING",
-  "CURATED STUDIO DROPS",
-  "SILK & CASHMERE"
-]
-
-const features = [
-  {
-    icon: Feather,
-    title: 'Atelier Tailoring',
-    desc: 'Crafted from pure French linen, Italian camel wool, and Mongolian cashmere for quiet elegance.'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Botanical Radiance',
-    desc: 'Dermatologist-tested formulas enriched with cold-pressed Damask Rose and Hyaluronic Acid.'
-  },
-  {
-    icon: Truck,
-    title: 'Global Priority Express',
-    desc: 'Double-boxed priority express shipping delivered worldwide within 48 hours of release.'
-  }
-]
-
 export default function About() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubscribe = (e) => {
+    e.preventDefault()
+    if (email) {
+      setSubscribed(true)
+      setEmail('')
+    }
+  }
+
   return (
-    <section id="about" className="about-section">
-      {/* Infinite Horizontal Marquee Banner */}
-      <div className="marquee-wrap">
-        <div className="marquee-track">
-          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, idx) => (
-            <div key={idx} className="marquee-item">
-              <span>{item}</span>
-              <Sparkles size={14} className="marquee-star" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="about-container">
-        <motion.div
-          className="about__header"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="about__badge">
-            <Compass size={12} />
-            <span>Our Philosophy</span>
-          </div>
-          <h2 className="about__title">Couture garments & botanical beauty built for quiet elegance.</h2>
-          <p className="about__subtitle">
-            Besneaky is a curated design house for fashion and beauty connoisseurs. We collaborate directly with independent ateliers and botanical laboratories to bring limited edition drops to those who move differently.
-          </p>
-        </motion.div>
-
-        {/* Feature Cards Grid */}
+    <section className="about" id="about">
+      <div className="about__container">
+        {/* Philosophy Header */}
         <div className="about__grid">
-          {features.map((item, i) => {
-            const Icon = item.icon
-            return (
-              <motion.div
-                key={i}
-                className="about-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              >
-                <div className="about-card__icon-wrap">
-                  <Icon size={24} className="about-card__icon" />
+          <div className="about__content">
+            <span className="about__badge">
+              <Coffee size={14} /> Sourcing & Roastery Philosophy
+            </span>
+            <h2 className="about__title">Direct Trade, Sustainable Sourcing & Precision Roasting</h2>
+            <p className="about__desc">
+              At BeSneaky Cafe, coffee is both an exact science and a sensory art. We partner directly with micro-lot farmers across Ethiopia, Colombia, Guatemala, and Sumatra to pay 40% above fair-trade market prices, ensuring ethical farming and unmatched cup clarity.
+            </p>
+
+            <div className="about__features">
+              <div className="feature-item">
+                <ShieldCheck size={20} className="feat-icon" />
+                <div>
+                  <h4>100% Single-Origin Lots</h4>
+                  <p>Never blended with low-grade robusta fill. Pure, traceable arabicas.</p>
                 </div>
-                <h3 className="about-card__title">{item.title}</h3>
-                <p className="about-card__desc">{item.desc}</p>
-              </motion.div>
-            )
-          })}
+              </div>
+
+              <div className="feature-item">
+                <Coffee size={20} className="feat-icon" />
+                <div>
+                  <h4>Small Batch Loring Roasting</h4>
+                  <p>Eco-friendly convection roasting that seals in delicate floral aromas.</p>
+                </div>
+              </div>
+
+              <div className="feature-item">
+                <MapPin size={20} className="feat-icon" />
+                <div>
+                  <h4>Roastery & Downtown Cafe</h4>
+                  <p>Visit our flagship downtown espresso bar or order fresh beans to your door.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sourcing Visual / Card */}
+          <div className="about__card">
+            <div className="card-inner">
+              <span className="card-tag">Roaster's Promise</span>
+              <h3>Freshly Roasted Every Tuesday</h3>
+              <p>
+                Every bag ordered from BeSneaky is roasted within 48 hours of dispatch, complete with roast date stamps and elevation specs on every pouch.
+              </p>
+              <div className="stat-pills">
+                <div className="stat-pill">
+                  <span className="stat-num">40%+</span>
+                  <span className="stat-txt">Above Fair Trade</span>
+                </div>
+                <div className="stat-pill">
+                  <span className="stat-num">48 Hours</span>
+                  <span className="stat-txt">Roast Freshness</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Stats bar */}
-        <motion.div
-          className="about-stats"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="stat-item">
-            <span className="stat-number">100%</span>
-            <span className="stat-label">Authentic Studio Drops</span>
+        {/* Coffee Club Newsletter */}
+        <div className="newsletter-box">
+          <div className="newsletter-content">
+            <h3>Join The Sneaky Coffee Club</h3>
+            <p>Get weekly barista brew tips, rare micro-lot drops, and 15% off your first coffee order.</p>
           </div>
-          <div className="stat-divider" />
-          <div className="stat-item">
-            <span className="stat-number">48hr</span>
-            <span className="stat-label">Express Worldwide Shipping</span>
-          </div>
-          <div className="stat-divider" />
-          <div className="stat-item">
-            <span className="stat-number">4.9/5</span>
-            <span className="stat-label">Collector Satisfaction</span>
-          </div>
-        </motion.div>
+
+          <form className="newsletter-form" onSubmit={handleSubscribe}>
+            {subscribed ? (
+              <div className="subscribed-msg">
+                <Check size={18} /> Welcome to the Sneaky Coffee Club!
+              </div>
+            ) : (
+              <>
+                <input
+                  type="email"
+                  placeholder="Enter your email address..."
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="newsletter-input"
+                />
+                <button type="submit" className="newsletter-btn">
+                  <span>Subscribe</span>
+                  <Send size={15} />
+                </button>
+              </>
+            )}
+          </form>
+        </div>
       </div>
     </section>
   )

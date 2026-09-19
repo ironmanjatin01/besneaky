@@ -1,76 +1,117 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useMemo } from 'react'
+import { COFFEE_CATEGORIES, COFFEE_ITEMS } from '../data/coffeeData'
 import ProductCard from './ProductCard'
-import { ramayanPosts } from '../data/ramayanPosts'
-import { Sparkles, BookOpen, Scroll, Flame, Sun } from 'lucide-react'
+import { Search, Filter, Coffee, Sparkles } from 'lucide-react'
 import './ProductGrid.css'
 
-const kandaTabs = [
-  { id: 'All', label: 'All Chapters', icon: Sparkles },
-  { id: 'Bala Kanda', label: 'Bala Kanda', icon: BookOpen },
-  { id: 'Ayodhya Kanda', label: 'Ayodhya Kanda', icon: Scroll },
-  { id: 'Aranya Kanda', label: 'Aranya Kanda', icon: Flame },
-  { id: 'Sundara Kanda', label: 'Sundara Kanda', icon: Sparkles },
-  { id: 'Yuddha Kanda', label: 'Yuddha Kanda', icon: Flame },
-  { id: 'Uttara Kanda', label: 'Ramrajya', icon: Sun }
-]
+export default function ProductGrid({ onOpenQuickView, onAddToCart }) {
+  const [activeCategory, setActiveCategory] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [sortBy, setSortBy] = useState('popular')
 
-export default function ProductGrid({ onOpenQuickView }) {
-  const [activeTab, setActiveTab] = useState('All')
-
-  const filteredPosts = activeTab === 'All'
-    ? ramayanPosts
-    : ramayanPosts.filter((p) => p.kanda.toLowerCase().includes(activeTab.toLowerCase()) || p.tags.includes(activeTab))
+  // Filter & Sort items
+  const filteredItems = useMemo(() => {
+    return COFFEE_ITEMS.filter((item) => {
+      const matchesCategory = activeCategory === 'all' || item.category === activeCategory
+      const matchesSearch =
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.origin.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.tastingNotes.some((n) => n.toLowerCase().includes(searchQuery.toLowerCase()))
+      return matchesCategory && matchesSearch
+    }).sort((a, b) => {
+      if (sortBy === 'price-low') return a.price - b.price
+      if (sortBy === 'price-high') return b.price - a.price
+      if (sortBy === 'intensity') return (b.intensity || 0) - (a.intensity || 0)
+      return b.rating - a.rating // popular
+    })
+  }, [activeCategory, searchQuery, sortBy])
 
   return (
-    <section id="shop" className="product-grid-section">
-      <div className="product-grid__header">
-        <div className="product-grid__title-wrap">
-          <div className="product-grid__badge">
-            <Sparkles size={12} />
-            <span>Sacred Verses & Stories</span>
-          </div>
-          <h2 className="product-grid__title">The Seven Kandas</h2>
+    <section className="product-grid" id="shop">
+      <div className="product-grid__container">
+        {/* Section Header */}
+        <div className="product-grid__header">
+          <span className="product-grid__badge">
+            <Coffee size={14} /> Artisan Menu
+          </span>
+          <h2 className="product-grid__title">The Coffee Vault & Bakery</h2>
+          <p className="product-grid__desc">
+            Explore single-origin espresso roasts, slow cold brew extractions, precision pour-overs, and daily French baked pairings.
+          </p>
         </div>
 
-        {/* Kanda Filter Tabs */}
-        <div className="product-grid__filters">
-          {kandaTabs.map((tab) => {
-            const Icon = tab.icon
-            const isActive = activeTab === tab.id
-            return (
+        {/* Filter Controls Bar */}
+        <div className="product-grid__controls">
+          {/* Category Tabs */}
+          <div className="product-grid__categories">
+            {COFFEE_CATEGORIES.map((cat) => (
               <button
-                key={tab.id}
-                className={`product-grid__filter-btn ${isActive ? 'is-active' : ''}`}
-                onClick={() => setActiveTab(tab.id)}
+                key={cat.id}
+                className={`category-btn ${activeCategory === cat.id ? 'is-active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
               >
-                {isActive && (
-                  <motion.div
-                    className="product-grid__filter-active-pill"
-                    layoutId="activeFilterPill"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <Icon size={14} className="filter-tab-icon" />
-                <span className="product-grid__filter-text">{tab.label}</span>
+                {cat.name}
               </button>
-            )
-          })}
-        </div>
-      </div>
+            ))}
+          </div>
 
-      {/* Ramayan Story Cards Grid */}
-      <motion.div className="product-grid" layout>
-        <AnimatePresence>
-          {filteredPosts.map((post) => (
-            <ProductCard
-              key={post.id}
-              shoe={post}
-              onOpenQuickView={onOpenQuickView}
-            />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+          {/* Search & Sort Controls */}
+          <div className="product-grid__search-sort">
+            <div className="search-box">
+              <Search size={16} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search roasts, notes, origins..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input"
+              />
+              {searchQuery && (
+                <button className="clear-search" onClick={() => setSearchQuery('')}>
+                  ×
+                </button>
+              )}
+            </div>
+
+            <div className="sort-box">
+              <Filter size={14} className="sort-icon" />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="sort-select"
+              >
+                <option value="popular">Most Popular ★</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="intensity">Highest Intensity</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Products Grid */}
+        {filteredItems.length > 0 ? (
+          <div className="product-grid__cards">
+            {filteredItems.map((coffee) => (
+              <ProductCard
+                key={coffee.id}
+                coffee={coffee}
+                onOpenQuickView={onOpenQuickView}
+                onAddToCart={onAddToCart}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="product-grid__empty">
+            <Sparkles size={40} className="empty-icon" />
+            <h3>No Coffees Found</h3>
+            <p>We couldn't find any coffee matching "{searchQuery}". Try resetting your search filter.</p>
+            <button className="reset-btn" onClick={() => { setActiveCategory('all'); setSearchQuery('') }}>
+              Reset Filters
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   )
 }

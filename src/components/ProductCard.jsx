@@ -1,82 +1,101 @@
-import { useState, useRef } from 'react'
-import { motion } from 'framer-motion'
-import { BookOpen, Clock, Sparkles } from 'lucide-react'
+import { Eye, Plus, Star, Flame, Zap } from 'lucide-react'
 import './ProductCard.css'
 
-export default function ProductCard({ shoe, onOpenQuickView }) {
-  const cardRef = useRef(null)
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width - 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5
-    setTilt({ x: -y * 10, y: x * 10 })
-  }
-
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 })
-    setIsHovered(false)
-  }
+export default function ProductCard({ coffee, onOpenQuickView, onAddToCart }) {
+  const isBakery = coffee.category === 'bakery'
 
   return (
-    <motion.article
-      ref={cardRef}
-      className="product-card ramayan-card"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.35 }}
-      onClick={() => onOpenQuickView(shoe)}
-      style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(${isHovered ? -6 : 0}px)`,
-        transition: isHovered ? 'transform 0.08s ease-out' : 'transform 0.4s ease-out'
-      }}
-    >
-      <div className="product-card__image-wrap ramayan-card__image-wrap">
-        <span className="product-card__tag ramayan-card__kanda-badge">
-          {shoe.kanda}
-        </span>
-
-        {/* Story Illustration Image */}
+    <div className="product-card">
+      {/* Card Header Image */}
+      <div className="product-card__image-container">
         <img
-          src={shoe.image}
-          alt={shoe.title}
-          className="product-card__image ramayan-card__img"
-          style={{
-            transform: isHovered ? 'scale(1.06)' : 'scale(1)'
-          }}
+          src={coffee.image}
+          alt={coffee.name}
+          className="product-card__image"
+          loading="lazy"
         />
 
-        {/* Read Time Tag */}
-        <div className="ramayan-card__read-time">
-          <Clock size={12} />
-          <span>{shoe.readTime || '6 min read'}</span>
+        <div className="product-card__badges">
+          {coffee.isPopular && (
+            <span className="badge badge--popular">★ Popular</span>
+          )}
+          <span className="badge badge--roast">
+            <Flame size={11} /> {coffee.roastLevel}
+          </span>
         </div>
+
+        {/* Floating Quick View Overlay Button */}
+        <button
+          className="product-card__quick-view"
+          onClick={() => onOpenQuickView(coffee)}
+          title="Quick View Specs"
+        >
+          <Eye size={16} />
+          <span>Quick Specs</span>
+        </button>
       </div>
 
-      <div className="product-card__info ramayan-card__info">
-        <div className="ramayan-card__shloka-preview">
-          <Sparkles size={12} className="shloka-star" />
-          <span>{shoe.sanskritShloka}</span>
+      {/* Card Body Details */}
+      <div className="product-card__body">
+        <div className="product-card__meta">
+          <span className="product-card__origin">{coffee.origin}</span>
+          <span className="product-card__rating">
+            <Star size={13} className="star-icon" /> {coffee.rating} ({coffee.reviewsCount})
+          </span>
         </div>
 
-        <h3 className="product-card__name ramayan-card__title">{shoe.title}</h3>
-        <p className="ramayan-card__subtitle">{shoe.subtitle}</p>
+        <h3 className="product-card__title" onClick={() => onOpenQuickView(coffee)}>
+          {coffee.name}
+        </h3>
+        <p className="product-card__tagline">{coffee.tagline}</p>
 
-        <div className="ramayan-card__footer">
-          <button className="ramayan-card__read-btn">
-            <BookOpen size={14} />
-            <span>Read Chapter</span>
+        {/* Tasting Notes */}
+        <div className="product-card__notes">
+          {coffee.tastingNotes.slice(0, 3).map((note, idx) => (
+            <span key={idx} className="product-card__note-tag">
+              {note}
+            </span>
+          ))}
+        </div>
+
+        {/* Coffee Metrics bar */}
+        {!isBakery && (
+          <div className="product-card__specs">
+            <div className="spec-item" title="Caffeine Content">
+              <Zap size={12} className="spec-icon" />
+              <span>{coffee.caffeineMg}mg</span>
+            </div>
+            <div className="spec-item" title="Intensity Level">
+              <span className="spec-label">Intensity:</span>
+              <div className="intensity-dots">
+                {[1, 2, 3, 4, 5].map((level) => (
+                  <span
+                    key={level}
+                    className={`dot ${level <= coffee.intensity ? 'is-active' : ''}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Footer Price & Add Button */}
+        <div className="product-card__footer">
+          <div className="product-card__price-wrap">
+            <span className="price-label">Price</span>
+            <span className="price-value">${coffee.price.toFixed(2)}</span>
+          </div>
+
+          <button
+            className="product-card__add-btn"
+            onClick={() => onAddToCart(coffee)}
+            title="Add to Order Slip"
+          >
+            <Plus size={16} />
+            <span>Add</span>
           </button>
         </div>
       </div>
-    </motion.article>
+    </div>
   )
 }
