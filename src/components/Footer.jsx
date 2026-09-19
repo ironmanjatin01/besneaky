@@ -39,6 +39,7 @@ export default function Footer() {
               <li><a href="#shop">Single Origin Espresso</a></li>
               <li><a href="#shop">Nitro Cold Brews</a></li>
               <li><a href="#about">Direct Trade Sourcing</a></li>
+              <li><a href="#anatomy">Coffee Vault & Layer Explorer</a></li>
             </ul>
           </div>
         </div>

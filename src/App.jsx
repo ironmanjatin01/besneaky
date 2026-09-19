@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ProductGrid from './components/ProductGrid'
+import SneakyBeanVault from './components/SneakyBeanVault'
+import CoffeeAnatomy from './components/CoffeeAnatomy'
 import About from './components/About'
 import Footer from './components/Footer'
 import QuickViewModal from './components/QuickViewModal'
@@ -12,6 +14,18 @@ export default function App() {
   const [cartItems, setCartItems] = useState([])
   const [quickViewCoffee, setQuickViewCoffee] = useState(null)
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('sneaky_theme') || 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('sneaky_theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
+  }
 
   // Add coffee item to cart
   const handleAddToCart = (coffee) => {
@@ -68,6 +82,8 @@ export default function App() {
       <Header
         cartCount={cartItems.reduce((acc, i) => acc + i.quantity, 0)}
         onOpenCart={() => setIsCartOpen(true)}
+        isDarkMode={theme === 'dark'}
+        onToggleTheme={toggleTheme}
       />
 
       <main>
@@ -80,6 +96,10 @@ export default function App() {
           onOpenQuickView={(coffee) => setQuickViewCoffee(coffee)}
           onAddToCart={handleAddToCart}
         />
+
+        <SneakyBeanVault />
+
+        <CoffeeAnatomy />
 
         <About />
       </main>

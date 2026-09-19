@@ -17,10 +17,43 @@
   backdrop-filter: blur(14px);
 }
 
+[data-theme="dark"] .header.is-scrolled {
+  background: rgba(13, 20, 18, 0.93);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
 .header__brand-wrap { display: flex; align-items: center; }
-.header__nav { display: flex; align-items: center; gap: clamp(1rem, 2.4vw, 2rem); }
-.header__link { color: #33403a; font-size: 0.86rem; font-weight: 700; }
-.header__link:hover { color: #00754a; }
+.header__nav { display: flex; align-items: center; gap: clamp(0.75rem, 2vw, 1.5rem); }
+.header__link { color: var(--fg); font-size: 0.86rem; font-weight: 700; }
+.header__link:hover { color: var(--green); }
+
+.header__theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header__theme-toggle:hover {
+  background: var(--green-pale);
+  color: var(--green);
+  transform: rotate(15deg);
+}
+
+.theme-icon.sun {
+  color: #f5d46a;
+}
+
+.theme-icon.moon {
+  color: #00754a;
+}
 
 .header__cart-btn {
   position: relative;
@@ -29,14 +62,14 @@
   gap: 0.45rem;
   padding: 0.62rem 1rem;
   color: #fff;
-  background: #00754a;
+  background: var(--green);
   border-radius: 999px;
   font-size: 0.83rem;
   font-weight: 750;
   transition: transform 180ms ease, background 180ms ease;
 }
 
-.header__cart-btn:hover { background: #00613d; transform: translateY(-1px); }
+.header__cart-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
 .header__cart-badge { min-width: 18px; height: 18px; display: grid; place-items: center; padding: 0 0.25rem; border-radius: 50%; color: #00754a; background: #f8d56d; font-size: 0.68rem; font-weight: 800; }
 
 @media (max-width: 700px) { .header__link { display: none; } .coffee-logo__sub { display: none; } }

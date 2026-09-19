@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { ShoppingBag } from 'lucide-react'
+import { ShoppingBag, Sun, Moon } from 'lucide-react'
 import AnimatedBrandLogo from './AnimatedBrandLogo'
 import './Header.css'
 
-export default function Header({ cartCount, onOpenCart }) {
+export default function Header({ cartCount, onOpenCart, isDarkMode, onToggleTheme }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -24,7 +24,18 @@ export default function Header({ cartCount, onOpenCart }) {
       <nav className="header__nav">
         <a href="#shop" className="header__link">Menu</a>
         <a href="#about" className="header__link">Our coffee</a>
+        <a href="#anatomy" className="header__link">Coffee Vault</a>
         <a href="#visit" className="header__link">Visit us</a>
+
+        {/* Dark / Light Theme Toggle Button */}
+        <button
+          className="header__theme-toggle"
+          onClick={onToggleTheme}
+          aria-label="Toggle dark mode"
+          title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        >
+          {isDarkMode ? <Sun size={18} className="theme-icon sun" /> : <Moon size={18} className="theme-icon moon" />}
+        </button>
 
         {/* Order Ticket Drawer */}
         <button className="header__cart-btn" onClick={onOpenCart} aria-label="View Order Ticket">
