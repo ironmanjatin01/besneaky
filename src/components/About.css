@@ -1,8 +1,8 @@
 .about {
   padding: 5rem 1.5rem;
-  background: var(--bg);
+  background: transparent;
   position: relative;
-  transition: background 0.4s ease;
+  z-index: 2;
 }
 
 .about__container {
@@ -33,18 +33,19 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #d97706;
-  background: rgba(217, 119, 6, 0.1);
+  color: #E5C378;
+  background: rgba(229, 195, 120, 0.12);
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid rgba(217, 119, 6, 0.25);
+  border: 1px solid rgba(229, 195, 120, 0.3);
   margin-bottom: 1rem;
 }
 
 .about__title {
-  font-size: 2.25rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.5rem;
   font-weight: 800;
-  color: var(--fg);
+  color: #F5EBE0;
   line-height: 1.25;
   letter-spacing: -0.02em;
   margin-bottom: 1.25rem;
@@ -52,7 +53,7 @@
 
 .about__desc {
   font-size: 1.05rem;
-  color: var(--muted);
+  color: #D4A373;
   line-height: 1.7;
   margin-bottom: 2rem;
 }
@@ -70,36 +71,38 @@
 }
 
 .feat-icon {
-  color: #d97706;
+  color: #E5C378;
   flex-shrink: 0;
   margin-top: 0.2rem;
 }
 
 .feature-item h4 {
-  font-size: 1rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: var(--fg);
+  color: #F5EBE0;
   margin-bottom: 0.2rem;
 }
 
 .feature-item p {
   font-size: 0.88rem;
-  color: var(--muted);
+  color: #D4A373;
 }
 
 .about__card {
-  background: linear-gradient(145deg, #1c130e 0%, #291a12 100%);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: linear-gradient(145deg, rgba(22, 32, 53, 0.85) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(229, 195, 120, 0.35);
   border-radius: 28px;
   padding: 3rem 2.5rem;
   color: #ffffff;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .card-tag {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #fbbf24;
+  color: #E5C378;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   display: block;
@@ -107,15 +110,17 @@
 }
 
 .about__card h3 {
-  font-size: 1.75rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.85rem;
   font-weight: 800;
+  color: #F5EBE0;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .about__card p {
   font-size: 0.95rem;
-  color: #a8a29e;
+  color: #D4A373;
   line-height: 1.6;
   margin-bottom: 2rem;
 }
@@ -127,30 +132,31 @@
 }
 
 .stat-pill {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(229, 195, 120, 0.2);
   padding: 1rem;
   border-radius: 16px;
   text-align: center;
 }
 
 .stat-num {
-  font-size: 1.4rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
   font-weight: 800;
-  color: #fbbf24;
+  color: #E5C378;
   display: block;
   margin-bottom: 0.2rem;
 }
 
 .stat-txt {
   font-size: 0.75rem;
-  color: #d6d3d1;
+  color: #F5EBE0;
 }
 
 /* Newsletter Box */
 .newsletter-box {
-  background: linear-gradient(135deg, rgba(217, 119, 6, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
-  border: 1px solid rgba(217, 119, 6, 0.3);
+  background: linear-gradient(135deg, rgba(22, 32, 53, 0.8) 0%, rgba(15, 23, 42, 0.85) 100%);
+  border: 1px solid rgba(229, 195, 120, 0.3);
   border-radius: 24px;
   padding: 3rem;
   display: flex;
@@ -158,18 +164,21 @@
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .newsletter-content h3 {
-  font-size: 1.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.65rem;
   font-weight: 800;
-  color: var(--fg);
+  color: #F5EBE0;
   margin-bottom: 0.35rem;
 }
 
 .newsletter-content p {
   font-size: 0.95rem;
-  color: var(--muted);
+  color: #D4A373;
 }
 
 .newsletter-form {
@@ -184,9 +193,9 @@
   flex-grow: 1;
   padding: 0.85rem 1.25rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--fg);
+  border: 1px solid rgba(229, 195, 120, 0.3);
+  background: rgba(11, 19, 37, 0.8);
+  color: #F5EBE0;
   font-size: 0.9rem;
   outline: none;
 }
@@ -197,7 +206,7 @@
   gap: 0.5rem;
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  background: linear-gradient(135deg, #C68B59 0%, #8B5E3C 100%);
   color: #ffffff;
   font-size: 0.88rem;
   font-weight: 700;
@@ -209,7 +218,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #22c55e;
+  color: #4ade80;
   font-weight: 700;
   font-size: 0.95rem;
 }

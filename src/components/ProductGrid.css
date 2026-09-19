@@ -1,8 +1,8 @@
 .product-grid {
   padding: 5rem 1.5rem;
-  background: var(--bg);
+  background: transparent;
   position: relative;
-  transition: background 0.4s ease;
+  z-index: 2;
 }
 
 .product-grid__container {
@@ -24,25 +24,26 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #d97706;
-  background: rgba(217, 119, 6, 0.1);
+  color: #E5C378;
+  background: rgba(229, 195, 120, 0.12);
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid rgba(217, 119, 6, 0.25);
+  border: 1px solid rgba(229, 195, 120, 0.3);
   margin-bottom: 1rem;
 }
 
 .product-grid__title {
-  font-size: 2.25rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: var(--fg);
+  color: #F5EBE0;
   letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
 }
 
 .product-grid__desc {
   font-size: 1rem;
-  color: var(--muted);
+  color: #D4A373;
   line-height: 1.6;
 }
 
@@ -66,23 +67,24 @@
   border-radius: 999px;
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--muted);
-  background: rgba(120, 113, 108, 0.08);
-  border: 1px solid var(--border);
+  color: #D4A373;
+  background: rgba(22, 32, 53, 0.65);
+  border: 1px solid rgba(229, 195, 120, 0.22);
+  backdrop-filter: blur(8px);
   transition: all 0.25s ease;
   cursor: pointer;
 }
 
 .category-btn:hover {
-  color: var(--fg);
-  border-color: rgba(245, 158, 11, 0.4);
+  color: #F5EBE0;
+  border-color: rgba(229, 195, 120, 0.5);
 }
 
 .category-btn.is-active {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-  color: #ffffff !important;
-  border-color: #d97706;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+  background: linear-gradient(135deg, #C68B59 0%, #8B5E3C 100%);
+  color: #F5EBE0 !important;
+  border-color: #E5C378;
+  box-shadow: 0 4px 14px rgba(198, 139, 89, 0.4);
 }
 
 .product-grid__search-sort {
@@ -104,23 +106,24 @@
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--muted);
+  color: #D4A373;
 }
 
 .search-input {
   width: 100%;
   padding: 0.75rem 2.5rem 0.75rem 2.75rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(120, 113, 108, 0.05);
-  color: var(--fg);
+  border: 1px solid rgba(229, 195, 120, 0.25);
+  background: rgba(22, 32, 53, 0.65);
+  color: #F5EBE0;
   font-size: 0.9rem;
   outline: none;
+  backdrop-filter: blur(8px);
   transition: border-color 0.2s ease;
 }
 
 .search-input:focus {
-  border-color: #f59e0b;
+  border-color: #E5C378;
 }
 
 .clear-search {
@@ -129,7 +132,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: 1.2rem;
-  color: var(--muted);
+  color: #D4A373;
   cursor: pointer;
 }
 
@@ -137,20 +140,21 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(120, 113, 108, 0.05);
-  border: 1px solid var(--border);
+  background: rgba(22, 32, 53, 0.65);
+  border: 1px solid rgba(229, 195, 120, 0.25);
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
+  backdrop-filter: blur(8px);
 }
 
 .sort-icon {
-  color: #d97706;
+  color: #E5C378;
 }
 
 .sort-select {
   background: transparent;
   border: none;
-  color: var(--fg);
+  color: #F5EBE0;
   font-size: 0.85rem;
   font-weight: 600;
   outline: none;
@@ -158,8 +162,8 @@
 }
 
 .sort-select option {
-  background: var(--bg);
-  color: var(--fg);
+  background: #0B1325;
+  color: #F5EBE0;
 }
 
 .product-grid__cards {
@@ -171,33 +175,34 @@
 .product-grid__empty {
   text-align: center;
   padding: 4rem 2rem;
-  background: rgba(120, 113, 108, 0.05);
-  border: 1px dashed var(--border);
+  background: rgba(22, 32, 53, 0.6);
+  border: 1px dashed rgba(229, 195, 120, 0.3);
   border-radius: 24px;
 }
 
 .empty-icon {
-  color: #f59e0b;
+  color: #E5C378;
   margin-bottom: 1rem;
 }
 
 .product-grid__empty h3 {
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--fg);
+  color: #F5EBE0;
   margin-bottom: 0.5rem;
 }
 
 .product-grid__empty p {
   font-size: 0.95rem;
-  color: var(--muted);
+  color: #D4A373;
   margin-bottom: 1.5rem;
 }
 
 .reset-btn {
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
-  background: #d97706;
+  background: #C68B59;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.88rem;

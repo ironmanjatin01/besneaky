@@ -1,27 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 :root {
-  --bg: #0c0a09;
-  --fg: #faf5ef;
-  --muted: #a8a29e;
-  --border: rgba(245, 158, 11, 0.18);
-  --accent-sage: #f59e0b;
-  --accent-clay: #d97706;
-  --accent-slate: #fbbf24;
-  --accent-taupe: #b45309;
-  --card-bg: rgba(20, 16, 13, 0.75);
+  --bg: #0B1325;
+  --bg-secondary: #162035;
+  --fg: #F5EBE0;
+  --muted: #D4A373;
+  --border: rgba(229, 195, 120, 0.22);
+  --accent-sage: #E5C378;
+  --accent-clay: #C68B59;
+  --accent-slate: #E6D5B8;
+  --accent-taupe: #8B5E3C;
+  --card-bg: rgba(22, 32, 53, 0.65);
 }
 
 [data-theme="spiderman"] {
-  --bg: #fffcf7;
-  --fg: #1c1917;
-  --muted: #78716c;
-  --border: #fef3c7;
-  --accent-sage: #d97706;
-  --accent-clay: #b45309;
-  --accent-slate: #f59e0b;
-  --accent-taupe: #fbbf24;
-  --card-bg: #ffffff;
+  --bg: #0F172A;
+  --bg-secondary: #1E293B;
+  --fg: #F8FAFC;
+  --muted: #94A3B8;
+  --border: rgba(212, 163, 115, 0.25);
+  --accent-sage: #D4A373;
+  --accent-clay: #C68B59;
+  --accent-slate: #E5C378;
+  --accent-taupe: #8B5E3C;
+  --card-bg: rgba(30, 41, 59, 0.7);
 }
 
 *,
@@ -36,7 +38,7 @@ html {
   scroll-behavior: smooth;
   width: 100%;
   overflow-x: hidden;
-  background-color: #0c0a09;
+  background-color: #0B1325;
 }
 
 body {
@@ -54,36 +56,36 @@ body {
 }
 
 ::selection {
-  background: #d97706;
-  color: #fff;
+  background: #C68B59;
+  color: #FFF;
 }
 
 /* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: #0B1325;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d97706;
+  background: #C68B59;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #f59e0b;
+  background: #E5C378;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -105,6 +107,12 @@ button {
   border: none;
   background: none;
   touch-action: manipulation;
+}
+
+main {
+  position: relative;
+  z-index: 2;
+  background: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {

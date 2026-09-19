@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import './BackgroundCanvas.css'
 
-export default function BackgroundCanvas({ isSpidermanTheme }) {
+export default function BackgroundCanvas() {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -30,24 +30,26 @@ export default function BackgroundCanvas({ isSpidermanTheme }) {
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('resize', handleResize)
 
-    // Interactive Atomic Particle System
-    const particleCount = Math.min(Math.floor(width / 16), 85)
+    // Classic London Navy & Gold Atomic Particle System
+    const particleCount = Math.min(Math.floor(width / 14), 95)
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      size: Math.random() * 2.8 + 1.2,
-      speedX: (Math.random() - 0.5) * 0.6,
-      speedY: (Math.random() - 0.5) * 0.6,
-      opacity: Math.random() * 0.5 + 0.2,
+      size: Math.random() * 3.2 + 1.2,
+      speedX: (Math.random() - 0.5) * 0.7,
+      speedY: (Math.random() - 0.5) * 0.7,
+      opacity: Math.random() * 0.6 + 0.3,
       pulseSpeed: Math.random() * 0.02 + 0.008,
-      pulseFactor: Math.random() * Math.PI
+      pulseFactor: Math.random() * Math.PI,
+      // Colors: Vintage Beige (#E6D5B8), London Brass (#E5C378), Roasted Mahogany (#C68B59)
+      colorType: Math.floor(Math.random() * 3)
     }))
 
-    // Ambient floating roasted glowing orbs
+    // Ambient floating dark blue & roasted amber orbs
     const orbs = [
-      { x: width * 0.15, y: height * 0.25, radius: 340, color: 'rgba(217, 119, 6, 0.12)', vx: 0.2, vy: 0.15 },
-      { x: width * 0.85, y: height * 0.55, radius: 380, color: 'rgba(245, 158, 11, 0.10)', vx: -0.15, vy: 0.2 },
-      { x: width * 0.5, y: height * 0.85, radius: 300, color: 'rgba(251, 191, 36, 0.08)', vx: 0.18, vy: -0.18 }
+      { x: width * 0.15, y: height * 0.25, radius: 400, color: 'rgba(30, 41, 59, 0.4)', vx: 0.2, vy: 0.15 },
+      { x: width * 0.85, y: height * 0.55, radius: 450, color: 'rgba(198, 139, 89, 0.15)', vx: -0.15, vy: 0.2 },
+      { x: width * 0.5, y: height * 0.85, radius: 360, color: 'rgba(229, 195, 120, 0.12)', vx: 0.18, vy: -0.18 }
     ]
 
     const render = () => {
@@ -80,7 +82,7 @@ export default function BackgroundCanvas({ isSpidermanTheme }) {
           orb.radius
         )
         gradient.addColorStop(0, orb.color)
-        gradient.addColorStop(1, 'rgba(12, 10, 9, 0)')
+        gradient.addColorStop(1, 'rgba(11, 19, 37, 0)')
 
         ctx.fillStyle = gradient
         ctx.beginPath()
@@ -104,42 +106,50 @@ export default function BackgroundCanvas({ isSpidermanTheme }) {
         const dx = mouseX - p.x
         const dy = mouseY - p.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 150) {
-          const force = (150 - dist) / 150
-          p.x -= (dx / dist) * force * 1.6
-          p.y -= (dy / dist) * force * 1.6
+        if (dist < 160) {
+          const force = (160 - dist) / 160
+          p.x -= (dx / dist) * force * 1.8
+          p.y -= (dy / dist) * force * 1.8
         }
 
-        const currentOpacity = p.opacity + Math.sin(p.pulseFactor) * 0.15
+        const currentOpacity = p.opacity + Math.sin(p.pulseFactor) * 0.25
 
-        // Draw Atom Node
-        ctx.fillStyle = i % 2 === 0
-          ? `rgba(245, 158, 11, ${Math.max(0.2, currentOpacity)})`
-          : `rgba(217, 119, 6, ${Math.max(0.2, currentOpacity)})`
+        // Particle Colors (Classic Beige, Brass, Roasted Brown)
+        let particleColor = `rgba(230, 213, 184, ${Math.max(0.3, currentOpacity)})`
+        if (p.colorType === 1) {
+          particleColor = `rgba(229, 195, 120, ${Math.max(0.3, currentOpacity)})`
+        } else if (p.colorType === 2) {
+          particleColor = `rgba(198, 139, 89, ${Math.max(0.3, currentOpacity)})`
+        }
 
+        // Draw Glowing Atom Node
+        ctx.shadowBlur = 12
+        ctx.shadowColor = 'rgba(229, 195, 120, 0.6)'
+        ctx.fillStyle = particleColor
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
         ctx.fill()
+        ctx.shadowBlur = 0 // reset shadow for performance
 
-        // Connect cursor to nearby atoms with golden web lines
-        if (dist < 170) {
-          ctx.strokeStyle = `rgba(245, 158, 11, ${0.45 * (1 - dist / 170)})`
-          ctx.lineWidth = 1.1
+        // Connect cursor to nearby atoms with bright constellation web lines
+        if (dist < 180) {
+          ctx.strokeStyle = `rgba(229, 195, 120, ${0.55 * (1 - dist / 180)})`
+          ctx.lineWidth = 1.2
           ctx.beginPath()
           ctx.moveTo(p.x, p.y)
           ctx.lineTo(mouseX, mouseY)
           ctx.stroke()
         }
 
-        // Connect nearby atoms to each other with delicate atomic threads
+        // Connect nearby atoms to each other with atomic threads
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j]
           const pdx = p.x - p2.x
           const pdy = p.y - p2.y
           const pdist = Math.sqrt(pdx * pdx + pdy * pdy)
-          if (pdist < 150) {
-            ctx.strokeStyle = `rgba(245, 158, 11, ${0.28 * (1 - pdist / 150)})`
-            ctx.lineWidth = 0.85
+          if (pdist < 155) {
+            ctx.strokeStyle = `rgba(230, 213, 184, ${0.35 * (1 - pdist / 155)})`
+            ctx.lineWidth = 0.95
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
@@ -158,7 +168,7 @@ export default function BackgroundCanvas({ isSpidermanTheme }) {
       window.removeEventListener('resize', handleResize)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [isSpidermanTheme])
+  }, [])
 
   return <canvas ref={canvasRef} className="background-canvas" />
 }
